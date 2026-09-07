@@ -1,0 +1,38 @@
+{
+  "countries": [
+    "ROU",
+    "AUT",
+    "DEU",
+    "FRA",
+    "ITA",
+    "ESP",
+    "POL",
+    "HUN",
+    "CZE",
+    "BGR",
+    "NLD",
+    "GBR",
+    "USA",
+    "CAN",
+    "JPN"
+  ],
+  "world_bank_indicators": {
+    "SL.EMP.TOTL.SP.ZS": "Employment to population ratio, 15+, total (%)",
+    "SL.UEM.TOTL.ZS": "Unemployment, total (%)",
+    "SL.TLF.CACT.ZS": "Labour force participation rate, total (%)",
+    "SL.UEM.1524.ZS": "Youth unemployment (%)",
+    "SL.UEM.NEET.ZS": "Youth NEET (%)",
+    "SL.EMP.VULN.ZS": "Vulnerable employment (%)",
+    "SL.EMP.SELF.ZS": "Self-employed (%)",
+    "SL.EMP.TOTL.SP.FE.ZS": "Female employment to population ratio (%)",
+    "SL.EMP.TOTL.SP.MA.ZS": "Male employment to population ratio (%)",
+    "SL.EMP.TOTL.SP.NE.ZS": "Employment ratio, national estimate (%)",
+    "SL.TLF.TOTL.IN": "Labour force, total",
+    "SL.TLF.ADVN.ZS": "Labour force with advanced education (%)",
+    "SL.TLF.BASC.ZS": "Labour force with basic education (%)",
+    "SL.GDP.PCAP.EM.KD": "GDP per person employed (constant PPP)",
+    "NY.GDP.PCAP.CD": "GDP per capita (current US$)",
+    "FP.CPI.TOTL.ZG": "Inflation, consumer prices (%)",
+    "SP.POP.TOTL": "Population, total"
+  }
+}
