@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-09-07T00:00:00Z",
+  "refresh_status": "seed_demo",
+  "refresh_errors": [],
+  "methodology": {
+    "name": "Workforce Health Index (experimental)",
+    "note": "Demo values only until first successful workflow refresh.",
+    "components": [
+      "employment_strength",
+      "unemployment_health",
+      "participation",
+      "youth_health",
+      "job_stability"
+    ]
+  },
+  "sources": [],
+  "observations": [],
+  "latest": [],
+  "workforce_health_index": [
+    {
+      "country": "ROU",
+      "country_name": "Romania",
+      "score": 68.4,
+      "coverage": 1,
+      "components": {
+        "employment_strength": 63.2,
+        "unemployment_health": 61.5,
+        "participation": 66.8,
+        "youth_health": 65.5,
+        "job_stability": 85
+      }
+    },
+    {
+      "country": "AUT",
+      "country_name": "Austria",
+      "score": 77.8,
+      "coverage": 1,
+      "components": {
+        "employment_strength": 75,
+        "unemployment_health": 65,
+        "participation": 76,
+        "youth_health": 70,
+        "job_stability": 98
+      }
+    },
+    {
+      "country": "DEU",
+      "country_name": "Germany",
+      "score": 78.6,
+      "coverage": 1,
+      "components": {
+        "employment_strength": 77,
+        "unemployment_health": 72,
+        "participation": 78,
+        "youth_health": 78,
+        "job_stability": 88
+      }
+    }
+  ],
+  "company_data": {
+    "status": "not_included",
+    "reason": "No standardized comparable company HR API."
+  }
+}
