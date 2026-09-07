@@ -1,0 +1,46 @@
+name: Refresh data and deploy
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * *"
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/dashboard.json"
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: workforce-observatory
+  cancel-in-progress: false
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh public indicators
+        run: python scripts/refresh.py
+      - name: Validate generated JSON
+        run: python -m json.tool data/dashboard.json > /dev/null
+      - name: Commit refreshed data
+        run: |
+          git config user.name "workforce-observatory-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/dashboard.json
+          git diff --cached --quiet || git commit -m "data: refresh public workforce indicators"
+          git push
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
