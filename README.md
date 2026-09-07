@@ -1,23 +1,16 @@
-# Workforce Observatory
+# Workforce Observatory: end-to-end
 
-Static public-data workforce dashboard for GitHub Pages.
+## Upload
+Upload every file and directory in this package to the repository root, including the hidden `.github` directory.
 
-## What is included
-- Curated country-level workforce indicators from the World Bank Indicators API
-- Experimental macro Workforce Health Index
-- Daily GitHub Actions refresh
-- Country selector, trends, benchmark ranking, coverage, CSV export and provenance
-- Documented extension points for Eurostat, OECD SDMX and ILOSTAT
+## GitHub settings
+1. Settings > Pages > Source: GitHub Actions.
+2. Settings > Actions > General > Workflow permissions: Read and write permissions.
+3. Actions > Refresh data and deploy > Run workflow.
+4. The same workflow refreshes daily and deploys the site.
 
-## Important scope
-This repository does not claim to ingest every public HR indicator. Public labour datasets are large, differently structured and revised on different schedules. The MVP uses a curated, comparable indicator registry. Company-level HR data is not automatically included because there is no single standardized comparable public API; add explicit source-specific adapters.
+## Domain
+The included CNAME points to workforceobservatory.com. Keep GitHub DNS records as DNS only in Cloudflare until GitHub provisions HTTPS.
 
-## Deploy
-1. Create a GitHub repository and upload the repository contents.
-2. In Settings > Pages, choose GitHub Actions.
-3. Run the Refresh public workforce data workflow manually once.
-4. The refresh workflow is scheduled daily. Daily execution does not mean every publisher updates every indicator daily.
-5. Add your custom domain in Pages settings after DNS is configured.
-
-## Local preview
-Run `python -m http.server 8000` in the repository root and open localhost port 8000.
+## Scope
+World Bank indicators are active. Eurostat, OECD and ILOSTAT are listed as planned adapters, not falsely presented as already ingested. A daily workflow checks for refreshed public data, but publishers may update individual series less frequently.

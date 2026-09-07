@@ -1,38 +1,81 @@
 {
-  "countries": [
-    "ROU",
-    "AUT",
-    "DEU",
-    "FRA",
-    "ITA",
-    "ESP",
-    "POL",
-    "HUN",
-    "CZE",
-    "BGR",
-    "NLD",
-    "GBR",
-    "USA",
-    "CAN",
-    "JPN"
-  ],
-  "world_bank_indicators": {
-    "SL.EMP.TOTL.SP.ZS": "Employment to population ratio, 15+, total (%)",
-    "SL.UEM.TOTL.ZS": "Unemployment, total (%)",
-    "SL.TLF.CACT.ZS": "Labour force participation rate, total (%)",
-    "SL.UEM.1524.ZS": "Youth unemployment (%)",
-    "SL.UEM.NEET.ZS": "Youth NEET (%)",
-    "SL.EMP.VULN.ZS": "Vulnerable employment (%)",
-    "SL.EMP.SELF.ZS": "Self-employed (%)",
-    "SL.EMP.TOTL.SP.FE.ZS": "Female employment to population ratio (%)",
-    "SL.EMP.TOTL.SP.MA.ZS": "Male employment to population ratio (%)",
-    "SL.EMP.TOTL.SP.NE.ZS": "Employment ratio, national estimate (%)",
-    "SL.TLF.TOTL.IN": "Labour force, total",
-    "SL.TLF.ADVN.ZS": "Labour force with advanced education (%)",
-    "SL.TLF.BASC.ZS": "Labour force with basic education (%)",
-    "SL.GDP.PCAP.EM.KD": "GDP per person employed (constant PPP)",
-    "NY.GDP.PCAP.CD": "GDP per capita (current US$)",
-    "FP.CPI.TOTL.ZG": "Inflation, consumer prices (%)",
-    "SP.POP.TOTL": "Population, total"
+  "countries": {
+    "ROU": "Romania",
+    "AUT": "Austria",
+    "DEU": "Germany",
+    "FRA": "France",
+    "ITA": "Italy",
+    "ESP": "Spain",
+    "POL": "Poland",
+    "HUN": "Hungary",
+    "CZE": "Czechia",
+    "BGR": "Bulgaria",
+    "NLD": "Netherlands",
+    "GBR": "United Kingdom",
+    "USA": "United States",
+    "CAN": "Canada",
+    "JPN": "Japan"
+  },
+  "indicators": {
+    "SL.EMP.TOTL.SP.ZS": {
+      "label": "Employment-to-population ratio",
+      "unit": "%",
+      "polarity": "positive"
+    },
+    "SL.UEM.TOTL.ZS": {
+      "label": "Unemployment rate",
+      "unit": "%",
+      "polarity": "negative"
+    },
+    "SL.TLF.CACT.ZS": {
+      "label": "Labour-force participation",
+      "unit": "%",
+      "polarity": "positive"
+    },
+    "SL.UEM.1524.ZS": {
+      "label": "Youth unemployment",
+      "unit": "%",
+      "polarity": "negative"
+    },
+    "SL.UEM.NEET.ZS": {
+      "label": "Youth NEET",
+      "unit": "%",
+      "polarity": "negative"
+    },
+    "SL.EMP.VULN.ZS": {
+      "label": "Vulnerable employment",
+      "unit": "%",
+      "polarity": "negative"
+    },
+    "SL.EMP.SELF.ZS": {
+      "label": "Self-employment",
+      "unit": "%",
+      "polarity": "neutral"
+    },
+    "SL.TLF.TOTL.IN": {
+      "label": "Total labour force",
+      "unit": "people",
+      "polarity": "neutral"
+    },
+    "SL.TLF.ADVN.ZS": {
+      "label": "Labour force with advanced education",
+      "unit": "%",
+      "polarity": "positive"
+    },
+    "SL.GDP.PCAP.EM.KD": {
+      "label": "GDP per person employed",
+      "unit": "constant PPP $",
+      "polarity": "positive"
+    },
+    "FP.CPI.TOTL.ZG": {
+      "label": "Consumer-price inflation",
+      "unit": "%",
+      "polarity": "neutral"
+    },
+    "SP.POP.TOTL": {
+      "label": "Population",
+      "unit": "people",
+      "polarity": "neutral"
+    }
   }
 }
