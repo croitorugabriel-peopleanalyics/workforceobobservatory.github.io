@@ -1,0 +1,23 @@
+<section class="page-hero compact-hero topic-hero">
+  <div class="shell page-hero__inner compact-hero__inner">
+    <div>
+      <p class="eyebrow">Topic</p>
+      <h1>{{topic_name}}</h1>
+      <p class="lede">{{topic_summary}}</p>
+    </div>
+    <div class="hero-panel">
+      <p class="eyebrow">Published now</p>
+      <strong>{{topic_count}}</strong>
+      <p>{{topic_count_label}}</p>
+    </div>
+  </div>
+</section>
+<section class="shell page-section">
+  <div class="card-grid">
+    {{topic_article_cards}}
+  </div>
+  <div class="empty-panel{{topic_empty_modifier}}">
+    <h2>No live articles for this topic yet.</h2>
+    <p>Phase 1 created the publishing structure so this hub can go live automatically when the first eligible article is published.</p>
+  </div>
+</section>

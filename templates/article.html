@@ -1,0 +1,124 @@
+<div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+<section class="page-hero article-hero">
+  <div class="shell page-hero__inner article-hero__inner">
+    <div>
+      <p class="eyebrow">{{article_topic}}</p>
+      <h1>{{article_title}}</h1>
+      <p class="lede">{{article_summary}}</p>
+      <div class="meta-row">
+        <span>{{article_reading_time}}</span>
+        <span>{{article_publish_label}}</span>
+        <span>{{article_author}}</span>
+      </div>
+    </div>
+    <div class="hero-panel glow-panel">
+      <p class="eyebrow">Article sequence</p>
+      <strong class="hero-stat">{{article_number}}</strong>
+      <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+      <div class="flow-diagram" data-flow="{{article_flow}}"></div>
+    </div>
+  </div>
+</section>
+<section class="shell article-shell">
+  <aside class="article-rail">
+    <div class="rail-panel">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc" aria-label="Table of contents">
+        {{article_toc}}
+      </nav>
+    </div>
+  </aside>
+  <article class="article-main">
+    <section class="summary-band reveal">
+      <div class="summary-band__content">
+        <p class="eyebrow">Executive summary</p>
+        <h2>What leaders should keep in view.</h2>
+        <p>{{article_takeaway}}</p>
+      </div>
+      <div class="summary-band__stats">
+        <div class="metric-card"><span>Topic</span><strong>{{article_topic}}</strong></div>
+        <div class="metric-card"><span>Reading time</span><strong>{{article_reading_time}}</strong></div>
+        <div class="metric-card"><span>Carousel source</span><strong>{{article_carousel}}</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal comparison-section" id="before-after">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Before / after</p>
+          <h2>From weak reporting patterns to trusted operating models.</h2>
+        </div>
+      </div>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--before">
+          <p class="eyebrow">Before</p>
+          <p>{{article_before}}</p>
+        </article>
+        <article class="comparison-card comparison-card--after">
+          <p class="eyebrow">After</p>
+          <p>{{article_after}}</p>
+        </article>
+      </div>
+    </section>
+    {{article_body}}
+    <section class="article-section reveal" id="executive-takeaway">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Executive takeaway</p>
+          <h2>What this means for workforce decision makers.</h2>
+        </div>
+      </div>
+      <div class="content-box emphasis-box">
+        <p>{{article_takeaway}}</p>
+      </div>
+    </section>
+    <section class="article-section reveal" id="key-business-questions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Key business questions</p>
+          <h2>Questions leaders should ask next.</h2>
+        </div>
+      </div>
+      <div class="bullet-grid">{{article_questions}}</div>
+    </section>
+    <section class="article-section reveal" id="common-mistakes">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Failure patterns to avoid.</h2>
+        </div>
+      </div>
+      <div class="accordion-list">{{article_mistakes}}</div>
+    </section>
+    <section class="article-section reveal" id="implementation-guidance">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Practical implementation guidance</p>
+          <h2>How to operationalize the idea.</h2>
+        </div>
+      </div>
+      <ol class="implementation-list">{{article_guidance}}</ol>
+    </section>
+    <section class="article-section reveal" id="related-articles">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Related articles</p>
+          <h2>Continue the architecture story.</h2>
+        </div>
+      </div>
+      <div class="card-grid">{{related_cards}}</div>
+    </section>
+    <section class="article-section reveal" id="share">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Share</p>
+          <h2>Send the depth layer forward.</h2>
+        </div>
+      </div>
+      <div class="share-actions">
+        <button class="button button--primary" type="button" data-share="copy">Copy article link</button>
+        <a class="button button--ghost" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{article_encoded_url}}" target="_blank" rel="noreferrer">Share on LinkedIn</a>
+        <a class="button button--ghost" data-share="twitter" href="https://twitter.com/intent/tweet?url={{article_encoded_url}}&text={{article_encoded_title}}" target="_blank" rel="noreferrer">Share on X</a>
+      </div>
+    </section>
+  </article>
+</section>

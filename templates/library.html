@@ -1,0 +1,27 @@
+<section class="page-hero compact-hero">
+  <div class="shell page-hero__inner compact-hero__inner">
+    <div>
+      <p class="eyebrow">Library</p>
+      <h1>Every published article in one decision-ready library.</h1>
+      <p class="lede">Filter by topic, move from curiosity to depth, and keep the workforce architecture narrative consistent across articles.</p>
+    </div>
+    <div class="hero-panel">
+      <p class="eyebrow">Search entry</p>
+      <strong>Only published content appears here.</strong>
+      <p>Future-dated articles stay out of the deployed output until their UTC publication time.</p>
+      <a class="button button--ghost" href="/search/">Open search</a>
+    </div>
+  </div>
+</section>
+<section class="shell page-section" data-library>
+  <div class="filter-row" aria-label="Topic filters">
+    {{topic_filters}}
+  </div>
+  <div class="card-grid" data-filter-items>
+    {{library_cards}}
+  </div>
+  <div class="empty-panel{{library_empty_modifier}}" data-library-empty>
+    <h2>No published articles are live yet.</h2>
+    <p>The platform shell is ready and the build pipeline will automatically publish eligible articles after their scheduled UTC date.</p>
+  </div>
+</section>

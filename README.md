@@ -1,18 +1,51 @@
-# Workforce Observatory scheduled articles
+# Workforce Observatory
 
-Each PDF has a separate, responsive, extended English interactive article.
+Workforce Observatory is a premium learning and thought leadership platform focused on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI, Data Governance and HR Decision Science.
 
-## Scheduling
-Edit `schedule.json`. `publishAt` uses UTC ISO format. The GitHub Action runs hourly and copies only eligible articles into the deployed `dist` folder. Browser-only hiding is intentionally avoided because a direct URL could bypass it.
+## Phase 1 architecture
 
-Important: future source files remain visible if the repository is public. Keep this repository private where supported, or separate private drafts from the public deployment repository.
+Phase 1 establishes the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place.
 
-## Deploy
-1. Upload all files, including `.github`, to the repository root.
-2. GitHub Settings → Pages → Source: GitHub Actions.
-3. Update every `publishAt` to match its LinkedIn publication.
-4. Push to `main`, or run the workflow manually.
+### Source structure
 
-## Preview
-`BUILD_TIME_UTC=2027-12-31T00:00:00Z python scripts/build.py`
-Then serve `dist` locally.
+- `/content/articles` — canonical article body fragments plus structured metadata in `articles.json`
+- `/content/carousels` — LinkedIn carousel metadata
+- `/content/topics` — topic definitions for topic hubs
+- `/content/authors` — author metadata
+- `/templates` — static HTML templates for home, library, article, topic, topics, search and author pages
+- `/partials` — shared head, header and footer partials
+- `/assets/css` — design tokens, layout, components, page styles and motion
+- `/assets/js` — modular enhancements for core shell, article behavior and search
+- `/scripts/build.py` — scheduled static site generation into `/dist`
+- `/.github/workflows` — GitHub Actions for build, refresh and deploy
+
+### Publishing model
+
+- `schedule.json` remains the publication gate.
+- `scripts/build.py` reads `schedule.json` in UTC.
+- Only publish-eligible articles are rendered into `/dist`.
+- Future-dated articles are excluded from article pages, library listings, search index and sitemap output.
+
+## Build and preview
+
+Build against the current UTC time:
+
+```bash
+python scripts/build.py
+```
+
+Preview a future publication window locally:
+
+```bash
+BUILD_TIME_UTC=2026-11-20T00:00:00Z python scripts/build.py
+```
+
+Then serve `/dist` from the repository root.
+
+## Deployment
+
+GitHub Pages should use the workflows in `/.github/workflows`.
+
+- `pages.yml` builds and deploys the generated `/dist` site on push and manual runs.
+- `refresh-and-deploy.yml` refreshes data, commits the dataset when needed, then rebuilds and deploys `/dist` on schedule or manual runs.
+- `refresh-data.yml` remains available for manual data refreshes without deployment.
