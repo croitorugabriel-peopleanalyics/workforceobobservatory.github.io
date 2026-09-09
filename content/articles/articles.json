@@ -1,0 +1,519 @@
+[
+  {
+    "slug": "why-hr-reporting-needs-a-datamart",
+    "title": "Why HR Reporting Should Not Start with a Spreadsheet",
+    "summary": "An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "HR DataMart",
+    "topicSlug": "hr-datamart",
+    "publishAt": "2026-09-14T07:00:00Z",
+    "readingMinutes": 14,
+    "eyebrow": "HR DataMart Fundamentals",
+    "accent": "#f5b41b",
+    "carouselSource": "HR_DataMart_Carousel_Fixed.pdf",
+    "heroNumber": "01",
+    "flow": [
+      "Decision",
+      "Question",
+      "KPI",
+      "Data"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-datamart-reference-architecture",
+      "design-hr-datamart-from-decisions",
+      "semantic-layer-certified-hr-kpis"
+    ],
+    "keywords": [
+      "HR reporting",
+      "decision science",
+      "spreadsheet risk"
+    ],
+    "executiveTakeaway": "Spreadsheets are useful delivery tools, but they are unreliable as the foundation for workforce decisions. Build the governed HR DataMart first so every downstream metric has a definition, owner and history.",
+    "keyQuestions": [
+      "Which executive decisions are currently supported by spreadsheet-only logic?",
+      "Where do metric definitions break when headcount, attrition or movement needs history?",
+      "What governance evidence would a CHRO need before trusting the number in a board deck?"
+    ],
+    "commonMistakes": [
+      "Starting with report layouts before defining business entities and time logic.",
+      "Treating extracts as controlled history instead of rebuilding from governed source pipelines.",
+      "Publishing KPI packs without showing data quality, ownership or refresh status."
+    ],
+    "implementationGuidance": [
+      "Map the recurring decisions that require workforce evidence.",
+      "Define the minimum trusted entities, dates and conformed dimensions behind those decisions.",
+      "Create a governed semantic layer so every consuming report inherits the same KPI logic."
+    ],
+    "beforeAfter": {
+      "before": "Spreadsheet-based reporting with local logic, fragile joins and hidden manual corrections.",
+      "after": "Decision-ready reporting backed by governed ingestion, historical modelling and reusable KPI definitions."
+    }
+  },
+  {
+    "slug": "hr-datamart-reference-architecture",
+    "title": "A Reference Architecture for an HR DataMart",
+    "summary": "An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "HR DataMart",
+    "topicSlug": "hr-datamart",
+    "publishAt": "2026-09-21T07:00:00Z",
+    "readingMinutes": 15,
+    "eyebrow": "Data Architecture",
+    "accent": "#19a6a6",
+    "carouselSource": "HR_DataMart_Architecture_Carousel.pdf",
+    "heroNumber": "02",
+    "flow": [
+      "Sources",
+      "Ingestion",
+      "Quality",
+      "DataMart",
+      "Semantic",
+      "Experience"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "why-hr-reporting-needs-a-datamart",
+      "hr-data-ingestion-history-time",
+      "semantic-layer-certified-hr-kpis"
+    ],
+    "keywords": [
+      "reference architecture",
+      "semantic layer",
+      "data architecture"
+    ],
+    "executiveTakeaway": "A strong HR DataMart architecture makes definitions, controls and delivery paths visible. Trust comes from the operating model around the pipeline, not from the diagram alone.",
+    "keyQuestions": [
+      "Where should ownership sit for ingestion, modelling, semantic definitions and access?",
+      "How is historical validity preserved when source systems change?",
+      "Which controls stop low-quality data from reaching decision makers?"
+    ],
+    "commonMistakes": [
+      "Drawing target-state boxes without defining operating responsibilities.",
+      "Mixing transformation logic into every consuming dashboard or report.",
+      "Ignoring failure states and user messaging when source controls fail."
+    ],
+    "implementationGuidance": [
+      "Separate source acquisition, quality control, historical modelling and semantic access.",
+      "Assign explicit owners and service expectations to each architectural layer.",
+      "Design business-facing experiences as consumers of a shared governed core."
+    ],
+    "beforeAfter": {
+      "before": "Disconnected pipelines and bespoke dashboards with duplicated business logic.",
+      "after": "A layered architecture where ingestion, history, quality and semantic definitions are reusable and auditable."
+    }
+  },
+  {
+    "slug": "hr-datamart-ai-foundation",
+    "title": "AI Does Not Only Need More HR Data. It Needs Context.",
+    "summary": "Why semantic contracts, historical validity, data quality and guardrails are prerequisites for trustworthy conversational HR analytics.",
+    "topic": "Responsible AI",
+    "topicSlug": "responsible-ai",
+    "publishAt": "2026-09-28T07:00:00Z",
+    "readingMinutes": 16,
+    "eyebrow": "People Analytics + Responsible AI",
+    "accent": "#27d3b0",
+    "carouselSource": "HR_DataMart_AI_Foundation_Carousel_Fixed.pdf",
+    "heroNumber": "03",
+    "flow": [
+      "Question",
+      "Semantic contract",
+      "Approved data",
+      "Quality check",
+      "Grounded answer"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-data-quality-governance-security",
+      "semantic-layer-certified-hr-kpis",
+      "hr-datamart-reference-architecture"
+    ],
+    "keywords": [
+      "responsible ai",
+      "semantic contracts",
+      "trustworthy analytics"
+    ],
+    "executiveTakeaway": "Conversational HR analytics only becomes trustworthy when the underlying data model preserves context, validity and control. More data is not enough without semantic and governance foundations.",
+    "keyQuestions": [
+      "Which workforce questions could an AI assistant answer incorrectly because context is missing?",
+      "How are metric definitions, permissions and source validity exposed to the AI layer?",
+      "What fallback behaviour should exist when confidence, quality or lineage is incomplete?"
+    ],
+    "commonMistakes": [
+      "Assuming generative AI can compensate for weak KPI definitions.",
+      "Exposing sensitive HR data without permission-aware semantic contracts.",
+      "Skipping data quality and temporal validity checks before natural-language access."
+    ],
+    "implementationGuidance": [
+      "Define certified metrics and dimensions before enabling conversational experiences.",
+      "Expose lineage, confidence and guardrails as first-class product metadata.",
+      "Pilot AI-assisted workflows with bounded questions and transparent escalation paths."
+    ],
+    "beforeAfter": {
+      "before": "AI layered onto fragmented HR extracts with inconsistent meaning and access risk.",
+      "after": "AI experiences grounded in certified definitions, governed permissions and explicit confidence signals."
+    }
+  },
+  {
+    "slug": "workforce-health-score-normalization-guardrails",
+    "title": "Can a Workforce Health Score of 86 Hide a Critical Risk?",
+    "summary": "An interactive guide to normalization, weighting and guardrails that prevent averages from hiding critical workforce signals.",
+    "topic": "Workforce Health Score",
+    "topicSlug": "workforce-health-score",
+    "publishAt": "2026-10-05T07:00:00Z",
+    "readingMinutes": 17,
+    "eyebrow": "Workforce Health Score",
+    "accent": "#7357d9",
+    "carouselSource": "Workforce_Health_Score_Carousel_Normalization_Guardrails.pdf",
+    "heroNumber": "04",
+    "flow": [
+      "Raw KPI",
+      "Normalize",
+      "Weight",
+      "Aggregate",
+      "Guardrail"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-datamart-ai-foundation",
+      "semantic-layer-certified-hr-kpis",
+      "why-hr-reporting-needs-a-datamart"
+    ],
+    "keywords": [
+      "workforce health score",
+      "normalization",
+      "guardrails"
+    ],
+    "executiveTakeaway": "Composite workforce scores are only useful when normalization and guardrails stop averages from hiding critical risk. Executives need the score and the reason it should not be used blindly.",
+    "keyQuestions": [
+      "Which components can overwhelm the signal if weighting is poorly designed?",
+      "What thresholds should trigger an override even when the overall score looks healthy?",
+      "How will leaders inspect the score without losing access to the underlying drivers?"
+    ],
+    "commonMistakes": [
+      "Publishing a single score without thresholds, drill-downs or exception rules.",
+      "Normalizing indicators without considering polarity and business sensitivity.",
+      "Treating the index as objective truth rather than a governed decision aid."
+    ],
+    "implementationGuidance": [
+      "Define the score purpose, audience and action thresholds first.",
+      "Test weighting and normalization against realistic edge cases and adverse scenarios.",
+      "Surface component contributions, guardrails and exception logic next to the headline score."
+    ],
+    "beforeAfter": {
+      "before": "A reassuring average that can mask concentration of risk in one critical workforce dimension.",
+      "after": "A governed index that highlights both overall movement and the exceptions leaders must investigate."
+    }
+  },
+  {
+    "slug": "design-hr-datamart-from-decisions",
+    "title": "Design the HR DataMart from Decisions, Not Tables",
+    "summary": "An extended practical guide to design the hr datamart from decisions, not tables, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "HR DataMart",
+    "topicSlug": "hr-datamart",
+    "publishAt": "2026-10-12T07:00:00Z",
+    "readingMinutes": 18,
+    "eyebrow": "HR DataMart Series \u00b7 1 of 6",
+    "accent": "#1671c5",
+    "carouselSource": "HR_DataMart_01_v2.pdf",
+    "heroNumber": "05",
+    "flow": [
+      "Decision",
+      "Question",
+      "KPI",
+      "Data"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "why-hr-reporting-needs-a-datamart",
+      "hr-datamart-reference-architecture",
+      "dimensional-modeling-for-hr"
+    ],
+    "keywords": [
+      "decision-first design",
+      "datamart design",
+      "people analytics"
+    ],
+    "executiveTakeaway": "Good workforce architecture starts with the decisions leaders need to make, then works backward to data structures and controls. Data models should serve decision paths, not the other way around.",
+    "keyQuestions": [
+      "Which recurring decisions define the scope of the first HR DataMart release?",
+      "What entities and grain are required to answer those decisions reliably?",
+      "Which decisions need explainability before automation or scale?"
+    ],
+    "commonMistakes": [
+      "Starting with copied source tables instead of decision journeys.",
+      "Designing for every future use case before proving one high-value decision domain.",
+      "Ignoring the questions executives will ask when a metric changes unexpectedly."
+    ],
+    "implementationGuidance": [
+      "Document the decisions, consumers and action windows that matter most.",
+      "Translate those needs into entity grain, dimensions, facts and control points.",
+      "Use release planning that proves value through a narrow but trustworthy decision slice."
+    ],
+    "beforeAfter": {
+      "before": "DataMart design driven by source-system convenience and technical table structures.",
+      "after": "DataMart design anchored in decision moments, business questions and trusted semantic outputs."
+    }
+  },
+  {
+    "slug": "hr-data-ingestion-history-time",
+    "title": "HR Data Ingestion, History and Time",
+    "summary": "An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "Analytics Engineering",
+    "topicSlug": "analytics-engineering",
+    "publishAt": "2026-10-19T07:00:00Z",
+    "readingMinutes": 14,
+    "eyebrow": "HR DataMart Series \u00b7 2 of 6",
+    "accent": "#7252d3",
+    "carouselSource": "HR_DataMart_02_v2.pdf",
+    "heroNumber": "06",
+    "flow": [
+      "Extract",
+      "Land",
+      "Validate",
+      "Load",
+      "Audit"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-datamart-reference-architecture",
+      "dimensional-modeling-for-hr",
+      "test-operate-evolve-hr-datamart"
+    ],
+    "keywords": [
+      "ingestion",
+      "slowly changing dimensions",
+      "historical validity"
+    ],
+    "executiveTakeaway": "Without repeatable ingestion and correct time logic, HR analytics loses credibility fast. Historical truth must be engineered intentionally so decisions can be reconstructed and explained.",
+    "keyQuestions": [
+      "How will the platform preserve valid-from and valid-to logic across workforce entities?",
+      "Which source changes require full history capture versus current-state refreshes?",
+      "What evidence proves that a KPI reflects the correct time basis?"
+    ],
+    "commonMistakes": [
+      "Overwriting current-state extracts and calling them history.",
+      "Mixing event time, effective time and reporting time without clear definitions.",
+      "Skipping reconciliation between source snapshots and modelled history."
+    ],
+    "implementationGuidance": [
+      "Define temporal rules for each entity before pipeline implementation.",
+      "Automate ingestion patterns that can replay, reconcile and validate history.",
+      "Expose time basis and historical caveats in metric documentation and article narratives."
+    ],
+    "beforeAfter": {
+      "before": "Unstable metrics caused by overwritten extracts and inconsistent temporal logic.",
+      "after": "Reliable trend analysis supported by repeatable ingestion and explicit historical validity rules."
+    }
+  },
+  {
+    "slug": "dimensional-modeling-for-hr",
+    "title": "Dimensional Modelling for HR Analytics",
+    "summary": "An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "Analytics Engineering",
+    "topicSlug": "analytics-engineering",
+    "publishAt": "2026-10-26T07:00:00Z",
+    "readingMinutes": 15,
+    "eyebrow": "HR DataMart Series \u00b7 3 of 6",
+    "accent": "#1b9c52",
+    "carouselSource": "HR_DataMart_03_v2.pdf",
+    "heroNumber": "07",
+    "flow": [
+      "Dimensions",
+      "Fact grain",
+      "Measures",
+      "Decision"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "design-hr-datamart-from-decisions",
+      "hr-data-ingestion-history-time",
+      "semantic-layer-certified-hr-kpis"
+    ],
+    "keywords": [
+      "dimensional modeling",
+      "facts and dimensions",
+      "hr analytics model"
+    ],
+    "executiveTakeaway": "Dimensional modelling turns workforce data into something decision makers can navigate consistently. It provides the grain, conformed dimensions and business logic needed for scalable People Analytics.",
+    "keyQuestions": [
+      "What is the correct fact grain for headcount, movement and workforce events?",
+      "Which shared dimensions must remain consistent across all workforce use cases?",
+      "How will future subject areas extend the model without breaking KPI trust?"
+    ],
+    "commonMistakes": [
+      "Using source-table shapes as analytics models.",
+      "Combining incompatible grains in the same metric layer.",
+      "Allowing each dashboard to redefine dimensions such as manager, organization or time."
+    ],
+    "implementationGuidance": [
+      "Model the business events and snapshot facts separately where needed.",
+      "Create conformed dimensions with clear slowly-changing rules.",
+      "Test each fact table against the decisions and comparisons it is expected to support."
+    ],
+    "beforeAfter": {
+      "before": "Metrics stitched together from source extracts with ambiguous grain and duplicated definitions.",
+      "after": "A scalable analytics model built around consistent facts, dimensions and business-ready semantic meaning."
+    }
+  },
+  {
+    "slug": "hr-data-quality-governance-security",
+    "title": "HR Data Quality, Governance and Security by Design",
+    "summary": "An extended practical guide to hr data quality, governance and security by design, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "HR Data Governance",
+    "topicSlug": "hr-data-governance",
+    "publishAt": "2026-11-02T07:00:00Z",
+    "readingMinutes": 16,
+    "eyebrow": "HR DataMart Series \u00b7 4 of 6",
+    "accent": "#f1a800",
+    "carouselSource": "HR_DataMart_04_v2.pdf",
+    "heroNumber": "08",
+    "flow": [
+      "Source",
+      "Landing",
+      "Conform",
+      "DataMart",
+      "Report"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-datamart-ai-foundation",
+      "hr-datamart-reference-architecture",
+      "test-operate-evolve-hr-datamart"
+    ],
+    "keywords": [
+      "data governance",
+      "security by design",
+      "data quality"
+    ],
+    "executiveTakeaway": "Trustworthy workforce intelligence requires quality controls, governance ownership and security by design to be embedded in the architecture. Governance should be visible in the product, not hidden in policy documents.",
+    "keyQuestions": [
+      "Which controls are mandatory before sensitive workforce data reaches end users?",
+      "How will issues be communicated when data quality or access conditions fail?",
+      "Where do governance decisions need to be explicit for auditability and trust?"
+    ],
+    "commonMistakes": [
+      "Treating governance as a review step after pipelines are already live.",
+      "Assuming role-based security is enough without metric- and attribute-level protection.",
+      "Fixing data quality issues manually in downstream reports instead of upstream controls."
+    ],
+    "implementationGuidance": [
+      "Embed validation, ownership and access policies into the build and publishing flow.",
+      "Design secure defaults for sensitive fields, derived metrics and sharing behaviours.",
+      "Publish governance signals that help consumers understand data confidence and limitations."
+    ],
+    "beforeAfter": {
+      "before": "Reactive data quality fixes and inconsistent access decisions across workforce reports.",
+      "after": "A governed platform where quality, ownership and security controls are designed into the operating model."
+    }
+  },
+  {
+    "slug": "semantic-layer-certified-hr-kpis",
+    "title": "The Semantic Layer and Certified HR KPIs",
+    "summary": "An extended practical guide to the semantic layer and certified hr kpis, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "People Analytics",
+    "topicSlug": "people-analytics",
+    "publishAt": "2026-11-09T07:00:00Z",
+    "readingMinutes": 17,
+    "eyebrow": "HR DataMart Series \u00b7 5 of 6",
+    "accent": "#16a6b6",
+    "carouselSource": "HR_DataMart_05_v2.pdf",
+    "heroNumber": "09",
+    "flow": [
+      "Gold tables",
+      "Semantic model",
+      "Measures",
+      "Dashboard"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-datamart-reference-architecture",
+      "dimensional-modeling-for-hr",
+      "hr-datamart-ai-foundation"
+    ],
+    "keywords": [
+      "semantic layer",
+      "certified kpis",
+      "metric governance"
+    ],
+    "executiveTakeaway": "Certified workforce KPIs depend on a semantic layer that makes definitions reusable, explainable and safe to consume across tools. This is where metric trust becomes operational.",
+    "keyQuestions": [
+      "Which KPI definitions should be centrally governed and certified first?",
+      "How will consumers see the definition, owner and caveats behind each metric?",
+      "What process governs KPI change management across dashboards, articles and AI experiences?"
+    ],
+    "commonMistakes": [
+      "Letting each report recreate key workforce metrics independently.",
+      "Certifying KPI names without certifying the dimensions, filters and time basis around them.",
+      "Changing semantic logic without stakeholder communication and release control."
+    ],
+    "implementationGuidance": [
+      "Start with a thin certified metric set linked to high-value decisions.",
+      "Version semantic definitions and publish change context to downstream consumers.",
+      "Use the semantic layer as the common contract for dashboards, narrative content and AI assistants."
+    ],
+    "beforeAfter": {
+      "before": "The same KPI means different things across reports, teams and executive discussions.",
+      "after": "A governed semantic contract that keeps workforce KPIs consistent across every experience."
+    }
+  },
+  {
+    "slug": "test-operate-evolve-hr-datamart",
+    "title": "Test, Operate and Evolve the HR DataMart",
+    "summary": "An extended practical guide to test, operate and evolve the hr datamart, built for People Analytics leaders, practitioners and data teams.",
+    "topic": "Analytics Engineering",
+    "topicSlug": "analytics-engineering",
+    "publishAt": "2026-11-16T07:00:00Z",
+    "readingMinutes": 18,
+    "eyebrow": "HR DataMart Series \u00b7 6 of 6",
+    "accent": "#e24f59",
+    "carouselSource": "HR_DataMart_06_v2.pdf",
+    "heroNumber": "10",
+    "flow": [
+      "Test",
+      "Observe",
+      "Alert",
+      "Recover",
+      "Improve"
+    ],
+    "author": "gabriel-croitoru",
+    "socialImage": "/assets/img/og-default.svg",
+    "related": [
+      "hr-data-ingestion-history-time",
+      "hr-data-quality-governance-security",
+      "hr-datamart-reference-architecture"
+    ],
+    "keywords": [
+      "testing",
+      "observability",
+      "operating model"
+    ],
+    "executiveTakeaway": "An HR DataMart only stays trusted when teams continuously test, monitor and evolve it as a product. Reliability is an operational capability, not a one-time implementation milestone.",
+    "keyQuestions": [
+      "Which tests prove that workforce metrics remain valid after source or logic changes?",
+      "How will the team detect and communicate failures before executives rely on affected numbers?",
+      "What operating cadence will review model drift, metric change and new use-case demand?"
+    ],
+    "commonMistakes": [
+      "Treating go-live as the end of the product lifecycle.",
+      "Relying on ad-hoc manual validation instead of repeatable checks.",
+      "Adding new subject areas without revisiting quality, performance and semantic impact."
+    ],
+    "implementationGuidance": [
+      "Define tests for data quality, metric validity and delivery behaviour.",
+      "Instrument the platform with observability and user-facing status signals.",
+      "Plan iterative releases that balance new use cases with model stewardship and technical resilience."
+    ],
+    "beforeAfter": {
+      "before": "A fragile analytics product that degrades quietly after launch.",
+      "after": "A monitored workforce intelligence platform that improves through structured testing and operational learning."
+    }
+  }
+]

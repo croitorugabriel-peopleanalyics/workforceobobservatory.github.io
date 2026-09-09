@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "why-hr-reporting-needs-a-datamart",
+    "title": "Why HR Reporting Should Not Start with a Spreadsheet",
+    "source": "HR_DataMart_Carousel_Fixed.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "hr-datamart-reference-architecture",
+    "title": "A Reference Architecture for an HR DataMart",
+    "source": "HR_DataMart_Architecture_Carousel.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "hr-datamart-ai-foundation",
+    "title": "AI Does Not Only Need More HR Data. It Needs Context.",
+    "source": "HR_DataMart_AI_Foundation_Carousel_Fixed.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "workforce-health-score-normalization-guardrails",
+    "title": "Can a Workforce Health Score of 86 Hide a Critical Risk?",
+    "source": "Workforce_Health_Score_Carousel_Normalization_Guardrails.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "design-hr-datamart-from-decisions",
+    "title": "Design the HR DataMart from Decisions, Not Tables",
+    "source": "HR_DataMart_01_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "hr-data-ingestion-history-time",
+    "title": "HR Data Ingestion, History and Time",
+    "source": "HR_DataMart_02_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "dimensional-modeling-for-hr",
+    "title": "Dimensional Modelling for HR Analytics",
+    "source": "HR_DataMart_03_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "hr-data-quality-governance-security",
+    "title": "HR Data Quality, Governance and Security by Design",
+    "source": "HR_DataMart_04_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "semantic-layer-certified-hr-kpis",
+    "title": "The Semantic Layer and Certified HR KPIs",
+    "source": "HR_DataMart_05_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  },
+  {
+    "slug": "test-operate-evolve-hr-datamart",
+    "title": "Test, Operate and Evolve the HR DataMart",
+    "source": "HR_DataMart_06_v2.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+  }
+]

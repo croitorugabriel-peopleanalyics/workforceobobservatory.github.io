@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "hr-datamart",
+    "name": "HR DataMart",
+    "summary": "Decision-first architecture, governed modelling and reusable foundations for trusted workforce reporting."
+  },
+  {
+    "slug": "people-analytics",
+    "name": "People Analytics",
+    "summary": "Decision-ready metrics, semantic consistency and executive storytelling for workforce insight products."
+  },
+  {
+    "slug": "workforce-health-score",
+    "name": "Workforce Health Score",
+    "summary": "Composite workforce indicators, normalization strategies and risk guardrails for executive use."
+  },
+  {
+    "slug": "workforce-planning",
+    "name": "Workforce Planning",
+    "summary": "Scenario-ready workforce structures and planning logic for future capacity, capability and cost choices."
+  },
+  {
+    "slug": "talent-intelligence",
+    "name": "Talent Intelligence",
+    "summary": "Signals, architectures and interpretation patterns for hiring, mobility, skills and talent risk."
+  },
+  {
+    "slug": "responsible-ai",
+    "name": "Responsible AI",
+    "summary": "Governed AI foundations, explainability patterns and trust controls for HR and People Analytics."
+  },
+  {
+    "slug": "hr-data-governance",
+    "name": "HR Data Governance",
+    "summary": "Controls, stewardship and secure operating models for trustworthy workforce data products."
+  },
+  {
+    "slug": "organizational-health",
+    "name": "Organizational Health",
+    "summary": "Measures and narratives that help leaders understand workforce resilience, alignment and effectiveness."
+  },
+  {
+    "slug": "analytics-engineering",
+    "name": "Analytics Engineering",
+    "summary": "Reliable ingestion, modelling, testing and operating patterns for modern workforce data platforms."
+  },
+  {
+    "slug": "microsoft-fabric-for-hr",
+    "name": "Microsoft Fabric for HR",
+    "summary": "Future implementation patterns for Microsoft Fabric-based workforce intelligence foundations."
+  }
+]

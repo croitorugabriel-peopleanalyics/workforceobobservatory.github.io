@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Workforce Observatory</title>
+  <desc id="desc">Premium People Analytics and Workforce Intelligence platform.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#071a33"/>
+      <stop offset="100%" stop-color="#12355b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="36"/>
+  <circle cx="930" cy="170" r="170" fill="#22c9ac" opacity="0.18"/>
+  <g fill="none" stroke="#22c9ac" opacity="0.4">
+    <path d="M88 490h320"/>
+    <path d="M88 526h452"/>
+  </g>
+  <text x="88" y="128" fill="#22c9ac" font-size="28" font-family="Inter, Arial, sans-serif" letter-spacing="7">WORKFORCE OBSERVATORY</text>
+  <text x="88" y="248" fill="#ffffff" font-size="72" font-weight="700" font-family="Inter, Arial, sans-serif">People Analytics.</text>
+  <text x="88" y="330" fill="#ffffff" font-size="72" font-weight="700" font-family="Inter, Arial, sans-serif">Workforce Intelligence.</text>
+  <text x="88" y="412" fill="#b7c7d8" font-size="30" font-family="Inter, Arial, sans-serif">Premium learning, architecture and decision-science content for modern HR leaders.</text>
+</svg>
