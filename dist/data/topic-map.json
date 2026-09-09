@@ -2,17 +2,17 @@
   "hr-datamart": {
     "name": "HR DataMart",
     "summary": "Decision-first architecture, governed modelling and reusable foundations for trusted workforce reporting.",
-    "articleCount": 3
+    "articleCount": 0
   },
   "people-analytics": {
     "name": "People Analytics",
     "summary": "Decision-ready metrics, semantic consistency and executive storytelling for workforce insight products.",
-    "articleCount": 1
+    "articleCount": 0
   },
   "workforce-health-score": {
     "name": "Workforce Health Score",
     "summary": "Composite workforce indicators, normalization strategies and risk guardrails for executive use.",
-    "articleCount": 1
+    "articleCount": 0
   },
   "workforce-planning": {
     "name": "Workforce Planning",
@@ -27,12 +27,12 @@
   "responsible-ai": {
     "name": "Responsible AI",
     "summary": "Governed AI foundations, explainability patterns and trust controls for HR and People Analytics.",
-    "articleCount": 1
+    "articleCount": 0
   },
   "hr-data-governance": {
     "name": "HR Data Governance",
     "summary": "Controls, stewardship and secure operating models for trustworthy workforce data products.",
-    "articleCount": 1
+    "articleCount": 0
   },
   "organizational-health": {
     "name": "Organizational Health",
@@ -42,7 +42,7 @@
   "analytics-engineering": {
     "name": "Analytics Engineering",
     "summary": "Reliable ingestion, modelling, testing and operating patterns for modern workforce data platforms.",
-    "articleCount": 3
+    "articleCount": 0
   },
   "microsoft-fabric-for-hr": {
     "name": "Microsoft Fabric for HR",
