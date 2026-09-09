@@ -60,3 +60,50 @@ GitHub Pages should use the workflows in `/.github/workflows`.
 - `pages.yml` builds and deploys the generated `/dist` site on push and manual runs.
 - `refresh-and-deploy.yml` refreshes data, commits the dataset when needed, then rebuilds and deploys `/dist` on schedule or manual runs.
 - `refresh-data.yml` remains available for manual data refreshes without deployment.
+
+## Cloudflare Workers backend foundation
+
+A backend foundation now lives under `/cloudflare` for registration, session-based authentication, D1-backed article management and a basic admin interface.
+
+### What it includes
+
+- `/cloudflare/wrangler.toml` — Worker configuration with placeholder D1 binding
+- `/cloudflare/migrations/0001_init.sql` — relational schema for users, sessions, topics, articles, sections and audit logs
+- `/cloudflare/src/index.mjs` — Worker API and admin routes
+- `/cloudflare/src/admin-page.mjs` — basic admin UI served from the Worker
+
+### Supported backend behavior
+
+- first registered account becomes `admin`
+- later accounts become `editor`
+- login/logout/session endpoints
+- admin metadata endpoint for topics, animation presets, section types and layout variants
+- article create/update/list/detail endpoints
+- structured article sections with:
+  - section type
+  - animation preset
+  - layout variant
+  - image/media metadata
+
+### Required Cloudflare configuration
+
+Set these values outside the repository:
+
+- D1 database id in `/cloudflare/wrangler.toml`
+- Worker secret `AUTH_PEPPER`
+
+Optional:
+
+- `APP_ORIGIN`
+- `SESSION_DAYS`
+
+### Local commands
+
+```bash
+npm run worker:d1:local
+npm run worker:dev
+```
+
+### Important note
+
+This backend is the new management foundation, but the existing static site build still reads from the repository content files today. A later phase should add export/sync from D1 into the current static publishing pipeline.

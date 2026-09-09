@@ -1,0 +1,5 @@
+node_modules/
+.wrangler/
+dist-preview/
+cloudflare/.dev.vars
+scripts/__pycache__/

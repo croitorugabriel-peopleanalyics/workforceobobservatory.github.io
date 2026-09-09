@@ -1,0 +1,20 @@
+{
+  "name": "workforceobobservatory.github.io",
+  "version": "1.0.0",
+  "description": "Workforce Observatory is a premium learning and thought leadership platform focused on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI, Data Governance and HR Decision Science.",
+  "main": "app.js",
+  "scripts": {
+    "build": "python scripts/build.py",
+    "worker:dev": "wrangler dev --config cloudflare/wrangler.toml",
+    "worker:deploy": "wrangler deploy --config cloudflare/wrangler.toml",
+    "worker:d1:local": "wrangler d1 migrations apply workforce_observatory --local --config cloudflare/wrangler.toml",
+    "worker:d1:remote": "wrangler d1 migrations apply workforce_observatory --remote --config cloudflare/wrangler.toml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://localhost:26831/croitorugabriel-peopleanalyics/workforceobobservatory.github.io"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
