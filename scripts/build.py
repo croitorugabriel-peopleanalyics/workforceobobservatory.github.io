@@ -472,7 +472,8 @@ def main():
         article["slug"]: article.get("related", [])
         for article in live
     }, indent=2) + "\n")
-    paths = [build_home(live, topics, topic_counts), build_library(live, topics), *topic_urls, build_author(live, author), build_robots()]
+    paths = [build_home(live, topics, topic_counts), build_library(live, topics), *topic_urls, build_author(live, author)]
+    build_robots()
     build_search(search_index)
     paths.extend(build_articles(live, articles_by_slug))
     paths.append(build_sitemap(paths))
