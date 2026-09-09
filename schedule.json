@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "why-hr-reporting-needs-a-datamart",
+    "title": "Why HR Reporting Should Not Start with a Spreadsheet",
+    "eyebrow": "HR DataMart Fundamentals",
+    "desc": "An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#f5b41b",
+    "source": "HR_DataMart_Carousel_Fixed.pdf",
+    "publishAt": "2026-09-14T07:00:00Z",
+    "mins": 14
+  },
+  {
+    "slug": "hr-datamart-reference-architecture",
+    "title": "A Reference Architecture for an HR DataMart",
+    "eyebrow": "Data Architecture",
+    "desc": "An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#19a6a6",
+    "source": "HR_DataMart_Architecture_Carousel.pdf",
+    "publishAt": "2026-09-21T07:00:00Z",
+    "mins": 15
+  },
+  {
+    "slug": "hr-datamart-ai-foundation",
+    "title": "AI Does Not Only Need More HR Data. It Needs Context.",
+    "eyebrow": "People Analytics + Responsible AI",
+    "desc": "Why semantic contracts, historical validity, data quality and guardrails are prerequisites for trustworthy conversational HR analytics.",
+    "accent": "#27d3b0",
+    "source": "HR_DataMart_AI_Foundation_Carousel_Fixed.pdf",
+    "publishAt": "2026-09-28T07:00:00Z",
+    "mins": 16
+  },
+  {
+    "slug": "workforce-health-score-normalization-guardrails",
+    "title": "Can a Workforce Health Score of 86 Hide a Critical Risk?",
+    "eyebrow": "Workforce Health Score",
+    "desc": "An interactive guide to normalization, weighting and guardrails that prevent averages from hiding critical workforce signals.",
+    "accent": "#7357d9",
+    "source": "Workforce_Health_Score_Carousel_Normalization_Guardrails.pdf",
+    "publishAt": "2026-10-05T07:00:00Z",
+    "mins": 17
+  },
+  {
+    "slug": "design-hr-datamart-from-decisions",
+    "title": "Design the HR DataMart from Decisions, Not Tables",
+    "eyebrow": "HR DataMart Series \u00b7 1 of 6",
+    "desc": "An extended practical guide to design the hr datamart from decisions, not tables, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#1671c5",
+    "source": "HR_DataMart_01_v2.pdf",
+    "publishAt": "2026-10-12T07:00:00Z",
+    "mins": 18
+  },
+  {
+    "slug": "hr-data-ingestion-history-time",
+    "title": "HR Data Ingestion, History and Time",
+    "eyebrow": "HR DataMart Series \u00b7 2 of 6",
+    "desc": "An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#7252d3",
+    "source": "HR_DataMart_02_v2.pdf",
+    "publishAt": "2026-10-19T07:00:00Z",
+    "mins": 14
+  },
+  {
+    "slug": "dimensional-modeling-for-hr",
+    "title": "Dimensional Modelling for HR Analytics",
+    "eyebrow": "HR DataMart Series \u00b7 3 of 6",
+    "desc": "An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#1b9c52",
+    "source": "HR_DataMart_03_v2.pdf",
+    "publishAt": "2026-10-26T07:00:00Z",
+    "mins": 15
+  },
+  {
+    "slug": "hr-data-quality-governance-security",
+    "title": "HR Data Quality, Governance and Security by Design",
+    "eyebrow": "HR DataMart Series \u00b7 4 of 6",
+    "desc": "An extended practical guide to hr data quality, governance and security by design, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#f1a800",
+    "source": "HR_DataMart_04_v2.pdf",
+    "publishAt": "2026-11-02T07:00:00Z",
+    "mins": 16
+  },
+  {
+    "slug": "semantic-layer-certified-hr-kpis",
+    "title": "The Semantic Layer and Certified HR KPIs",
+    "eyebrow": "HR DataMart Series \u00b7 5 of 6",
+    "desc": "An extended practical guide to the semantic layer and certified hr kpis, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#16a6b6",
+    "source": "HR_DataMart_05_v2.pdf",
+    "publishAt": "2026-11-09T07:00:00Z",
+    "mins": 17
+  },
+  {
+    "slug": "test-operate-evolve-hr-datamart",
+    "title": "Test, Operate and Evolve the HR DataMart",
+    "eyebrow": "HR DataMart Series \u00b7 6 of 6",
+    "desc": "An extended practical guide to test, operate and evolve the hr datamart, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#e24f59",
+    "source": "HR_DataMart_06_v2.pdf",
+    "publishAt": "2026-11-16T07:00:00Z",
+    "mins": 18
+  }
+]

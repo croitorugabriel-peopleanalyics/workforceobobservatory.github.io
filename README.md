@@ -1,16 +1,18 @@
-# Workforce Observatory: end-to-end
+# Workforce Observatory scheduled articles
 
-## Upload
-Upload every file and directory in this package to the repository root, including the hidden `.github` directory.
+Each PDF has a separate, responsive, extended English interactive article.
 
-## GitHub settings
-1. Settings > Pages > Source: GitHub Actions.
-2. Settings > Actions > General > Workflow permissions: Read and write permissions.
-3. Actions > Refresh data and deploy > Run workflow.
-4. The same workflow refreshes daily and deploys the site.
+## Scheduling
+Edit `schedule.json`. `publishAt` uses UTC ISO format. The GitHub Action runs hourly and copies only eligible articles into the deployed `dist` folder. Browser-only hiding is intentionally avoided because a direct URL could bypass it.
 
-## Domain
-The included CNAME points to workforceobservatory.com. Keep GitHub DNS records as DNS only in Cloudflare until GitHub provisions HTTPS.
+Important: future source files remain visible if the repository is public. Keep this repository private where supported, or separate private drafts from the public deployment repository.
 
-## Scope
-World Bank indicators are active. Eurostat, OECD and ILOSTAT are listed as planned adapters, not falsely presented as already ingested. A daily workflow checks for refreshed public data, but publishers may update individual series less frequently.
+## Deploy
+1. Upload all files, including `.github`, to the repository root.
+2. GitHub Settings → Pages → Source: GitHub Actions.
+3. Update every `publishAt` to match its LinkedIn publication.
+4. Push to `main`, or run the workflow manually.
+
+## Preview
+`BUILD_TIME_UTC=2027-12-31T00:00:00Z python scripts/build.py`
+Then serve `dist` locally.
