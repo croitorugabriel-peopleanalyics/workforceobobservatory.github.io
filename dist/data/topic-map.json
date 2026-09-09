@@ -2,7 +2,7 @@
   "hr-datamart": {
     "name": "HR DataMart",
     "summary": "Decision-first architecture, governed modelling and reusable foundations for trusted workforce reporting.",
-    "articleCount": 0
+    "articleCount": 1
   },
   "people-analytics": {
     "name": "People Analytics",
@@ -12,7 +12,7 @@
   "workforce-health-score": {
     "name": "Workforce Health Score",
     "summary": "Composite workforce indicators, normalization strategies and risk guardrails for executive use.",
-    "articleCount": 0
+    "articleCount": 1
   },
   "workforce-planning": {
     "name": "Workforce Planning",

@@ -99,6 +99,8 @@ Optional:
 
 ### Local commands
 
+Install the Cloudflare `wrangler` CLI separately in your environment, then run:
+
 ```bash
 npm run worker:d1:local
 npm run worker:dev

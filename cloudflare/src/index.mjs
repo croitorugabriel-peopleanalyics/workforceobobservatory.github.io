@@ -87,7 +87,7 @@ export default {
         if (session) {
           await env.DB.prepare("DELETE FROM sessions WHERE id = ?").bind(session.sessionId).run();
         }
-        return withCors(clearSession(json({ ok: true })), request, env);
+        return withCors(clearSession(json({ ok: true }), request), request, env);
       }
 
       if (url.pathname === "/api/auth/session" && request.method === "GET") {
@@ -231,9 +231,11 @@ function setCookie(headers, name, value, request, maxAgeSeconds) {
   headers.append("set-cookie", segments.join("; "));
 }
 
-function clearSession(response) {
+function clearSession(response, request) {
   const headers = new Headers(response.headers);
-  headers.append("set-cookie", "wo_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0");
+  const segments = ["wo_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0"];
+  if (secureCookie(request)) segments.push("Secure");
+  headers.append("set-cookie", segments.join("; "));
   return new Response(response.body, { status: response.status, headers });
 }
 
@@ -463,6 +465,7 @@ async function listPublicArticles(env) {
 }
 
 async function saveArticle(env, actor, articleId, body) {
+  const isUpdate = Number.isInteger(articleId);
   const payload = normalizeArticlePayload(body);
   const topic = await env.DB.prepare("SELECT id FROM topics WHERE slug = ?").bind(payload.topicSlug).first();
   if (!topic) throw httpError(400, "Unknown topic slug.");
@@ -543,7 +546,7 @@ async function saveArticle(env, actor, articleId, body) {
     )
   );
   if (sectionStatements.length) await env.DB.batch(sectionStatements);
-  await writeAudit(env, actor.id, articleId ? "article.save" : "article.create", "article", String(articleId), {
+  await writeAudit(env, actor.id, isUpdate ? "article.save" : "article.create", "article", String(articleId), {
     slug: payload.slug,
     status: payload.status,
     sectionCount: payload.sections.length,

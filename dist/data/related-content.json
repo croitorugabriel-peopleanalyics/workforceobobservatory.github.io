@@ -1,1 +1,12 @@
-{}
+{
+  "why-hr-reporting-needs-a-datamart": [
+    "hr-datamart-reference-architecture",
+    "design-hr-datamart-from-decisions",
+    "semantic-layer-certified-hr-kpis"
+  ],
+  "workforce-health-score-normalization-guardrails": [
+    "hr-datamart-ai-foundation",
+    "semantic-layer-certified-hr-kpis",
+    "why-hr-reporting-needs-a-datamart"
+  ]
+}
