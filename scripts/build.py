@@ -143,16 +143,40 @@ def topic_url(slug: str) -> str:
     return f"/topics/{slug}/"
 
 
+def carousel_anchor_url(slug: str) -> str:
+    return f"{article_url(slug)}#curiosity-layer"
+
+
 def article_card(article: dict) -> str:
     return (
         f'<a class="article-card" href="{article_url(article["slug"])}" data-topic="{escape(article["topicSlug"])}" '
         f'data-search="{escape(article["searchText"])}">'
+        '<span class="content-tag">Article</span>'
         f'<p class="eyebrow">{escape(article["topic"])}</p>'
         f'<h3>{escape(article["title"])}</h3>'
         f'<p>{escape(article["summary"])}</p>'
         f'<div class="article-card__meta"><span>{article["readingMinutes"]} min read</span><span>{escape(article["publishLabel"])}</span></div>'
         f'</a>'
     )
+
+
+def carousel_card(carousel: dict) -> str:
+    preview_points = "".join(f"<li>{escape(point)}</li>" for point in carousel.get("previewPoints", [])[:3])
+    return (
+        f'<a class="carousel-card" href="{carousel_anchor_url(carousel["slug"])}" data-topic="{escape(carousel["topicSlug"])}" '
+        f'data-search="{escape(carousel["searchText"])}">'
+        '<span class="content-tag">Carousel</span>'
+        f'<p class="eyebrow">{escape(carousel["topic"])}</p>'
+        f'<h3>{escape(carousel["title"])}</h3>'
+        f'<p>{escape(carousel["hook"])}</p>'
+        f'<ul class="teaser-list">{preview_points}</ul>'
+        f'<div class="article-card__meta"><span>{escape(carousel["publishLabel"])}</span><span>Curiosity layer</span></div>'
+        '</a>'
+    )
+
+
+def render_content_card(item: dict) -> str:
+    return article_card(item) if item["contentType"] == "article" else carousel_card(item)
 
 
 def topic_card(topic: dict, count: int) -> str:
@@ -198,12 +222,15 @@ def parse_toc(body_html: str) -> list[tuple[str, str]]:
     return re.findall(r'<section[^>]*id="([^"]+)"[^>]*>.*?<h2>(.*?)</h2>', body_html, re.S)
 
 
-def merge_content() -> tuple[list[dict], list[dict], dict, list[dict]]:
+def merge_content() -> tuple[list[dict], list[dict], list[dict], dict, list[dict]]:
     schedule = {item["slug"]: item for item in read_json(ROOT / "schedule.json")}
     articles = read_json(ROOT / "content" / "articles" / "articles.json")
+    carousels = read_json(ROOT / "content" / "carousels" / "carousels.json")
     topics = read_json(ROOT / "content" / "topics" / "topics.json")
     author = read_json(ROOT / "content" / "authors" / "gabriel-croitoru.json")
+    articles_by_slug = {article["slug"]: article for article in articles}
     live = []
+    live_carousels = []
     now = iso_now()
     for article in articles:
         sched = schedule[article["slug"]]
@@ -213,12 +240,37 @@ def merge_content() -> tuple[list[dict], list[dict], dict, list[dict]]:
             body_html = (ROOT / "content" / "articles" / f'{article["slug"]}.html').read_text().strip()
             merged["bodyHtml"] = body_html
             merged["publishLabel"] = format_publish_label(merged["publishAt"])
+            merged["contentType"] = "article"
             merged["searchText"] = " ".join([
                 merged["title"], merged["summary"], merged["topic"], *merged.get("keywords", []), *merged.get("keyQuestions", [])
             ]).lower()
             live.append(merged)
+    for carousel in carousels:
+        article = articles_by_slug[carousel["slug"]]
+        sched = schedule[carousel["slug"]]
+        publish_at = datetime.fromisoformat(sched["publishAt"].replace("Z", "+00:00"))
+        if publish_at <= now:
+            merged = {
+                **carousel,
+                **sched,
+                "topic": article["topic"],
+                "topicSlug": article["topicSlug"],
+                "accent": article["accent"],
+                "publishLabel": format_publish_label(sched["publishAt"]),
+                "contentType": "carousel",
+            }
+            merged["searchText"] = " ".join([
+                merged["title"],
+                merged["hook"],
+                *merged.get("previewPoints", []),
+                merged["topic"],
+                article["summary"],
+                *article.get("keywords", []),
+            ]).lower()
+            live_carousels.append(merged)
     live.sort(key=lambda item: item["publishAt"], reverse=True)
-    return live, topics, author, articles
+    live_carousels.sort(key=lambda item: item["publishAt"], reverse=True)
+    return live, live_carousels, topics, author, articles
 
 
 def build_featured_section(live: list[dict]) -> str:
@@ -369,11 +421,12 @@ def continuation_card(article: dict | None, label: str) -> str:
     )
 
 
-def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
+def build_articles(live: list[dict], articles_by_slug: dict[str, dict], carousels_by_slug: dict[str, dict]):
     urls = []
     for index, article in enumerate(live):
         toc_items = parse_toc(article["bodyHtml"])
         extra_toc = [
+            ("curiosity-layer", "Curiosity layer"),
             ("interactive-visualization", "Interactive visualization"),
             ("operating-model", "Interactive operating model"),
             ("before-after", "Before / after"),
@@ -387,7 +440,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
         ]
         seen = set()
         toc_html = []
-        for anchor, label in [*extra_toc[:1], *toc_items, *extra_toc[1:]]:
+        for anchor, label in [*extra_toc[:2], *toc_items, *extra_toc[2:]]:
             if anchor in seen:
                 continue
             seen.add(anchor)
@@ -399,6 +452,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
         ) or '<div class="empty-panel is-visible"><p>More published related articles will appear here as the library grows.</p></div>'
         previous_article = live[index + 1] if index + 1 < len(live) else None
         next_article = live[index - 1] if index > 0 else None
+        carousel = carousels_by_slug[article["slug"]]
         social_image = page_image(
             article["title"],
             article["topic"],
@@ -421,13 +475,19 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
                 "article_number": escape(article["heroNumber"]),
                 "article_flow": "|".join(article.get("flow", [])),
                 "article_toc": "".join(toc_html),
+                "article_topic_slug": escape(article["topicSlug"]),
+                "article_carousel_title": escape(carousel["title"]),
+                "article_carousel_hook": escape(carousel["hook"]),
+                "article_carousel_relationship": escape(carousel["relationship"]),
+                "article_carousel_source": escape(carousel["source"]),
+                "article_carousel_cta": escape(carousel["cta"]),
+                "article_carousel_points": bullet_cards(carousel.get("previewPoints", [])),
                 "article_viz_title": escape(article["interactiveVisual"]["title"]),
                 "article_viz_intro": escape(article["interactiveVisual"]["intro"]),
                 "article_viz_buttons": visualization_buttons(article["interactiveVisual"].get("scenarios", [])),
                 "article_viz_panels": visualization_panels(article["interactiveVisual"].get("scenarios", [])),
                 "article_flow_cards": process_cards(article.get("flow", [])),
                 "article_takeaway": escape(article["executiveTakeaway"]),
-                "article_carousel": escape(article["carouselSource"]),
                 "article_before": escape(article["beforeAfter"]["before"]),
                 "article_after": escape(article["beforeAfter"]["after"]),
                 "article_body": article["bodyHtml"],
@@ -461,8 +521,9 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
     return urls
 
 
-def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int]):
+def build_home(live: list[dict], live_carousels: list[dict], topics: list[dict], topic_counts: dict[str, int]):
     latest_cards = "".join(article_card(article) for article in live[:6]) or '<div class="empty-panel is-visible"><h3>Library coming online</h3><p>Published articles will populate this section as soon as their scheduled dates arrive.</p></div>'
+    carousel_cards = "".join(carousel_card(carousel) for carousel in live_carousels[:4]) or '<div class="empty-panel is-visible"><h3>Curiosity layer queued</h3><p>Carousel briefings will appear automatically when their paired article becomes publish-eligible.</p></div>'
     live_topic_count = sum(1 for count in topic_counts.values() if count)
     social_image = page_image(
         "Workforce Observatory",
@@ -476,12 +537,13 @@ def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int
         page_description="A premium learning and thought leadership platform for People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI and HR decision science.",
         canonical_path="/",
         content_context={
-            "published_count": str(len(live)),
-            "published_label": "published articles" if len(live) != 1 else "published article",
+            "article_count": str(len(live)),
+            "article_label": "published articles" if len(live) != 1 else "published article",
             "live_topic_count": str(live_topic_count),
-            "home_status": live[0]["publishLabel"] if live else "Build-ready",
-            "home_status_label": "latest publication" if live else "waiting for first scheduled release",
+            "carousel_count": str(len(live_carousels)),
+            "carousel_label": "published carousels" if len(live_carousels) != 1 else "published carousel",
             "featured_section": build_featured_section(live),
+            "carousel_cards": carousel_cards,
             "topic_cards": "".join(topic_card(topic, topic_counts.get(topic["slug"], 0)) for topic in topics),
             "latest_cards": latest_cards,
         },
@@ -507,11 +569,16 @@ def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int
     return "/"
 
 
-def build_library(live: list[dict], topics: list[dict]):
+def build_library(live: list[dict], live_carousels: list[dict], topics: list[dict]):
+    library_items = sorted(
+        [*live, *live_carousels],
+        key=lambda item: (item["publishAt"], 1 if item["contentType"] == "article" else 0),
+        reverse=True,
+    )
     social_image = page_image(
         "Workforce Observatory Library",
         "Published depth",
-        "Search, filter and browse the live article library",
+        "Search, filter and browse the live article and carousel library",
         filename="library",
     )
     html = render_page(
@@ -521,10 +588,12 @@ def build_library(live: list[dict], topics: list[dict]):
         canonical_path="/library/",
         content_context={
             "topic_filters": build_topic_filter(topics),
-            "library_cards": "".join(article_card(article) for article in live),
-            "library_empty_modifier": " is-visible" if not live else "",
-            "published_count": str(len(live)),
-            "published_label": "published articles" if len(live) != 1 else "published article",
+            "library_cards": "".join(render_content_card(item) for item in library_items),
+            "library_empty_modifier": " is-visible" if not library_items else "",
+            "published_count": str(len(library_items)),
+            "published_label": "published items" if len(library_items) != 1 else "published item",
+            "article_count": str(len(live)),
+            "carousel_count": str(len(live_carousels)),
             "live_topic_count": str(sum(1 for article in topics if any(item["topicSlug"] == article["slug"] for item in live))),
         },
         body_class="page page--library",
@@ -532,11 +601,11 @@ def build_library(live: list[dict], topics: list[dict]):
         scripts=["/assets/js/core.js", "/assets/js/search.js"],
         social_image=social_image,
         social_image_alt="Workforce Observatory library preview",
-        page_keywords=["Workforce Observatory Library", "People Analytics Articles", "HR Data Architecture", "Workforce Intelligence"],
+        page_keywords=["Workforce Observatory Library", "People Analytics Articles", "LinkedIn Carousel Briefings", "Workforce Intelligence"],
         structured_data=[
-            collection_structured_data("Library | Workforce Observatory", "Browse every published Workforce Observatory article.", "/library/"),
+            collection_structured_data("Library | Workforce Observatory", "Browse every published Workforce Observatory article and carousel briefing.", "/library/"),
             breadcrumb_structured_data([("Home", "/"), ("Library", "/library/")]),
-            item_list_structured_data("Library articles", live, lambda item: article_url(item["slug"])),
+            item_list_structured_data("Library content", library_items, lambda item: article_url(item["slug"]) if item["contentType"] == "article" else carousel_anchor_url(item["slug"])),
         ],
     )
     write_page(DIST / "library" / "index.html", html)
@@ -640,7 +709,7 @@ def build_search(search_index: list[dict], topics: list[dict]):
     html = render_page(
         template_name="search.html",
         page_title="Search | Workforce Observatory",
-        page_description="Search the published Workforce Observatory library without exposing future-dated articles.",
+        page_description="Search the published Workforce Observatory library without exposing future-dated carousel or article content.",
         canonical_path="/search/",
         content_context={"search_topic_filters": build_search_topic_filter(topics)},
         body_class="page page--search",
@@ -649,7 +718,7 @@ def build_search(search_index: list[dict], topics: list[dict]):
         robots="noindex,follow",
         social_image=social_image,
         social_image_alt="Workforce Observatory search preview",
-        page_keywords=["Workforce Observatory Search", "Published content search", "People Analytics"],
+        page_keywords=["Workforce Observatory Search", "Published content search", "People Analytics", "LinkedIn Carousel Briefings"],
         structured_data=[
             collection_structured_data("Search | Workforce Observatory", "Search the published Workforce Observatory library.", "/search/"),
             breadcrumb_structured_data([("Home", "/"), ("Search", "/search/")]),
@@ -732,24 +801,48 @@ def main():
         source = ROOT / "assets" / folder
         if source.exists():
             shutil.copytree(source, DIST / "assets" / folder)
-    live, topics, author, _all_articles = merge_content()
+    live, live_carousels, topics, author, _all_articles = merge_content()
     articles_by_slug = {article["slug"]: article for article in live}
+    carousels_by_slug = {carousel["slug"]: carousel for carousel in live_carousels}
     topic_urls, topic_counts = build_topics_pages(live, topics)
-    search_index = [
-        {
-            "slug": article["slug"],
-            "title": article["title"],
-            "summary": article["summary"],
-            "topic": article["topic"],
-            "topicSlug": article["topicSlug"],
-            "readingMinutes": article["readingMinutes"],
-            "publishLabel": article["publishLabel"],
-            "keywords": article.get("keywords", []),
-            "searchText": article["searchText"],
-            "url": article_url(article["slug"]),
-        }
-        for article in live
-    ]
+    search_index = sorted([
+        *[
+            {
+                "slug": article["slug"],
+                "contentType": "article",
+                "title": article["title"],
+                "summary": article["summary"],
+                "topic": article["topic"],
+                "topicSlug": article["topicSlug"],
+                "publishAt": article["publishAt"],
+                "readingMinutes": article["readingMinutes"],
+                "publishLabel": article["publishLabel"],
+                "keywords": article.get("keywords", []),
+                "searchText": article["searchText"],
+                "url": article_url(article["slug"]),
+                "metaLabel": f'{article["readingMinutes"]} min read · {article["publishLabel"]}',
+            }
+            for article in live
+        ],
+        *[
+            {
+                "slug": carousel["slug"],
+                "contentType": "carousel",
+                "title": carousel["title"],
+                "summary": carousel["hook"],
+                "topic": carousel["topic"],
+                "topicSlug": carousel["topicSlug"],
+                "publishAt": carousel["publishAt"],
+                "readingMinutes": 0,
+                "publishLabel": carousel["publishLabel"],
+                "keywords": carousel.get("previewPoints", []),
+                "searchText": carousel["searchText"],
+                "url": carousel_anchor_url(carousel["slug"]),
+                "metaLabel": f'LinkedIn carousel · {carousel["publishLabel"]}',
+            }
+            for carousel in live_carousels
+        ],
+    ], key=lambda item: (item["publishAt"], 1 if item["contentType"] == "article" else 0), reverse=True)
     ensure_dir(DIST / "data")
     (DIST / "data" / "topic-map.json").write_text(json.dumps({
         topic["slug"]: {
@@ -763,10 +856,11 @@ def main():
         article["slug"]: article.get("related", [])
         for article in live
     }, indent=2) + "\n")
-    paths = [build_home(live, topics, topic_counts), build_library(live, topics), *topic_urls, build_author(live, author)]
+    (DIST / "data" / "carousel-index.json").write_text(json.dumps(live_carousels, indent=2) + "\n")
+    paths = [build_home(live, live_carousels, topics, topic_counts), build_library(live, live_carousels, topics), *topic_urls, build_author(live, author)]
     build_robots()
     build_search(search_index, topics)
-    paths.extend(build_articles(live, articles_by_slug))
+    paths.extend(build_articles(live, articles_by_slug, carousels_by_slug))
     paths.append(build_sitemap(paths))
     (DIST / ".nojekyll").write_text("")
     print(f"published {len(live)} articles")

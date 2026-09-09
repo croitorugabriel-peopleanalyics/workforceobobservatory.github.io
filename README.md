@@ -23,6 +23,7 @@ Phase 1 established the platform shell and publishing system while keeping the e
 
 - Each article keeps its narrative body in `/content/articles/{slug}.html`.
 - `content/articles/articles.json` stores metadata, related content, and Phase 3 `interactiveVisual` scenario definitions.
+- `content/carousels/carousels.json` stores carousel-specific curiosity-layer hooks, preview points and call-to-depth copy for the same scheduled slugs.
 - Article pages render interactive scenario tabs at build time and enhance them with vanilla JavaScript in the browser.
 - Topic and author metadata also drive Phase 4 editorial framing, strategic questions, credibility sections and future-ready platform pages.
 
@@ -30,10 +31,10 @@ Phase 1 established the platform shell and publishing system while keeping the e
 
 - `schedule.json` remains the publication gate.
 - `scripts/build.py` reads `schedule.json` in UTC.
-- Only publish-eligible articles are rendered into `/dist`.
-- Future-dated articles are excluded from article pages, library listings, search index and sitemap output.
+- Only publish-eligible articles and their paired carousel briefings are rendered into `/dist`.
+- Future-dated content is excluded from article pages, library listings, search indexes and sitemap output.
 - Search topic filters and article continuation modules are also generated from the publish-eligible set only.
-- Page-level Open Graph preview images are generated into `/dist/assets/img/social` during the build.
+- Page-level Open Graph preview images are generated into `/dist/assets/og` during the build.
 - Structured data now includes website, collection, breadcrumb, article and item-list coverage where relevant.
 
 ## Build and preview

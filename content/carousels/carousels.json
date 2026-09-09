@@ -3,60 +3,130 @@
     "slug": "why-hr-reporting-needs-a-datamart",
     "title": "Why HR Reporting Should Not Start with a Spreadsheet",
     "source": "HR_DataMart_Carousel_Fixed.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A familiar spreadsheet can hide decision risk long before anyone notices the metric drift.",
+    "previewPoints": [
+      "Why manual fixes undermine executive trust",
+      "Where time logic breaks in spreadsheet reporting",
+      "What a governed HR DataMart changes first"
+    ],
+    "cta": "Open the full article to see how the curiosity layer translates into a governed reporting model."
   },
   {
     "slug": "hr-datamart-reference-architecture",
     "title": "A Reference Architecture for an HR DataMart",
     "source": "HR_DataMart_Architecture_Carousel.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A clean diagram is not enough; leaders need to understand the operating logic behind the architecture.",
+    "previewPoints": [
+      "Which layers turn raw HR extracts into trusted products",
+      "How controls and semantic logic fit into the flow",
+      "Why architecture should stay explainable to business stakeholders"
+    ],
+    "cta": "Open the article to move from the architecture sketch to the full workforce platform model."
   },
   {
     "slug": "hr-datamart-ai-foundation",
     "title": "AI Does Not Only Need More HR Data. It Needs Context.",
     "source": "HR_DataMart_AI_Foundation_Carousel_Fixed.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "More HR data does not create trustworthy AI unless meaning, permissions and confidence travel with it.",
+    "previewPoints": [
+      "Why context matters more than raw data volume",
+      "How permissions and lineage shape safe HR AI",
+      "What foundation a decision-ready assistant requires"
+    ],
+    "cta": "Open the article for the deeper architecture behind context-aware workforce AI."
   },
   {
     "slug": "workforce-health-score-normalization-guardrails",
     "title": "Can a Workforce Health Score of 86 Hide a Critical Risk?",
     "source": "Workforce_Health_Score_Carousel_Normalization_Guardrails.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A strong headline score can still hide a severe workforce weakness when leaders cannot inspect the composition.",
+    "previewPoints": [
+      "Why averages hide asymmetric workforce risk",
+      "How normalization choices change interpretation",
+      "Which guardrails keep scorecards responsible"
+    ],
+    "cta": "Open the article to inspect the score design choices behind the headline number."
   },
   {
     "slug": "design-hr-datamart-from-decisions",
     "title": "Design the HR DataMart from Decisions, Not Tables",
     "source": "HR_DataMart_01_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "Starting with tables makes the model technical first; starting with decisions makes it useful first.",
+    "previewPoints": [
+      "Which decisions should anchor the first model release",
+      "How business questions shape entity design",
+      "Why architecture should inherit executive intent"
+    ],
+    "cta": "Open the article for the full decision-first modelling approach."
   },
   {
     "slug": "hr-data-ingestion-history-time",
     "title": "HR Data Ingestion, History and Time",
     "source": "HR_DataMart_02_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "Trust breaks quickly when workforce metrics cannot explain when a change happened or which history is valid.",
+    "previewPoints": [
+      "Why snapshots alone do not preserve decision context",
+      "How event time and validity time diverge",
+      "What ingestion patterns make HR history reusable"
+    ],
+    "cta": "Open the article to go beyond the headline model and into temporal operating choices."
   },
   {
     "slug": "dimensional-modeling-for-hr",
     "title": "Dimensional Modelling for HR Analytics",
     "source": "HR_DataMart_03_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "Dimensional modelling becomes strategic when it helps HR teams answer the same question the same way every time.",
+    "previewPoints": [
+      "Which workforce facts and dimensions matter first",
+      "How conformed logic reduces reporting conflict",
+      "Why semantic reuse depends on modelling discipline"
+    ],
+    "cta": "Open the article to explore the governed modelling patterns behind repeatable HR analytics."
   },
   {
     "slug": "hr-data-quality-governance-security",
     "title": "HR Data Quality, Governance and Security by Design",
     "source": "HR_DataMart_04_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "Quality, governance and security are only trusted when they are visible in how the product behaves.",
+    "previewPoints": [
+      "Which controls should stop publication",
+      "How stewardship becomes product behavior",
+      "Why secure access needs clearer workforce context"
+    ],
+    "cta": "Open the article to see how control design becomes a visible operating model."
   },
   {
     "slug": "semantic-layer-certified-hr-kpis",
     "title": "The Semantic Layer and Certified HR KPIs",
     "source": "HR_DataMart_05_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "Executives lose confidence when KPI definitions travel with decks instead of living in a shared certified layer.",
+    "previewPoints": [
+      "Why a semantic contract matters for HR metrics",
+      "How certification reduces dashboard disputes",
+      "What changes when AI uses the same KPI layer"
+    ],
+    "cta": "Open the article to unpack the semantic layer patterns behind trusted KPI delivery."
   },
   {
     "slug": "test-operate-evolve-hr-datamart",
     "title": "Test, Operate and Evolve the HR DataMart",
     "source": "HR_DataMart_06_v2.pdf",
-    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article."
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A workforce platform is only durable when it is tested, observed and evolved after launch.",
+    "previewPoints": [
+      "Which tests protect workforce decision trust",
+      "How monitoring should surface data product risk",
+      "Why operating rhythm matters after release"
+    ],
+    "cta": "Open the article to move from launch excitement to long-term operating discipline."
   }
 ]

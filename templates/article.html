@@ -48,7 +48,30 @@
       <div class="summary-band__stats">
         <div class="metric-card"><span>Topic</span><strong>{{article_topic}}</strong></div>
         <div class="metric-card"><span>Reading time</span><strong>{{article_reading_time}}</strong></div>
-        <div class="metric-card"><span>Carousel source</span><strong>{{article_carousel}}</strong></div>
+        <div class="metric-card"><span>Curiosity layer</span><strong>LinkedIn carousel</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal curiosity-section" id="curiosity-layer">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Curiosity layer</p>
+          <h2>How the LinkedIn carousel opens the topic.</h2>
+          <p>{{article_carousel_relationship}}</p>
+        </div>
+      </div>
+      <div class="summary-band">
+        <div class="content-box">
+          <p class="eyebrow">Opening hook</p>
+          <h3>{{article_carousel_title}}</h3>
+          <p>{{article_carousel_hook}}</p>
+          <div class="bullet-grid">{{article_carousel_points}}</div>
+        </div>
+        <div class="info-card">
+          <p class="eyebrow">Source reference</p>
+          <h3>{{article_carousel_source}}</h3>
+          <p>{{article_carousel_cta}}</p>
+          <a class="text-link" href="/library/?topic={{article_topic_slug}}">See related published content in this topic</a>
+        </div>
       </div>
     </section>
     <section class="article-section reveal interactive-visualization" id="interactive-visualization" data-viz-root>

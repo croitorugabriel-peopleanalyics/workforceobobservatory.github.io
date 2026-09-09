@@ -9,9 +9,9 @@
         <a class="button button--ghost" href="/topics/">Explore topics</a>
       </div>
       <div class="signal-row reveal">
-        <div class="signal-chip"><strong>{{published_count}}</strong><span>{{published_label}}</span></div>
+        <div class="signal-chip"><strong>{{article_count}}</strong><span>{{article_label}}</span></div>
         <div class="signal-chip"><strong>{{live_topic_count}}</strong><span>live topic hubs</span></div>
-        <div class="signal-chip"><strong>{{home_status}}</strong><span>{{home_status_label}}</span></div>
+        <div class="signal-chip"><strong>{{carousel_count}}</strong><span>{{carousel_label}}</span></div>
       </div>
     </div>
     <div class="hero-stack" data-parallax="0.2">
@@ -58,6 +58,18 @@
 </section>
 <section class="shell section-grid section-grid--feature">
   {{featured_section}}
+</section>
+<section class="shell page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Curiosity layer</p>
+      <h2>Published carousel briefings that lead into deeper reading.</h2>
+    </div>
+    <a class="text-link" href="/library/">Open the full library</a>
+  </div>
+  <div class="card-grid card-grid--library">
+    {{carousel_cards}}
+  </div>
 </section>
 <section class="shell page-section">
   <div class="section-heading">
