@@ -4,7 +4,7 @@ Workforce Observatory is a premium learning and thought leadership platform focu
 
 ## Platform architecture
 
-Phase 1 established the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place. Phase 2 layers on premium page composition, richer article storytelling modules, query-aware search, topic filtering and motion-safe front-end polish. Phase 3 upgrades the article library with stronger editorial copy and structured interactive scenario metadata.
+Phase 1 established the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place. Phase 2 layers on premium page composition, richer article storytelling modules, query-aware search, topic filtering and motion-safe front-end polish. Phase 3 upgrades the article library with stronger editorial copy and structured interactive scenario metadata. Phase 4 adds richer topic and author credibility surfaces, page-level social preview generation and stronger structured metadata coverage.
 
 ### Source structure
 
@@ -24,6 +24,7 @@ Phase 1 established the platform shell and publishing system while keeping the e
 - Each article keeps its narrative body in `/content/articles/{slug}.html`.
 - `content/articles/articles.json` stores metadata, related content, and Phase 3 `interactiveVisual` scenario definitions.
 - Article pages render interactive scenario tabs at build time and enhance them with vanilla JavaScript in the browser.
+- Topic and author metadata also drive Phase 4 editorial framing, strategic questions, credibility sections and future-ready platform pages.
 
 ### Publishing model
 
@@ -32,6 +33,8 @@ Phase 1 established the platform shell and publishing system while keeping the e
 - Only publish-eligible articles are rendered into `/dist`.
 - Future-dated articles are excluded from article pages, library listings, search index and sitemap output.
 - Search topic filters and article continuation modules are also generated from the publish-eligible set only.
+- Page-level Open Graph preview images are generated into `/dist/assets/img/social` during the build.
+- Structured data now includes website, collection, breadcrumb, article and item-list coverage where relevant.
 
 ## Build and preview
 

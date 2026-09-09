@@ -44,22 +44,80 @@ def format_publish_label(value: str) -> str:
     return dt.strftime("%d %b %Y")
 
 
-def make_head(title: str, description: str, canonical_url: str, *, robots: str = "index,follow", og_type: str = "website", social_image: str = "/assets/img/og-default.svg", structured_data: dict | list | None = None, extra_head: str = "") -> str:
+def compact(value: str) -> str:
+    return " ".join(value.split())
+
+
+def keywords_csv(items: list[str] | None) -> str:
+    return ", ".join(compact(item) for item in (items or []) if compact(item))
+
+
+def wrap_svg_text(text: str, line_length: int = 28) -> list[str]:
+    words = text.split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if current and len(candidate) > line_length:
+            lines.append(current)
+            current = word
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    return lines[:3]
+
+
+def build_social_image(filename: str, *, eyebrow: str, title: str, detail: str, accent: str = "#22c9ac") -> str:
+    rel_path = f"/assets/og/{filename}.svg"
+    path = DIST / rel_path.lstrip("/")
+    ensure_dir(path.parent)
+    title_lines = wrap_svg_text(title, 24)
+    detail_text = compact(detail)
+    if len(detail_text) > 88:
+        detail_text = detail_text[:85].rstrip() + "…"
+    svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">',
+        "<defs>",
+        '<linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">',
+        '<stop offset="0%" stop-color="#071a33"/>',
+        '<stop offset="100%" stop-color="#12355b"/>',
+        "</linearGradient>",
+        "</defs>",
+        '<rect width="1200" height="630" rx="36" fill="url(#bg)"/>',
+        f'<circle cx="960" cy="170" r="170" fill="{escape(accent)}" opacity="0.18"/>',
+        f'<text x="88" y="118" fill="{escape(accent)}" font-size="26" font-family="Inter, Arial, sans-serif" letter-spacing="6">{escape(eyebrow)}</text>',
+    ]
+    base_y = 230
+    for index, line in enumerate(title_lines):
+        svg.append(f'<text x="88" y="{base_y + index * 78}" fill="#ffffff" font-size="68" font-weight="700" font-family="Inter, Arial, sans-serif">{escape(line)}</text>')
+    svg.extend([
+        f'<text x="88" y="500" fill="#bfd0e2" font-size="28" font-family="Inter, Arial, sans-serif">{escape(detail_text)}</text>',
+        '<text x="88" y="558" fill="#ffffff" font-size="24" font-family="Inter, Arial, sans-serif">workforceobservatory.com</text>',
+        "</svg>",
+    ])
+    path.write_text("".join(svg))
+    return rel_path
+
+
+def make_head(title: str, description: str, canonical_url: str, *, robots: str = "index,follow", og_type: str = "website", social_image: str = "/assets/img/og-default.svg", social_image_alt: str | None = None, page_keywords: list[str] | None = None, structured_data: dict | list | None = None, extra_head: str = "") -> str:
     head_template = (ROOT / "partials" / "head.html").read_text()
     image_url = social_image if social_image.startswith("http") else f"{SITE_URL}{social_image}"
     return render_fragment(head_template, {
         "page_title": escape(title),
         "page_description": escape(description),
+        "page_keywords": escape(keywords_csv(page_keywords)),
         "canonical_url": canonical_url,
         "robots": robots,
         "og_type": og_type,
         "social_image_url": image_url,
+        "social_image_alt": escape(social_image_alt or title),
         "structured_data": json.dumps(structured_data or {}, ensure_ascii=False),
         "extra_head": extra_head,
     })
 
 
-def render_page(*, template_name: str, page_title: str, page_description: str, canonical_path: str, content_context: dict[str, str], body_class: str, body_attrs: str = "", scripts: list[str] | None = None, robots: str = "index,follow", og_type: str = "website", social_image: str = "/assets/img/og-default.svg", structured_data: dict | list | None = None, extra_head: str = "") -> str:
+def render_page(*, template_name: str, page_title: str, page_description: str, canonical_path: str, content_context: dict[str, str], body_class: str, body_attrs: str = "", scripts: list[str] | None = None, robots: str = "index,follow", og_type: str = "website", social_image: str = "/assets/img/og-default.svg", social_image_alt: str | None = None, page_keywords: list[str] | None = None, structured_data: dict | list | None = None, extra_head: str = "") -> str:
     header = (ROOT / "partials" / "header.html").read_text()
     footer = render_fragment((ROOT / "partials" / "footer.html").read_text(), {"year": str(datetime.now(timezone.utc).year)})
     page_template = (ROOT / "templates" / template_name).read_text()
@@ -67,7 +125,7 @@ def render_page(*, template_name: str, page_title: str, page_description: str, c
     script_tags = "\n".join(f'<script src="{src}"></script>' for src in (scripts or []))
     base = (ROOT / "templates" / "base.html").read_text()
     return render_fragment(base, {
-        "head": make_head(page_title, page_description, f"{SITE_URL}{canonical_path}", robots=robots, og_type=og_type, social_image=social_image, structured_data=structured_data, extra_head=extra_head),
+        "head": make_head(page_title, page_description, f"{SITE_URL}{canonical_path}", robots=robots, og_type=og_type, social_image=social_image, social_image_alt=social_image_alt, page_keywords=page_keywords, structured_data=structured_data, extra_head=extra_head),
         "body_class": body_class,
         "body_attrs": body_attrs,
         "header": header,
@@ -79,6 +137,10 @@ def render_page(*, template_name: str, page_title: str, page_description: str, c
 
 def article_url(slug: str) -> str:
     return f"/articles/{slug}/"
+
+
+def topic_url(slug: str) -> str:
+    return f"/topics/{slug}/"
 
 
 def article_card(article: dict) -> str:
@@ -103,6 +165,18 @@ def topic_card(topic: dict, count: int) -> str:
         f'<div class="topic-card__count">{count} {label}</div>'
         f'</a>'
     )
+
+
+def topic_featured_card(topic: dict, article: dict | None) -> str:
+    if article is None:
+        return (
+            '<article class="info-card">'
+            '<p class="eyebrow">Future reading path</p>'
+            f'<h3>{escape(topic["name"])} is ready for scheduled publication.</h3>'
+            f'<p>{escape(topic["credibilityNote"])}</p>'
+            '</article>'
+        )
+    return article_card(article)
 
 
 def bullet_cards(items: list[str]) -> str:
@@ -205,6 +279,10 @@ def article_structured_data(article: dict) -> dict:
     }
 
 
+def page_image(title: str, eyebrow: str, detail: str, *, accent: str = "#22c9ac", filename: str) -> str:
+    return build_social_image(filename, eyebrow=eyebrow, title=title, detail=detail, accent=accent)
+
+
 def collection_structured_data(title: str, description: str, path: str) -> dict:
     return {
         "@context": "https://schema.org",
@@ -213,6 +291,34 @@ def collection_structured_data(title: str, description: str, path: str) -> dict:
         "description": description,
         "url": f"{SITE_URL}{path}",
         "isPartOf": {"@type": "WebSite", "name": "Workforce Observatory", "url": SITE_URL},
+    }
+
+
+def breadcrumb_structured_data(items: list[tuple[str, str]]) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": index, "name": name, "item": f"{SITE_URL}{path}"}
+            for index, (name, path) in enumerate(items, start=1)
+        ],
+    }
+
+
+def item_list_structured_data(name: str, items: list[dict], url_builder) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": name,
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": index,
+                "url": f'{SITE_URL}{url_builder(item)}',
+                "name": item["title"] if "title" in item else item["name"],
+            }
+            for index, item in enumerate(items, start=1)
+        ],
     }
 
 
@@ -293,6 +399,13 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
         ) or '<div class="empty-panel is-visible"><p>More published related articles will appear here as the library grows.</p></div>'
         previous_article = live[index + 1] if index + 1 < len(live) else None
         next_article = live[index - 1] if index > 0 else None
+        social_image = page_image(
+            article["title"],
+            article["topic"],
+            f'{article["readingMinutes"]} min read · Workforce Observatory',
+            accent=article["accent"],
+            filename=f'article-{article["slug"]}',
+        )
         content = render_page(
             template_name="article.html",
             page_title=f'{article["title"]} | Workforce Observatory',
@@ -330,8 +443,18 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
             body_attrs=f' data-page="article" style="--article-accent:{article["accent"]}"',
             scripts=["/assets/js/core.js", "/assets/js/article.js"],
             og_type="article",
-            social_image=article["socialImage"],
-            structured_data=article_structured_data(article),
+            social_image=social_image,
+            social_image_alt=f'{article["title"]} social preview',
+            page_keywords=[article["topic"], *article.get("keywords", []), "Workforce Observatory"],
+            structured_data=[
+                article_structured_data({**article, "socialImage": social_image}),
+                breadcrumb_structured_data([
+                    ("Home", "/"),
+                    ("Library", "/library/"),
+                    (article["title"], article_url(article["slug"])),
+                ]),
+            ],
+            extra_head=f'<meta property="article:published_time" content="{article["publishAt"]}">\n<meta property="article:author" content="Gabriel Croitoru">',
         )
         write_page(DIST / "articles" / article["slug"] / "index.html", content)
         urls.append(article_url(article["slug"]))
@@ -341,6 +464,12 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
 def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int]):
     latest_cards = "".join(article_card(article) for article in live[:6]) or '<div class="empty-panel is-visible"><h3>Library coming online</h3><p>Published articles will populate this section as soon as their scheduled dates arrive.</p></div>'
     live_topic_count = sum(1 for count in topic_counts.values() if count)
+    social_image = page_image(
+        "Workforce Observatory",
+        "People Analytics · Workforce Intelligence",
+        "Premium learning and thought leadership platform",
+        filename="home",
+    )
     html = render_page(
         template_name="home.html",
         page_title="Workforce Observatory | People Analytics, Workforce Intelligence and Responsible AI",
@@ -359,20 +488,32 @@ def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int
         body_class="page page--home",
         body_attrs=' data-page="home"',
         scripts=["/assets/js/core.js"],
-        structured_data={
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Workforce Observatory",
-            "url": SITE_URL,
-            "description": "Premium People Analytics and Workforce Intelligence platform.",
-            "potentialAction": {"@type": "SearchAction", "target": f"{SITE_URL}/search/?q={{search_term_string}}", "query-input": "required name=search_term_string"},
-        },
+        social_image=social_image,
+        social_image_alt="Workforce Observatory home preview",
+        page_keywords=["People Analytics", "Workforce Intelligence", "Responsible AI", "HR Data Architecture", "Workforce Observatory"],
+        structured_data=[
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Workforce Observatory",
+                "url": SITE_URL,
+                "description": "Premium People Analytics and Workforce Intelligence platform.",
+                "potentialAction": {"@type": "SearchAction", "target": f"{SITE_URL}/search/?q={{search_term_string}}", "query-input": "required name=search_term_string"},
+            },
+            item_list_structured_data("Published Workforce Observatory articles", live[:6], lambda item: article_url(item["slug"])),
+        ],
     )
     write_page(DIST / "index.html", html)
     return "/"
 
 
 def build_library(live: list[dict], topics: list[dict]):
+    social_image = page_image(
+        "Workforce Observatory Library",
+        "Published depth",
+        "Search, filter and browse the live article library",
+        filename="library",
+    )
     html = render_page(
         template_name="library.html",
         page_title="Library | Workforce Observatory",
@@ -389,7 +530,14 @@ def build_library(live: list[dict], topics: list[dict]):
         body_class="page page--library",
         body_attrs=' data-page="library"',
         scripts=["/assets/js/core.js", "/assets/js/search.js"],
-        structured_data=collection_structured_data("Library | Workforce Observatory", "Browse every published Workforce Observatory article.", "/library/"),
+        social_image=social_image,
+        social_image_alt="Workforce Observatory library preview",
+        page_keywords=["Workforce Observatory Library", "People Analytics Articles", "HR Data Architecture", "Workforce Intelligence"],
+        structured_data=[
+            collection_structured_data("Library | Workforce Observatory", "Browse every published Workforce Observatory article.", "/library/"),
+            breadcrumb_structured_data([("Home", "/"), ("Library", "/library/")]),
+            item_list_structured_data("Library articles", live, lambda item: article_url(item["slug"])),
+        ],
     )
     write_page(DIST / "library" / "index.html", html)
     return "/library/"
@@ -398,9 +546,16 @@ def build_library(live: list[dict], topics: list[dict]):
 def build_topics_pages(live: list[dict], topics: list[dict]):
     topic_counts = {topic["slug"]: 0 for topic in topics}
     grouped: dict[str, list[dict]] = {topic["slug"]: [] for topic in topics}
+    topics_by_slug = {topic["slug"]: topic for topic in topics}
     for article in live:
         topic_counts[article["topicSlug"]] += 1
         grouped[article["topicSlug"]].append(article)
+    social_image = page_image(
+        "Workforce Observatory Topics",
+        "Capability map",
+        "Topic hubs for People Analytics, HR data and workforce intelligence",
+        filename="topics",
+    )
     topics_index = render_page(
         template_name="topics.html",
         page_title="Topics | Workforce Observatory",
@@ -408,40 +563,80 @@ def build_topics_pages(live: list[dict], topics: list[dict]):
         canonical_path="/topics/",
         content_context={
             "topic_cards": "".join(topic_card(topic, topic_counts[topic["slug"]]) for topic in topics),
+            "topic_total": str(len(topics)),
         },
         body_class="page page--topics",
         body_attrs=' data-page="topics"',
         scripts=["/assets/js/core.js"],
-        structured_data=collection_structured_data("Topics | Workforce Observatory", "Explore Workforce Observatory topic hubs.", "/topics/"),
+        social_image=social_image,
+        social_image_alt="Workforce Observatory topics preview",
+        page_keywords=["Workforce Observatory Topics", "People Analytics Topics", "Responsible AI", "Analytics Engineering"],
+        structured_data=[
+            collection_structured_data("Topics | Workforce Observatory", "Explore Workforce Observatory topic hubs.", "/topics/"),
+            breadcrumb_structured_data([("Home", "/"), ("Topics", "/topics/")]),
+            item_list_structured_data("Topic hubs", topics, lambda item: topic_url(item["slug"])),
+        ],
     )
     write_page(DIST / "topics" / "index.html", topics_index)
     urls = ["/topics/"]
     for topic in topics:
         count = topic_counts[topic["slug"]]
+        featured_article = grouped[topic["slug"]][0] if grouped[topic["slug"]] else None
+        related_topic_cards = "".join(
+            topic_card(topics_by_slug[slug], topic_counts.get(slug, 0))
+            for slug in topic.get("relatedTopics", [])
+            if slug in topics_by_slug
+        )
+        topic_social_image = page_image(
+            topic["name"],
+            "Workforce Observatory Topic",
+            topic["summary"],
+            filename=f'topic-{topic["slug"]}',
+        )
         html = render_page(
             template_name="topic.html",
             page_title=f'{topic["name"]} | Workforce Observatory',
             page_description=topic["summary"],
-            canonical_path=f'/topics/{topic["slug"]}/',
+            canonical_path=topic_url(topic["slug"]),
             content_context={
                 "topic_name": escape(topic["name"]),
                 "topic_summary": escape(topic["summary"]),
+                "topic_audience": escape(topic["audience"]),
+                "topic_credibility": escape(topic["credibilityNote"]),
                 "topic_count": str(count),
                 "topic_count_label": "published article" if count == 1 else "published articles",
+                "topic_featured_heading": "Start with the current live article." if featured_article else "No live article yet, but the reading path is defined.",
+                "topic_featured_copy": escape(featured_article["summary"] if featured_article else topic["credibilityNote"]),
+                "topic_featured_card": topic_featured_card(topic, featured_article),
+                "topic_questions": bullet_cards(topic.get("strategicQuestions", [])),
+                "related_topic_cards": related_topic_cards,
                 "topic_article_cards": "".join(article_card(article) for article in grouped[topic["slug"]]),
                 "topic_empty_modifier": " is-visible" if count == 0 else "",
             },
             body_class="page page--topic",
             body_attrs=f' data-page="topic" data-topic="{topic["slug"]}"',
             scripts=["/assets/js/core.js"],
-            structured_data=collection_structured_data(f'{topic["name"]} | Workforce Observatory', topic["summary"], f'/topics/{topic["slug"]}/'),
+            social_image=topic_social_image,
+            social_image_alt=f'{topic["name"]} topic preview',
+            page_keywords=[topic["name"], *(topics_by_slug[slug]["name"] for slug in topic.get("relatedTopics", []) if slug in topics_by_slug), "Workforce Observatory"],
+            structured_data=[
+                collection_structured_data(f'{topic["name"]} | Workforce Observatory', topic["summary"], topic_url(topic["slug"])),
+                breadcrumb_structured_data([("Home", "/"), ("Topics", "/topics/"), (topic["name"], topic_url(topic["slug"]))]),
+                item_list_structured_data(f'{topic["name"]} articles', grouped[topic["slug"]], lambda item: article_url(item["slug"])),
+            ],
         )
         write_page(DIST / "topics" / topic["slug"] / "index.html", html)
-        urls.append(f'/topics/{topic["slug"]}/')
+        urls.append(topic_url(topic["slug"]))
     return urls, topic_counts
 
 
 def build_search(search_index: list[dict], topics: list[dict]):
+    social_image = page_image(
+        "Workforce Observatory Search",
+        "Published content only",
+        "Search titles, topics and business questions after publication",
+        filename="search",
+    )
     html = render_page(
         template_name="search.html",
         page_title="Search | Workforce Observatory",
@@ -452,7 +647,13 @@ def build_search(search_index: list[dict], topics: list[dict]):
         body_attrs=' data-page="search"',
         scripts=["/assets/js/core.js", "/assets/js/search.js"],
         robots="noindex,follow",
-        structured_data=collection_structured_data("Search | Workforce Observatory", "Search the published Workforce Observatory library.", "/search/"),
+        social_image=social_image,
+        social_image_alt="Workforce Observatory search preview",
+        page_keywords=["Workforce Observatory Search", "Published content search", "People Analytics"],
+        structured_data=[
+            collection_structured_data("Search | Workforce Observatory", "Search the published Workforce Observatory library.", "/search/"),
+            breadcrumb_structured_data([("Home", "/"), ("Search", "/search/")]),
+        ],
     )
     write_page(DIST / "search" / "index.html", html)
     ensure_dir(DIST / "data")
@@ -462,6 +663,12 @@ def build_search(search_index: list[dict], topics: list[dict]):
 
 def build_author(live: list[dict], author: dict):
     author_cards = "".join(article_card(article) for article in live if article.get("author") == author["slug"])
+    social_image = page_image(
+        author["name"],
+        "Workforce Observatory Author",
+        author["platformPromise"],
+        filename=f'author-{author["slug"]}',
+    )
     html = render_page(
         template_name="author.html",
         page_title=f'{author["name"]} | Workforce Observatory',
@@ -474,6 +681,10 @@ def build_author(live: list[dict], author: dict):
             "author_location": escape(author["location"]),
             "author_linkedin": escape(author["linkedin"]),
             "author_future_state": escape(author["futureState"]),
+            "author_platform_promise": escape(author["platformPromise"]),
+            "author_highlights": "".join(f'<article class="metric-card"><span>{escape(item["label"])}</span><strong>{escape(item["value"])}</strong></article>' for item in author.get("credibilityHighlights", [])),
+            "author_standards": guidance_list(author.get("editorialStandards", [])),
+            "author_publication_model": escape(author["publicationModel"]),
             "author_focus_pills": "".join(f'<span class="pill">{escape(item)}</span>' for item in author.get("focusAreas", [])),
             "author_article_cards": author_cards,
             "author_empty_modifier": " is-visible" if not author_cards else "",
@@ -481,14 +692,22 @@ def build_author(live: list[dict], author: dict):
         body_class="page page--author",
         body_attrs=' data-page="author"',
         scripts=["/assets/js/core.js"],
-        structured_data={
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": author["name"],
-            "jobTitle": author["role"],
-            "description": author["summary"],
-            "url": f"{SITE_URL}/author/",
-        },
+        social_image=social_image,
+        social_image_alt=f'{author["name"]} author preview',
+        page_keywords=[author["name"], *author.get("focusAreas", []), "Workforce Observatory"],
+        structured_data=[
+            {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": author["name"],
+                "jobTitle": author["role"],
+                "description": author["summary"],
+                "url": f"{SITE_URL}/author/",
+                "sameAs": [author["linkedin"]],
+            },
+            breadcrumb_structured_data([("Home", "/"), ("Author", "/author/")]),
+            item_list_structured_data("Published articles by Gabriel Croitoru", [article for article in live if article.get("author") == author["slug"]], lambda item: article_url(item["slug"])),
+        ],
     )
     write_page(DIST / "author" / "index.html", html)
     return "/author/"

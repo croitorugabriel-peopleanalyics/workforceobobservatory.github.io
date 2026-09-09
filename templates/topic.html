@@ -14,20 +14,58 @@
 </section>
 <section class="shell page-section topic-summary reveal">
   <article class="info-card">
-    <p class="eyebrow">What this topic covers</p>
-    <p>{{topic_summary}}</p>
+    <p class="eyebrow">Who this topic serves</p>
+    <p>{{topic_audience}}</p>
   </article>
   <article class="info-card">
-    <p class="eyebrow">How to use it</p>
-    <p>Use this hub to stay within one workforce capability thread while moving from entry-point curiosity to implementation depth.</p>
+    <p class="eyebrow">Credibility lens</p>
+    <p>{{topic_credibility}}</p>
   </article>
 </section>
 <section class="shell page-section">
+  <div class="section-heading section-heading--stack">
+    <div>
+      <p class="eyebrow">Featured reading path</p>
+      <h2>{{topic_featured_heading}}</h2>
+      <p>{{topic_featured_copy}}</p>
+    </div>
+  </div>
+  <div class="card-grid card-grid--library">
+    {{topic_featured_card}}
+  </div>
+</section>
+<section class="shell page-section">
+  <div class="section-heading section-heading--stack">
+    <div>
+      <p class="eyebrow">Strategic questions</p>
+      <h2>What leaders should resolve in this domain.</h2>
+    </div>
+  </div>
+  <div class="bullet-grid">{{topic_questions}}</div>
+</section>
+<section class="shell page-section">
+  <div class="section-heading section-heading--stack">
+    <div>
+      <p class="eyebrow">Related topics</p>
+      <h2>Continue through the wider capability map.</h2>
+    </div>
+  </div>
+  <div class="card-grid card-grid--library">
+    {{related_topic_cards}}
+  </div>
+</section>
+<section class="shell page-section">
+  <div class="section-heading section-heading--stack">
+    <div>
+      <p class="eyebrow">Published articles</p>
+      <h2>Current live depth in this topic.</h2>
+    </div>
+  </div>
   <div class="card-grid card-grid--library">
     {{topic_article_cards}}
   </div>
   <div class="empty-panel{{topic_empty_modifier}}">
     <h2>No live articles for this topic yet.</h2>
-    <p>Phase 2 keeps the topic hub ready so it can go live automatically when the first eligible article is published.</p>
+    <p>Phase 4 keeps the topic hub credible and discoverable so it can go live automatically when the first eligible article is published.</p>
   </div>
 </section>

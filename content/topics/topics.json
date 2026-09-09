@@ -2,51 +2,171 @@
   {
     "slug": "hr-datamart",
     "name": "HR DataMart",
-    "summary": "Decision-first architecture, governed modelling and reusable foundations for trusted workforce reporting."
+    "summary": "Decision-first architecture, governed modelling and reusable foundations for trusted workforce reporting.",
+    "audience": "CHROs, HR Directors, People Analytics leads and analytics engineers building trusted workforce reporting foundations.",
+    "credibilityNote": "This topic focuses on the architectural decisions that make workforce reporting explainable, scalable and audit-friendly.",
+    "strategicQuestions": [
+      "Which workforce decisions should define the first HR DataMart release?",
+      "How should historical validity, semantic logic and controls be made visible?",
+      "What operating model turns a reporting pipeline into a reusable workforce product?"
+    ],
+    "relatedTopics": [
+      "people-analytics",
+      "analytics-engineering",
+      "hr-data-governance"
+    ]
   },
   {
     "slug": "people-analytics",
     "name": "People Analytics",
-    "summary": "Decision-ready metrics, semantic consistency and executive storytelling for workforce insight products."
+    "summary": "Decision-ready metrics, semantic consistency and executive storytelling for workforce insight products.",
+    "audience": "People Analytics professionals, HR business partners and decision leaders translating workforce signals into action.",
+    "credibilityNote": "This topic emphasizes metric trust, stakeholder clarity and executive-grade interpretation.",
+    "strategicQuestions": [
+      "Which workforce metrics deserve certification first?",
+      "How should analytical narratives balance depth with executive usability?",
+      "Where do semantic contracts reduce recurring metric conflict?"
+    ],
+    "relatedTopics": [
+      "hr-datamart",
+      "responsible-ai",
+      "workforce-health-score"
+    ]
   },
   {
     "slug": "workforce-health-score",
     "name": "Workforce Health Score",
-    "summary": "Composite workforce indicators, normalization strategies and risk guardrails for executive use."
+    "summary": "Composite workforce indicators, normalization strategies and risk guardrails for executive use.",
+    "audience": "CHROs, workforce intelligence teams and People Analytics leads using composite workforce signals.",
+    "credibilityNote": "This topic treats composite scores as governed decision aids rather than decorative executive dashboards.",
+    "strategicQuestions": [
+      "How should composite metrics be normalized and weighted?",
+      "Which guardrails prevent strong averages from hiding critical risk?",
+      "What reading path helps executives inspect a score responsibly?"
+    ],
+    "relatedTopics": [
+      "people-analytics",
+      "responsible-ai",
+      "organizational-health"
+    ]
   },
   {
     "slug": "workforce-planning",
     "name": "Workforce Planning",
-    "summary": "Scenario-ready workforce structures and planning logic for future capacity, capability and cost choices."
+    "summary": "Scenario-ready workforce structures and planning logic for future capacity, capability and cost choices.",
+    "audience": "HR strategy leaders, finance partners and workforce planning teams preparing future-state scenarios.",
+    "credibilityNote": "This topic is prepared for scenario-led workforce planning content grounded in data architecture and decision science.",
+    "strategicQuestions": [
+      "Which planning decisions need governed workforce scenarios?",
+      "How should capacity, capability and cost trade-offs be modeled?",
+      "What evidence should leaders trust when future-state workforce options diverge?"
+    ],
+    "relatedTopics": [
+      "talent-intelligence",
+      "organizational-health",
+      "analytics-engineering"
+    ]
   },
   {
     "slug": "talent-intelligence",
     "name": "Talent Intelligence",
-    "summary": "Signals, architectures and interpretation patterns for hiring, mobility, skills and talent risk."
+    "summary": "Signals, architectures and interpretation patterns for hiring, mobility, skills and talent risk.",
+    "audience": "Talent leaders, analytics practitioners and workforce intelligence teams building talent signal systems.",
+    "credibilityNote": "This topic will connect talent signals to architecture, interpretation quality and responsible decision use.",
+    "strategicQuestions": [
+      "Which talent signals are truly decision-ready?",
+      "How should skills, hiring and mobility data be made comparable over time?",
+      "Where does talent insight require stronger governance and explainability?"
+    ],
+    "relatedTopics": [
+      "workforce-planning",
+      "people-analytics",
+      "hr-data-governance"
+    ]
   },
   {
     "slug": "responsible-ai",
     "name": "Responsible AI",
-    "summary": "Governed AI foundations, explainability patterns and trust controls for HR and People Analytics."
+    "summary": "Governed AI foundations, explainability patterns and trust controls for HR and People Analytics.",
+    "audience": "Data leaders, HR technology teams and People Analytics practitioners enabling AI safely in workforce contexts.",
+    "credibilityNote": "This topic prioritizes context, permissions, confidence and explainability over generic AI enthusiasm.",
+    "strategicQuestions": [
+      "What must be true before conversational workforce analytics becomes trustworthy?",
+      "How should guardrails, lineage and permissions shape HR AI experiences?",
+      "Which controls make AI assistance safer for sensitive workforce decisions?"
+    ],
+    "relatedTopics": [
+      "people-analytics",
+      "hr-data-governance",
+      "hr-datamart"
+    ]
   },
   {
     "slug": "hr-data-governance",
     "name": "HR Data Governance",
-    "summary": "Controls, stewardship and secure operating models for trustworthy workforce data products."
+    "summary": "Controls, stewardship and secure operating models for trustworthy workforce data products.",
+    "audience": "Data governance leaders, HR platform owners and workforce intelligence teams responsible for control design.",
+    "credibilityNote": "This topic frames governance as visible product behavior rather than a hidden compliance layer.",
+    "strategicQuestions": [
+      "Which controls must stop a workforce insight from being published?",
+      "How should quality, security and lineage be communicated to users?",
+      "What governance signals raise decision confidence instead of slowing delivery?"
+    ],
+    "relatedTopics": [
+      "hr-datamart",
+      "responsible-ai",
+      "analytics-engineering"
+    ]
   },
   {
     "slug": "organizational-health",
     "name": "Organizational Health",
-    "summary": "Measures and narratives that help leaders understand workforce resilience, alignment and effectiveness."
+    "summary": "Measures and narratives that help leaders understand workforce resilience, alignment and effectiveness.",
+    "audience": "Executive teams, organizational development leaders and workforce intelligence practitioners monitoring enterprise health.",
+    "credibilityNote": "This topic is designed for broader organizational effectiveness content that remains grounded in measurable workforce evidence.",
+    "strategicQuestions": [
+      "Which signals actually reflect organizational health?",
+      "How should executives interpret resilience, alignment and risk across the workforce?",
+      "What architecture is required to keep organization-wide health narratives trustworthy?"
+    ],
+    "relatedTopics": [
+      "workforce-health-score",
+      "workforce-planning",
+      "people-analytics"
+    ]
   },
   {
     "slug": "analytics-engineering",
     "name": "Analytics Engineering",
-    "summary": "Reliable ingestion, modelling, testing and operating patterns for modern workforce data platforms."
+    "summary": "Reliable ingestion, modelling, testing and operating patterns for modern workforce data platforms.",
+    "audience": "Analytics engineers, data platform builders and People Analytics teams operating workforce data products.",
+    "credibilityNote": "This topic turns technical platform choices into visible reliability, quality and explainability outcomes.",
+    "strategicQuestions": [
+      "How should ingestion, modelling and testing support workforce decision trust?",
+      "Which temporal and semantic patterns make HR analytics reusable?",
+      "What operating model keeps the platform reliable after launch?"
+    ],
+    "relatedTopics": [
+      "hr-datamart",
+      "hr-data-governance",
+      "people-analytics"
+    ]
   },
   {
     "slug": "microsoft-fabric-for-hr",
     "name": "Microsoft Fabric for HR",
-    "summary": "Future implementation patterns for Microsoft Fabric-based workforce intelligence foundations."
+    "summary": "Future implementation patterns for Microsoft Fabric-based workforce intelligence foundations.",
+    "audience": "Data platform teams and HR analytics leaders evaluating Microsoft-centric workforce architecture patterns.",
+    "credibilityNote": "This topic is reserved for future Microsoft Fabric implementation guidance built on the same governed platform principles.",
+    "strategicQuestions": [
+      "How can Microsoft Fabric support certified workforce intelligence foundations?",
+      "Which semantic and governance patterns should be preserved in Fabric-based implementations?",
+      "How should HR use cases translate into a Fabric-native operating model?"
+    ],
+    "relatedTopics": [
+      "hr-datamart",
+      "analytics-engineering",
+      "responsible-ai"
+    ]
   }
 ]

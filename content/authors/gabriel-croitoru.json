@@ -12,5 +12,27 @@
     "HR Data Governance"
   ],
   "linkedin": "https://www.linkedin.com/",
-  "futureState": "This page is intentionally lightweight in Phase 1 and is ready to expand into a richer author and thought leadership profile."
+  "futureState": "This page is intentionally lightweight in Phase 1 and is ready to expand into a richer author and thought leadership profile.",
+  "platformPromise": "Workforce Observatory exists to make workforce metrics, architectures and AI-enabled experiences easier to trust, explain and operationalize.",
+  "credibilityHighlights": [
+    {
+      "label": "Editorial stance",
+      "value": "Consulting-grade, decision-first content"
+    },
+    {
+      "label": "Core lens",
+      "value": "People Analytics + data architecture + governance"
+    },
+    {
+      "label": "Publishing model",
+      "value": "Scheduled, build-time controlled release"
+    }
+  ],
+  "editorialStandards": [
+    "Make executive implications clear before adding technical depth.",
+    "Keep workforce definitions, time logic and controls visible in every argument.",
+    "Prefer governed operational explanations over generic best-practice claims.",
+    "Use interactive structures to reduce text walls and improve decision clarity."
+  ],
+  "publicationModel": "Each article expands a LinkedIn visual carousel into a richer Workforce Observatory experience with structured metadata, scheduled publishing and build-time SEO output."
 }
