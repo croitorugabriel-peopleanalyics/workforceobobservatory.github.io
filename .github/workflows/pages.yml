@@ -21,6 +21,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Sync backend-managed content
+        if: ${{ secrets.BACKEND_ORIGIN != '' && secrets.BACKEND_SYNC_TOKEN != '' }}
+        env:
+          BACKEND_ORIGIN: ${{ secrets.BACKEND_ORIGIN }}
+          BACKEND_SYNC_TOKEN: ${{ secrets.BACKEND_SYNC_TOKEN }}
+        run: python scripts/sync_backend.py
       - name: Build scheduled Workforce Observatory site
         run: python scripts/build.py
       - uses: actions/configure-pages@v5

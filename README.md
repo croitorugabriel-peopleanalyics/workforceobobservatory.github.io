@@ -63,14 +63,16 @@ GitHub Pages should use the workflows in `/.github/workflows`.
 
 ## Cloudflare Workers backend foundation
 
-A backend foundation now lives under `/cloudflare` for registration, session-based authentication, D1-backed article management and a basic admin interface.
+A backend foundation now lives under `/cloudflare` for registration, session-based authentication, D1-backed article management, backend-to-static sync, R2 media upload and an admin interface with live preview.
 
 ### What it includes
 
-- `/cloudflare/wrangler.toml` — Worker configuration with placeholder D1 binding
+- `/cloudflare/wrangler.toml` — Worker configuration with placeholder D1 and R2 bindings
 - `/cloudflare/migrations/0001_init.sql` — relational schema for users, sessions, topics, articles, sections and audit logs
 - `/cloudflare/src/index.mjs` — Worker API and admin routes
-- `/cloudflare/src/admin-page.mjs` — basic admin UI served from the Worker
+- `/cloudflare/src/admin-page.mjs` — admin UI served from the Worker
+- `/scripts/sync_backend.py` — sync backend-managed content into generated source files for the static build
+- `/.github/workflows/cloudflare-admin.yml` — deploys the admin Worker and applies remote D1 migrations
 
 ### Supported backend behavior
 
@@ -78,12 +80,17 @@ A backend foundation now lives under `/cloudflare` for registration, session-bas
 - later accounts become `editor`
 - login/logout/session endpoints
 - admin metadata endpoint for topics, animation presets, section types and layout variants
+- admin export endpoint for the static publishing sync
 - article create/update/list/detail endpoints
+- image upload endpoint backed by R2
+- `/media/:key` serving uploaded assets from R2
 - structured article sections with:
   - section type
   - animation preset
   - layout variant
   - image/media metadata
+- live article preview in the admin UI
+- optional GitHub Pages build-time sync from the backend before generating `dist`
 
 ### Required Cloudflare configuration
 
@@ -91,11 +98,14 @@ Set these values outside the repository:
 
 - D1 database id in `/cloudflare/wrangler.toml`
 - Worker secret `AUTH_PEPPER`
+- Worker secret `SYNC_TOKEN`
 
 Optional:
 
 - `APP_ORIGIN`
 - `SESSION_DAYS`
+- `MEDIA_PUBLIC_BASE`
+- R2 bucket binding in `/cloudflare/wrangler.toml`
 
 ### Local commands
 
@@ -104,8 +114,23 @@ Install the Cloudflare `wrangler` CLI separately in your environment, then run:
 ```bash
 npm run worker:d1:local
 npm run worker:dev
+npm run sync:backend
 ```
 
-### Important note
+For remote deployment, provide these repository secrets:
 
-This backend is the new management foundation, but the existing static site build still reads from the repository content files today. A later phase should add export/sync from D1 into the current static publishing pipeline.
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_D1_DATABASE_ID`
+- `CLOUDFLARE_R2_BUCKET_NAME`
+- `BACKEND_ORIGIN`
+- `BACKEND_SYNC_TOKEN`
+
+### Sync model
+
+The public site still builds statically through `scripts/build.py`, but it can now consume backend-managed content from `content/generated/` when `scripts/sync_backend.py` runs first.
+
+- backend export comes from `GET /api/admin/export`
+- sync writes generated article metadata, carousel metadata, topic metadata, schedule data and body fragments
+- `scripts/build.py` merges generated content over repository source files
+- GitHub Pages workflows can sync from the backend automatically when `BACKEND_ORIGIN` and `BACKEND_SYNC_TOKEN` are configured

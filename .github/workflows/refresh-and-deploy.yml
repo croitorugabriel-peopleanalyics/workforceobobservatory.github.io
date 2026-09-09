@@ -25,6 +25,12 @@ jobs:
           python-version: "3.12"
       - name: Refresh public indicators
         run: python scripts/refresh.py
+      - name: Sync backend-managed content
+        if: ${{ secrets.BACKEND_ORIGIN != '' && secrets.BACKEND_SYNC_TOKEN != '' }}
+        env:
+          BACKEND_ORIGIN: ${{ secrets.BACKEND_ORIGIN }}
+          BACKEND_SYNC_TOKEN: ${{ secrets.BACKEND_SYNC_TOKEN }}
+        run: python scripts/sync_backend.py
       - name: Validate generated JSON
         run: python -m json.tool data/dashboard.json > /dev/null
       - name: Commit refreshed data

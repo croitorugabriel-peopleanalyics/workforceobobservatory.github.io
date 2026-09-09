@@ -11,6 +11,8 @@ import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
+CONTENT = ROOT / "content"
+GENERATED_CONTENT = CONTENT / "generated"
 SITE_URL = f"https://{(ROOT / 'CNAME').read_text().strip()}"
 
 
@@ -22,6 +24,10 @@ def render_fragment(template: str, context: dict[str, str]) -> str:
 
 def read_json(path: Path):
     return json.loads(path.read_text())
+
+
+def read_optional_json(path: Path):
+    return json.loads(path.read_text()) if path.exists() else None
 
 
 def iso_now() -> datetime:
@@ -222,12 +228,42 @@ def parse_toc(body_html: str) -> list[tuple[str, str]]:
     return re.findall(r'<section[^>]*id="([^"]+)"[^>]*>.*?<h2>(.*?)</h2>', body_html, re.S)
 
 
+def merged_slug_json(*, base_path: Path, override_path: Path) -> list[dict]:
+    records = {item["slug"]: item for item in read_json(base_path)}
+    overrides = read_optional_json(override_path) or []
+    for item in overrides:
+        records[item["slug"]] = item
+    return list(records.values())
+
+
+def article_body_path(slug: str) -> Path:
+    generated = GENERATED_CONTENT / "articles" / f"{slug}.html"
+    if generated.exists():
+        return generated
+    return CONTENT / "articles" / f"{slug}.html"
+
+
 def merge_content() -> tuple[list[dict], list[dict], list[dict], dict, list[dict]]:
-    schedule = {item["slug"]: item for item in read_json(ROOT / "schedule.json")}
-    articles = read_json(ROOT / "content" / "articles" / "articles.json")
-    carousels = read_json(ROOT / "content" / "carousels" / "carousels.json")
-    topics = read_json(ROOT / "content" / "topics" / "topics.json")
-    author = read_json(ROOT / "content" / "authors" / "gabriel-croitoru.json")
+    schedule = {
+        item["slug"]: item
+        for item in merged_slug_json(
+            base_path=ROOT / "schedule.json",
+            override_path=GENERATED_CONTENT / "schedule.json",
+        )
+    }
+    articles = merged_slug_json(
+        base_path=CONTENT / "articles" / "articles.json",
+        override_path=GENERATED_CONTENT / "articles" / "articles.json",
+    )
+    carousels = merged_slug_json(
+        base_path=CONTENT / "carousels" / "carousels.json",
+        override_path=GENERATED_CONTENT / "carousels" / "carousels.json",
+    )
+    topics = merged_slug_json(
+        base_path=CONTENT / "topics" / "topics.json",
+        override_path=GENERATED_CONTENT / "topics" / "topics.json",
+    )
+    author = read_json(CONTENT / "authors" / "gabriel-croitoru.json")
     articles_by_slug = {article["slug"]: article for article in articles}
     live = []
     live_carousels = []
@@ -237,7 +273,7 @@ def merge_content() -> tuple[list[dict], list[dict], list[dict], dict, list[dict
         publish_at = datetime.fromisoformat(sched["publishAt"].replace("Z", "+00:00"))
         merged = {**article, **sched}
         if publish_at <= now:
-            body_html = (ROOT / "content" / "articles" / f'{article["slug"]}.html').read_text().strip()
+            body_html = article_body_path(article["slug"]).read_text().strip()
             merged["bodyHtml"] = body_html
             merged["publishLabel"] = format_publish_label(merged["publishAt"])
             merged["contentType"] = "article"

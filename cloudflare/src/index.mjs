@@ -57,6 +57,9 @@ export default {
             "GET /api/admin/articles/:id",
             "POST /api/admin/articles",
             "PUT /api/admin/articles/:id",
+            "GET /api/admin/export",
+            "POST /api/admin/media",
+            "GET /media/:key",
             "GET /api/public/articles",
           ],
         }), request, env);
@@ -100,6 +103,15 @@ export default {
         return withCors(json({ articles }), request, env);
       }
 
+      if (url.pathname === "/api/admin/export" && request.method === "GET") {
+        await requireExportAccess(env, request);
+        return withCors(json({
+          generatedAt: nowIso(),
+          topics: await fetchTopics(env),
+          articles: await listExportArticles(env),
+        }), request, env);
+      }
+
       if (url.pathname === "/api/admin/meta" && request.method === "GET") {
         await requireEditor(env, request);
         return withCors(json({
@@ -107,6 +119,8 @@ export default {
           animationPresets,
           sectionTypes,
           layoutVariants,
+          uploadEnabled: Boolean(env.MEDIA_BUCKET),
+          mediaBaseUrl: `${url.origin}/media/`,
         }), request, env);
       }
 
@@ -135,6 +149,17 @@ export default {
         const body = await readJson(request);
         const article = await saveArticle(env, actor, Number(articleMatch[1]), body);
         return withCors(json({ ok: true, article }), request, env);
+      }
+
+      if (url.pathname === "/api/admin/media" && request.method === "POST") {
+        await requireEditor(env, request);
+        const media = await uploadMedia(env, request);
+        return withCors(json({ ok: true, media }), request, env);
+      }
+
+      const mediaMatch = url.pathname.match(/^\/media\/(.+)$/);
+      if (mediaMatch && request.method === "GET") {
+        return withCors(await serveMedia(env, mediaMatch[1]), request, env);
       }
 
       return withCors(json({ error: "Not found" }, 404), request, env);
@@ -169,7 +194,7 @@ function withCors(response, request, env) {
     headers.set("vary", "Origin");
   }
   headers.set("access-control-allow-credentials", "true");
-  headers.set("access-control-allow-headers", "content-type");
+  headers.set("access-control-allow-headers", "content-type, x-sync-token");
   headers.set("access-control-allow-methods", "GET,POST,PUT,OPTIONS");
   return new Response(response.body, { status: response.status, headers });
 }
@@ -406,6 +431,14 @@ async function requireEditor(env, request) {
   return session.user;
 }
 
+async function requireExportAccess(env, request) {
+  const token = request.headers.get("x-sync-token");
+  if (token && env.SYNC_TOKEN && token === env.SYNC_TOKEN) {
+    return { via: "token" };
+  }
+  return await requireEditor(env, request);
+}
+
 async function fetchTopics(env) {
   const result = await env.DB.prepare("SELECT id, slug, name, summary FROM topics ORDER BY name").all();
   return result.results || [];
@@ -445,6 +478,16 @@ async function getArticleById(env, articleId) {
      ORDER BY sort_order ASC, id ASC`
   ).bind(articleId).all();
   return hydrateArticle(article, sectionsResult.results || []);
+}
+
+async function listExportArticles(env) {
+  const rows = await env.DB.prepare("SELECT id FROM articles ORDER BY COALESCE(publish_at, updated_at) ASC, id ASC").all();
+  const articles = [];
+  for (const row of rows.results || []) {
+    const article = await getArticleById(env, row.id);
+    if (article) articles.push(article);
+  }
+  return articles;
 }
 
 async function listPublicArticles(env) {
@@ -630,6 +673,7 @@ function hydrateArticle(article, sections) {
     authorName: article.author_name,
     status: article.status,
     publishAt: article.publish_at,
+    updatedAt: article.updated_at,
     readingMinutes: article.reading_minutes,
     socialImageUrl: article.social_image_url,
     carouselSource: article.carousel_source,
@@ -649,6 +693,50 @@ function hydrateArticle(article, sections) {
       settings: parseJson(section.settings_json, {}),
     })),
   };
+}
+
+async function uploadMedia(env, request) {
+  if (!env.MEDIA_BUCKET) throw httpError(503, "MEDIA_BUCKET binding is not configured.");
+  const form = await request.formData();
+  const file = form.get("file");
+  if (!(file instanceof File)) throw httpError(400, "Attach a file field.");
+  if (!String(file.type || "").startsWith("image/")) throw httpError(400, "Only image uploads are supported.");
+  if (file.size > 10 * 1024 * 1024) throw httpError(413, "Images must be 10MB or smaller.");
+  const prefix = slugSegment(form.get("prefix") || "articles");
+  const filename = slugSegment((file.name || "asset").replace(/\.[^.]+$/, "")) || "asset";
+  const extension = safeExtension(file.type, file.name);
+  const key = `${prefix}/${Date.now()}-${filename}.${extension}`;
+  await env.MEDIA_BUCKET.put(key, await file.arrayBuffer(), {
+    httpMetadata: {
+      contentType: file.type || `image/${extension}`,
+      cacheControl: "public, max-age=31536000, immutable",
+    },
+    customMetadata: {
+      alt: cleanString(form.get("alt"), 255),
+      caption: cleanString(form.get("caption"), 255),
+      uploadedAt: nowIso(),
+    },
+  });
+  return {
+    key,
+    url: mediaUrl(env, request, key),
+    alt: cleanString(form.get("alt"), 255),
+    caption: cleanString(form.get("caption"), 255),
+    contentType: file.type || `image/${extension}`,
+    size: file.size,
+  };
+}
+
+async function serveMedia(env, rawKey) {
+  if (!env.MEDIA_BUCKET) throw httpError(404, "Media storage is not configured.");
+  const key = decodeURIComponent(rawKey);
+  const object = await env.MEDIA_BUCKET.get(key);
+  if (!object) throw httpError(404, "Media not found.");
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  headers.set("etag", object.httpEtag);
+  if (!headers.has("cache-control")) headers.set("cache-control", "public, max-age=31536000, immutable");
+  return new Response(object.body, { headers });
 }
 
 function expectStringArray(value, field) {
@@ -675,6 +763,29 @@ function publicUser(user) {
 
 function isPlainObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function slugSegment(value) {
+  return cleanString(value, 120).toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function safeExtension(contentType, filename) {
+  const byType = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+    "image/svg+xml": "svg",
+  };
+  if (byType[contentType]) return byType[contentType];
+  const suffix = String(filename || "").split(".").pop()?.toLowerCase();
+  return /^[a-z0-9]+$/.test(suffix || "") ? suffix : "bin";
+}
+
+function mediaUrl(env, request, key) {
+  const base = cleanString(env.MEDIA_PUBLIC_BASE || "", 500).replace(/\/+$/, "");
+  if (base) return `${base}/${key}`;
+  return `${new URL(request.url).origin}/media/${key}`;
 }
 
 async function writeAudit(env, userId, action, entityType, entityId, payload) {

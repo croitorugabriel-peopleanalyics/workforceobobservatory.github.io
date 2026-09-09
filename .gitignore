@@ -3,3 +3,5 @@ node_modules/
 dist-preview/
 cloudflare/.dev.vars
 scripts/__pycache__/
+content/generated/
+cloudflare/.tmp-wrangler.toml

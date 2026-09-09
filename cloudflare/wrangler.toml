@@ -6,8 +6,13 @@ workers_dev = true
 [vars]
 APP_ORIGIN = "http://127.0.0.1:8787"
 SESSION_DAYS = "14"
+MEDIA_PUBLIC_BASE = ""
 
 [[d1_databases]]
 binding = "DB"
 database_name = "workforce_observatory"
 database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "REPLACE_WITH_MEDIA_BUCKET"
