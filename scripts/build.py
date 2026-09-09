@@ -584,7 +584,7 @@ def build_library(live: list[dict], live_carousels: list[dict], topics: list[dic
     html = render_page(
         template_name="library.html",
         page_title="Library | Workforce Observatory",
-        page_description="Browse every published Workforce Observatory article across People Analytics, HR Data Architecture, Workforce Intelligence and Responsible AI.",
+        page_description="Browse every published Workforce Observatory article and carousel briefing across People Analytics, HR Data Architecture, Workforce Intelligence and Responsible AI.",
         canonical_path="/library/",
         content_context={
             "topic_filters": build_topic_filter(topics),
