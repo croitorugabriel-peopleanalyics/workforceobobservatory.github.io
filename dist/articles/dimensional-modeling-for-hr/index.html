@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dimensional Modelling for HR Analytics | Workforce Observatory</title>
+<meta name="description" content="An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://workforceobservatory.com/articles/dimensional-modeling-for-hr/">
+<meta property="og:site_name" content="Workforce Observatory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dimensional Modelling for HR Analytics | Workforce Observatory">
+<meta property="og:description" content="An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.">
+<meta property="og:url" content="https://workforceobservatory.com/articles/dimensional-modeling-for-hr/">
+<meta property="og:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dimensional Modelling for HR Analytics | Workforce Observatory">
+<meta name="twitter:description" content="An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.">
+<meta name="twitter:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta name="theme-color" content="#071a33">
+<link rel="icon" href="/assets/img/og-default.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Dimensional Modelling for HR Analytics", "description": "An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.", "datePublished": "2026-10-26T07:00:00Z", "dateModified": "2026-10-26T07:00:00Z", "author": {"@type": "Person", "name": "Gabriel Croitoru", "url": "https://workforceobservatory.com/author/"}, "publisher": {"@type": "Organization", "name": "Workforce Observatory", "url": "https://workforceobservatory.com"}, "mainEntityOfPage": "https://workforceobservatory.com/articles/dimensional-modeling-for-hr/", "image": "https://workforceobservatory.com/assets/img/og-default.svg", "articleSection": "Analytics Engineering", "keywords": ["dimensional modeling", "facts and dimensions", "hr analytics model"], "timeRequired": "PT15M"}</script>
+
+
+  </head>
+  <body class="page page--article" data-page="article" style="--article-accent:#1b9c52">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand-mark" href="/" aria-label="Workforce Observatory home">
+      <span class="brand-mark__eyebrow">Workforce Observatory</span>
+      <strong>Workforce Intelligence for modern HR leaders</strong>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/library/">Library</a>
+      <a href="/topics/">Topics</a>
+      <a href="/search/">Search</a>
+      <a href="/author/">Author</a>
+    </nav>
+  </div>
+</header>
+
+    <main id="content">
+      <div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+<section class="page-hero article-hero">
+  <div class="shell page-hero__inner article-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
+      <p class="eyebrow">Analytics Engineering</p>
+      <h1>Dimensional Modelling for HR Analytics</h1>
+      <p class="lede">An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.</p>
+      <div class="meta-row">
+        <span>15 min read</span>
+        <span>26 Oct 2026</span>
+        <span>Gabriel Croitoru</span>
+      </div>
+    </div>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Article sequence</p>
+        <strong class="hero-stat">07</strong>
+        <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+        <div class="flow-diagram" data-flow="Dimensions|Fact grain|Measures|Decision"></div>
+      </div>
+      <div class="hero-panel reveal">
+        <p class="eyebrow">At a glance</p>
+        <div class="mini-metrics">
+          <div class="mini-metric"><span>Topic</span><strong>Analytics Engineering</strong></div>
+          <div class="mini-metric"><span>Read time</span><strong>15 min read</strong></div>
+          <div class="mini-metric"><span>Published</span><strong>26 Oct 2026</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="shell article-shell">
+  <aside class="article-rail">
+    <div class="rail-panel">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#interactive-visualization">Interactive visualization</a><a href="#s1">Declare the grain</a><a href="#s2">Separate facts and dimensions</a><a href="#s3">Useful HR fact patterns</a><a href="#s4">Conformed dimensions</a><a href="#s5">Predictable relationships</a><a href="#lab">Explore the operating logic</a><a href="#operating-model">Interactive operating model</a><a href="#before-after">Before / after</a><a href="#executive-takeaway">Executive takeaway</a><a href="#key-business-questions">Key business questions</a><a href="#common-mistakes">Common mistakes</a><a href="#implementation-guidance">Implementation guidance</a><a href="#continue-reading">Continue reading</a><a href="#related-articles">Related articles</a><a href="#share">Share</a>
+      </nav>
+    </div>
+  </aside>
+  <article class="article-main">
+    <section class="summary-band reveal">
+      <div class="summary-band__content">
+        <p class="eyebrow">Executive summary</p>
+        <h2>What leaders should keep in view.</h2>
+        <p>Dimensional modelling turns workforce data into something decision makers can navigate consistently. It provides the grain, conformed dimensions and business logic needed for scalable People Analytics.</p>
+      </div>
+      <div class="summary-band__stats">
+        <div class="metric-card"><span>Topic</span><strong>Analytics Engineering</strong></div>
+        <div class="metric-card"><span>Reading time</span><strong>15 min read</strong></div>
+        <div class="metric-card"><span>Carousel source</span><strong>HR_DataMart_03_v2.pdf</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal interactive-visualization" id="interactive-visualization" data-viz-root>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive visualization</p>
+          <h2>Interactive visualization: fact and dimension choices</h2>
+          <p>Switch between ambiguous, mixed-grain and well-modeled workforce structures to see how modelling choices shape KPI trust.</p>
+        </div>
+      </div>
+      <div class="viz-tabs" role="tablist" aria-label="Interactive article scenarios">
+        <button class="viz-tab is-active" type="button" data-viz-tab="0" aria-pressed="true">Ambiguous grain</button><button class="viz-tab" type="button" data-viz-tab="1" aria-pressed="false">Mixed pattern</button><button class="viz-tab" type="button" data-viz-tab="2" aria-pressed="false">Conformed model</button>
+      </div>
+      <div class="viz-panels">
+        <article class="viz-panel is-active" data-viz-panel="0"><div class="viz-panel__lead"><p class="eyebrow">Ambiguous grain</p><h3>Ambiguous grain model</h3><p>Rows combine current status, event timing and descriptive context in one structure, making reuse easy at first but unstable over time.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>KPI stability</span><strong>Low</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>When grain is unclear, every measure invites reinterpretation.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Blend</span><span class="flow-arrow">→</span><span class="flow-node">Guess</span><span class="flow-arrow">→</span><span class="flow-node">Aggregate</span><span class="flow-arrow">→</span><span class="flow-node">Debate</span></div></article><article class="viz-panel" data-viz-panel="1"><div class="viz-panel__lead"><p class="eyebrow">Mixed pattern</p><h3>Partially separated model</h3><p>Some facts and dimensions are separated, but key subject areas still reuse inconsistent organizational context or incompatible time bases.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>KPI stability</span><strong>Medium</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Partial modelling reduces friction, but cross-domain trust remains fragile.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Separate</span><span class="flow-arrow">→</span><span class="flow-node">Reuse</span><span class="flow-arrow">→</span><span class="flow-node">Conflict</span><span class="flow-arrow">→</span><span class="flow-node">Patch</span></div></article><article class="viz-panel" data-viz-panel="2"><div class="viz-panel__lead"><p class="eyebrow">Conformed model</p><h3>Conformed dimensional model</h3><p>Fact grain is explicit and shared dimensions stay stable across use cases, allowing certified KPIs to scale with less rework.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>KPI stability</span><strong>High</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Dimensional discipline is what makes People Analytics reusable at enterprise scale.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Declare</span><span class="flow-arrow">→</span><span class="flow-node">Separate</span><span class="flow-arrow">→</span><span class="flow-node">Conform</span><span class="flow-arrow">→</span><span class="flow-node">Scale</span></div></article>
+      </div>
+    </section>
+    <section class="article-section reveal process-section" id="operating-model">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive operating model</p>
+          <h2>Progressive disclosure of the article logic.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <article class="process-card"><span class="process-card__index">1</span><h3>Dimensions</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">2</span><h3>Fact grain</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">3</span><h3>Measures</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">4</span><h3>Decision</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article>
+      </div>
+    </section>
+    <section class="article-section reveal comparison-section" id="before-after">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Before / after</p>
+          <h2>From weak reporting patterns to trusted operating models.</h2>
+        </div>
+      </div>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--before">
+          <p class="eyebrow">Before</p>
+          <p>Metrics stitched together from source extracts with ambiguous grain and duplicated definitions.</p>
+        </article>
+        <article class="comparison-card comparison-card--after">
+          <p class="eyebrow">After</p>
+          <p>A scalable analytics model built around consistent facts, dimensions and business-ready semantic meaning.</p>
+        </article>
+      </div>
+    </section>
+    <p class="article-intro">This article translates dimensional modelling into workforce analytics language. The objective is not modelling purity for its own sake, but a structure that allows headcount, movement, hiring and organizational questions to remain comparable across reports and time.</p><section class="article-section reveal" id="s1"><div class="ey">01 · Deep dive</div><h2>Declare the grain</h2><p>Grain is the first promise a fact table makes. If the team cannot say whether a row represents a worker-day, a monthly snapshot, a movement event or a requisition event, every downstream KPI becomes vulnerable to accidental distortion.</p></section><section class="article-section reveal" id="s2"><div class="ey">02 · Deep dive</div><h2>Separate facts and dimensions</h2><p>Facts store measurable business events or states; dimensions carry the descriptive context that should be reused consistently. Keeping that separation clear is how the platform avoids duplicating organizational meaning in every analysis.</p></section><section class="article-section reveal" id="s3"><div class="ey">03 · Deep dive</div><h2>Useful HR fact patterns</h2><p>Workforce analytics typically mixes snapshot facts for stock questions and event facts for movement questions. The model should support both explicitly rather than forcing one pattern to behave like the other.</p><div class="content-box"><b class="ey">Apply it</b><p>Model headcount, hires, exits and organizational changes as separate analytical behaviors when they serve different decisions.</p></div></section><section class="article-section reveal" id="s4"><div class="ey">04 · Deep dive</div><h2>Conformed dimensions</h2><p>Manager, cost center, geography and role family should mean the same thing across every subject area. Conformed dimensions are what make cross-domain questions possible without renegotiating definitions report by report.</p></section><section class="article-section reveal" id="s5"><div class="ey">05 · Deep dive</div><h2>Predictable relationships</h2><p>The best model makes common joins unsurprising. Predictable relationships lower analytical risk because teams can explore, compare and extend the platform without inventing bespoke linkage logic each time.</p></section><section class="article-section reveal interactive-lab" id="lab"><div class="ey">Interactive explainer</div><h2>Explore the operating logic</h2><p>Use the scenario switcher above and the flow map below to inspect how the article logic changes when the operating model matures. No employee data is used.</p><div class="stage"></div></section><section class="article-section reveal"><h2>Decision takeaway</h2><div class="content-box"><p>Trust grows when workforce concepts, controls and action paths are explicit enough to survive scale, scrutiny and change.</p></div></section>
+    <section class="article-section reveal" id="executive-takeaway">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Executive takeaway</p>
+          <h2>What this means for workforce decision makers.</h2>
+        </div>
+      </div>
+      <div class="content-box emphasis-box">
+        <p>Dimensional modelling turns workforce data into something decision makers can navigate consistently. It provides the grain, conformed dimensions and business logic needed for scalable People Analytics.</p>
+      </div>
+    </section>
+    <section class="article-section reveal" id="key-business-questions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Key business questions</p>
+          <h2>Questions leaders should ask next.</h2>
+        </div>
+      </div>
+      <div class="bullet-grid"><article class="bullet-card"><p>What is the correct fact grain for headcount, movement and workforce events?</p></article><article class="bullet-card"><p>Which shared dimensions must remain consistent across all workforce use cases?</p></article><article class="bullet-card"><p>How will future subject areas extend the model without breaking KPI trust?</p></article></div>
+    </section>
+    <section class="article-section reveal" id="common-mistakes">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Failure patterns to avoid.</h2>
+        </div>
+      </div>
+      <div class="accordion-list"><details class="accordion-item"><summary>Mistake 1</summary><p>Using source-table shapes as analytics models.</p></details><details class="accordion-item"><summary>Mistake 2</summary><p>Combining incompatible grains in the same metric layer.</p></details><details class="accordion-item"><summary>Mistake 3</summary><p>Allowing each dashboard to redefine dimensions such as manager, organization or time.</p></details></div>
+    </section>
+    <section class="article-section reveal" id="implementation-guidance">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Practical implementation guidance</p>
+          <h2>How to operationalize the idea.</h2>
+        </div>
+      </div>
+      <ol class="implementation-list"><li>Model the business events and snapshot facts separately where needed.</li><li>Create conformed dimensions with clear slowly-changing rules.</li><li>Test each fact table against the decisions and comparisons it is expected to support.</li></ol>
+    </section>
+    <section class="article-section reveal" id="related-articles">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Related articles</p>
+          <h2>Continue the architecture story.</h2>
+        </div>
+      </div>
+      <div class="card-grid card-grid--library"><a class="article-card" href="/articles/design-hr-datamart-from-decisions/" data-topic="hr-datamart" data-search="design the hr datamart from decisions, not tables an extended practical guide to design the hr datamart from decisions, not tables, built for people analytics leaders, practitioners and data teams. hr datamart decision-first design datamart design people analytics which recurring decisions define the scope of the first hr datamart release? what entities and grain are required to answer those decisions reliably? which decisions need explainability before automation or scale?"><p class="eyebrow">HR DataMart</p><h3>Design the HR DataMart from Decisions, Not Tables</h3><p>An extended practical guide to design the hr datamart from decisions, not tables, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>18 min read</span><span>12 Oct 2026</span></div></a><a class="article-card" href="/articles/hr-data-ingestion-history-time/" data-topic="analytics-engineering" data-search="hr data ingestion, history and time an extended practical guide to hr data ingestion, history and time, built for people analytics leaders, practitioners and data teams. analytics engineering ingestion slowly changing dimensions historical validity how will the platform preserve valid-from and valid-to logic across workforce entities? which source changes require full history capture versus current-state refreshes? what evidence proves that a kpi reflects the correct time basis?"><p class="eyebrow">Analytics Engineering</p><h3>HR Data Ingestion, History and Time</h3><p>An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>14 min read</span><span>19 Oct 2026</span></div></a><a class="article-card" href="/articles/semantic-layer-certified-hr-kpis/" data-topic="people-analytics" data-search="the semantic layer and certified hr kpis an extended practical guide to the semantic layer and certified hr kpis, built for people analytics leaders, practitioners and data teams. people analytics semantic layer certified kpis metric governance which kpi definitions should be centrally governed and certified first? how will consumers see the definition, owner and caveats behind each metric? what process governs kpi change management across dashboards, articles and ai experiences?"><p class="eyebrow">People Analytics</p><h3>The Semantic Layer and Certified HR KPIs</h3><p>An extended practical guide to the semantic layer and certified hr kpis, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>17 min read</span><span>09 Nov 2026</span></div></a></div>
+    </section>
+    <section class="article-section reveal" id="continue-reading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Continue reading</p>
+          <h2>Navigate the published sequence.</h2>
+        </div>
+      </div>
+      <div class="continuation-grid">
+        <a class="continuation-card" href="/articles/hr-data-ingestion-history-time/"><p class="eyebrow">Previous published article</p><h3>HR Data Ingestion, History and Time</h3><p>An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>Analytics Engineering</span><span>14 min read</span></div></a><a class="continuation-card" href="/articles/hr-data-quality-governance-security/"><p class="eyebrow">Next published article</p><h3>HR Data Quality, Governance and Security by Design</h3><p>An extended practical guide to hr data quality, governance and security by design, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>HR Data Governance</span><span>16 min read</span></div></a>
+      </div>
+    </section>
+    <section class="article-section reveal" id="share">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Share</p>
+          <h2>Send the depth layer forward.</h2>
+        </div>
+      </div>
+      <div class="share-actions">
+        <button class="button button--primary" type="button" data-share="copy">Copy article link</button>
+        <a class="button button--ghost" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fdimensional-modeling-for-hr%2F" target="_blank" rel="noreferrer">Share on LinkedIn</a>
+        <a class="button button--ghost" data-share="twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fdimensional-modeling-for-hr%2F&text=Dimensional%20Modelling%20for%20HR%20Analytics" target="_blank" rel="noreferrer">Share on X</a>
+      </div>
+    </section>
+  </article>
+</section>
+
+    </main>
+    <footer class="site-footer">
+  <div class="shell site-footer__grid">
+    <div>
+      <p class="eyebrow">Workforce Observatory</p>
+      <p>Premium learning and thought leadership on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI and decision science.</p>
+    </div>
+    <div>
+      <p class="site-footer__label">Navigate</p>
+      <ul class="link-list">
+        <li><a href="/library/">Library</a></li>
+        <li><a href="/topics/">Topics</a></li>
+        <li><a href="/search/">Search</a></li>
+        <li><a href="/author/">Author</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="site-footer__label">Follow</p>
+      <ul class="link-list">
+        <li><a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:hello@workforceobservatory.com">hello@workforceobservatory.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell site-footer__meta">© 2026 Workforce Observatory</div>
+</footer>
+
+    <script src="/assets/js/core.js"></script>
+<script src="/assets/js/article.js"></script>
+  </body>
+</html>

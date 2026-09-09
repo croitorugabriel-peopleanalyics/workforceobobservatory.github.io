@@ -1,1 +1,52 @@
-{}
+{
+  "test-operate-evolve-hr-datamart": [
+    "hr-data-ingestion-history-time",
+    "hr-data-quality-governance-security",
+    "hr-datamart-reference-architecture"
+  ],
+  "semantic-layer-certified-hr-kpis": [
+    "hr-datamart-reference-architecture",
+    "dimensional-modeling-for-hr",
+    "hr-datamart-ai-foundation"
+  ],
+  "hr-data-quality-governance-security": [
+    "hr-datamart-ai-foundation",
+    "hr-datamart-reference-architecture",
+    "test-operate-evolve-hr-datamart"
+  ],
+  "dimensional-modeling-for-hr": [
+    "design-hr-datamart-from-decisions",
+    "hr-data-ingestion-history-time",
+    "semantic-layer-certified-hr-kpis"
+  ],
+  "hr-data-ingestion-history-time": [
+    "hr-datamart-reference-architecture",
+    "dimensional-modeling-for-hr",
+    "test-operate-evolve-hr-datamart"
+  ],
+  "design-hr-datamart-from-decisions": [
+    "why-hr-reporting-needs-a-datamart",
+    "hr-datamart-reference-architecture",
+    "dimensional-modeling-for-hr"
+  ],
+  "workforce-health-score-normalization-guardrails": [
+    "hr-datamart-ai-foundation",
+    "semantic-layer-certified-hr-kpis",
+    "why-hr-reporting-needs-a-datamart"
+  ],
+  "hr-datamart-ai-foundation": [
+    "hr-data-quality-governance-security",
+    "semantic-layer-certified-hr-kpis",
+    "hr-datamart-reference-architecture"
+  ],
+  "hr-datamart-reference-architecture": [
+    "why-hr-reporting-needs-a-datamart",
+    "hr-data-ingestion-history-time",
+    "semantic-layer-certified-hr-kpis"
+  ],
+  "why-hr-reporting-needs-a-datamart": [
+    "hr-datamart-reference-architecture",
+    "design-hr-datamart-from-decisions",
+    "semantic-layer-certified-hr-kpis"
+  ]
+}

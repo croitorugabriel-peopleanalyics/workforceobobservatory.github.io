@@ -4,7 +4,7 @@ Workforce Observatory is a premium learning and thought leadership platform focu
 
 ## Platform architecture
 
-Phase 1 established the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place. Phase 2 layers on premium page composition, richer article storytelling modules, query-aware search, topic filtering and motion-safe front-end polish.
+Phase 1 established the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place. Phase 2 layers on premium page composition, richer article storytelling modules, query-aware search, topic filtering and motion-safe front-end polish. Phase 3 upgrades the article library with stronger editorial copy and structured interactive scenario metadata.
 
 ### Source structure
 
@@ -18,6 +18,12 @@ Phase 1 established the platform shell and publishing system while keeping the e
 - `/assets/js` — modular enhancements for core shell, article behavior, parallax, topic filtering and search
 - `/scripts/build.py` — scheduled static site generation into `/dist`
 - `/.github/workflows` — GitHub Actions for build, refresh and deploy
+
+### Article model
+
+- Each article keeps its narrative body in `/content/articles/{slug}.html`.
+- `content/articles/articles.json` stores metadata, related content, and Phase 3 `interactiveVisual` scenario definitions.
+- Article pages render interactive scenario tabs at build time and enhance them with vanilla JavaScript in the browser.
 
 ### Publishing model
 

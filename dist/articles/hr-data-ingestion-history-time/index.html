@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HR Data Ingestion, History and Time | Workforce Observatory</title>
+<meta name="description" content="An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://workforceobservatory.com/articles/hr-data-ingestion-history-time/">
+<meta property="og:site_name" content="Workforce Observatory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HR Data Ingestion, History and Time | Workforce Observatory">
+<meta property="og:description" content="An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.">
+<meta property="og:url" content="https://workforceobservatory.com/articles/hr-data-ingestion-history-time/">
+<meta property="og:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HR Data Ingestion, History and Time | Workforce Observatory">
+<meta name="twitter:description" content="An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.">
+<meta name="twitter:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta name="theme-color" content="#071a33">
+<link rel="icon" href="/assets/img/og-default.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "HR Data Ingestion, History and Time", "description": "An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.", "datePublished": "2026-10-19T07:00:00Z", "dateModified": "2026-10-19T07:00:00Z", "author": {"@type": "Person", "name": "Gabriel Croitoru", "url": "https://workforceobservatory.com/author/"}, "publisher": {"@type": "Organization", "name": "Workforce Observatory", "url": "https://workforceobservatory.com"}, "mainEntityOfPage": "https://workforceobservatory.com/articles/hr-data-ingestion-history-time/", "image": "https://workforceobservatory.com/assets/img/og-default.svg", "articleSection": "Analytics Engineering", "keywords": ["ingestion", "slowly changing dimensions", "historical validity"], "timeRequired": "PT14M"}</script>
+
+
+  </head>
+  <body class="page page--article" data-page="article" style="--article-accent:#7252d3">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand-mark" href="/" aria-label="Workforce Observatory home">
+      <span class="brand-mark__eyebrow">Workforce Observatory</span>
+      <strong>Workforce Intelligence for modern HR leaders</strong>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/library/">Library</a>
+      <a href="/topics/">Topics</a>
+      <a href="/search/">Search</a>
+      <a href="/author/">Author</a>
+    </nav>
+  </div>
+</header>
+
+    <main id="content">
+      <div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+<section class="page-hero article-hero">
+  <div class="shell page-hero__inner article-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
+      <p class="eyebrow">Analytics Engineering</p>
+      <h1>HR Data Ingestion, History and Time</h1>
+      <p class="lede">An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.</p>
+      <div class="meta-row">
+        <span>14 min read</span>
+        <span>19 Oct 2026</span>
+        <span>Gabriel Croitoru</span>
+      </div>
+    </div>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Article sequence</p>
+        <strong class="hero-stat">06</strong>
+        <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+        <div class="flow-diagram" data-flow="Extract|Land|Validate|Load|Audit"></div>
+      </div>
+      <div class="hero-panel reveal">
+        <p class="eyebrow">At a glance</p>
+        <div class="mini-metrics">
+          <div class="mini-metric"><span>Topic</span><strong>Analytics Engineering</strong></div>
+          <div class="mini-metric"><span>Read time</span><strong>14 min read</strong></div>
+          <div class="mini-metric"><span>Published</span><strong>19 Oct 2026</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="shell article-shell">
+  <aside class="article-rail">
+    <div class="rail-panel">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#interactive-visualization">Interactive visualization</a><a href="#s1">Repeatable ingestion</a><a href="#s2">Incremental change</a><a href="#s3">Snapshots versus events</a><a href="#s4">Slowly changing dimensions</a><a href="#s5">Late data and controlled correction</a><a href="#lab">Explore the operating logic</a><a href="#operating-model">Interactive operating model</a><a href="#before-after">Before / after</a><a href="#executive-takeaway">Executive takeaway</a><a href="#key-business-questions">Key business questions</a><a href="#common-mistakes">Common mistakes</a><a href="#implementation-guidance">Implementation guidance</a><a href="#continue-reading">Continue reading</a><a href="#related-articles">Related articles</a><a href="#share">Share</a>
+      </nav>
+    </div>
+  </aside>
+  <article class="article-main">
+    <section class="summary-band reveal">
+      <div class="summary-band__content">
+        <p class="eyebrow">Executive summary</p>
+        <h2>What leaders should keep in view.</h2>
+        <p>Without repeatable ingestion and correct time logic, HR analytics loses credibility fast. Historical truth must be engineered intentionally so decisions can be reconstructed and explained.</p>
+      </div>
+      <div class="summary-band__stats">
+        <div class="metric-card"><span>Topic</span><strong>Analytics Engineering</strong></div>
+        <div class="metric-card"><span>Reading time</span><strong>14 min read</strong></div>
+        <div class="metric-card"><span>Carousel source</span><strong>HR_DataMart_02_v2.pdf</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal interactive-visualization" id="interactive-visualization" data-viz-root>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive visualization</p>
+          <h2>Interactive visualization: time logic in workforce pipelines</h2>
+          <p>Compare current-state, snapshot and historized pipeline behavior across common workforce questions.</p>
+        </div>
+      </div>
+      <div class="viz-tabs" role="tablist" aria-label="Interactive article scenarios">
+        <button class="viz-tab is-active" type="button" data-viz-tab="0" aria-pressed="true">Current state</button><button class="viz-tab" type="button" data-viz-tab="1" aria-pressed="false">Snapshot</button><button class="viz-tab" type="button" data-viz-tab="2" aria-pressed="false">Historized</button>
+      </div>
+      <div class="viz-panels">
+        <article class="viz-panel is-active" data-viz-panel="0"><div class="viz-panel__lead"><p class="eyebrow">Current state</p><h3>Current-state-only pipeline</h3><p>The platform always reflects the latest values, but it cannot accurately answer historical questions once attributes or organizational assignments change.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Historical trust</span><strong>Low</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Current-state convenience breaks retrospective decision analysis.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Extract</span><span class="flow-arrow">→</span><span class="flow-node">Overwrite</span><span class="flow-arrow">→</span><span class="flow-node">Publish</span><span class="flow-arrow">→</span><span class="flow-node">Forget</span></div></article><article class="viz-panel" data-viz-panel="1"><div class="viz-panel__lead"><p class="eyebrow">Snapshot</p><h3>Periodic snapshot pipeline</h3><p>Regular snapshots capture population state over time, making trend analysis more reliable for stock metrics such as headcount or spans of control.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Historical trust</span><strong>Medium</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Snapshots improve time-series reporting, but event interpretation still needs additional logic.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Extract</span><span class="flow-arrow">→</span><span class="flow-node">Snapshot</span><span class="flow-arrow">→</span><span class="flow-node">Compare</span><span class="flow-arrow">→</span><span class="flow-node">Trend</span></div></article><article class="viz-panel" data-viz-panel="2"><div class="viz-panel__lead"><p class="eyebrow">Historized</p><h3>Historized analytical pipeline</h3><p>Events, dimensions and corrections are preserved with effective dating so the platform can reconstruct what was true, when, and under which organizational context.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Historical trust</span><strong>High</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Historization turns temporal complexity into explainable analytical behavior.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Extract</span><span class="flow-arrow">→</span><span class="flow-node">Historize</span><span class="flow-arrow">→</span><span class="flow-node">Reconcile</span><span class="flow-arrow">→</span><span class="flow-node">Explain</span></div></article>
+      </div>
+    </section>
+    <section class="article-section reveal process-section" id="operating-model">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive operating model</p>
+          <h2>Progressive disclosure of the article logic.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <article class="process-card"><span class="process-card__index">1</span><h3>Extract</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">2</span><h3>Land</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">3</span><h3>Validate</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">4</span><h3>Load</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">5</span><h3>Audit</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article>
+      </div>
+    </section>
+    <section class="article-section reveal comparison-section" id="before-after">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Before / after</p>
+          <h2>From weak reporting patterns to trusted operating models.</h2>
+        </div>
+      </div>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--before">
+          <p class="eyebrow">Before</p>
+          <p>Unstable metrics caused by overwritten extracts and inconsistent temporal logic.</p>
+        </article>
+        <article class="comparison-card comparison-card--after">
+          <p class="eyebrow">After</p>
+          <p>Reliable trend analysis supported by repeatable ingestion and explicit historical validity rules.</p>
+        </article>
+      </div>
+    </section>
+    <p class="article-intro">This article focuses on the temporal engineering that separates credible workforce analytics from convenient extracts. In workforce systems, yesterday’s truth, today’s truth and corrected truth are often different things, and the model must preserve that difference deliberately.</p><section class="article-section reveal" id="s1"><div class="ey">01 · Deep dive</div><h2>Repeatable ingestion</h2><p>Repeatability matters more than speed when the output supports executive interpretation. Teams need deterministic ingestion paths, reconciliation checkpoints and enough metadata to explain what entered the platform and when.</p></section><section class="article-section reveal" id="s2"><div class="ey">02 · Deep dive</div><h2>Incremental change</h2><p>Incremental loading is useful only when the business can still reconstruct meaning after late-arriving changes, restatements or source fixes. Otherwise the pipeline becomes efficient at reproducing ambiguity.</p></section><section class="article-section reveal" id="s3"><div class="ey">03 · Deep dive</div><h2>Snapshots versus events</h2><p>Some workforce questions require periodic snapshots, others depend on event history. Mixing the two without an explicit decision rule creates double counting, broken trends and arguments about whether the platform reflects state or movement.</p><div class="content-box"><b class="ey">Apply it</b><p>Design snapshot and event logic side by side so users can see when a metric is population-based versus event-based.</p></div></section><section class="article-section reveal" id="s4"><div class="ey">04 · Deep dive</div><h2>Slowly changing dimensions</h2><p>Manager, job, location and organization attributes all change over time. Slowly changing dimensions are not technical decoration—they are what allows analysts to explain a result using the context that was valid when the event occurred.</p></section><section class="article-section reveal" id="s5"><div class="ey">05 · Deep dive</div><h2>Late data and controlled correction</h2><p>Corrections should improve trust, not erase it. When a late change arrives, the platform should show whether the prior number was superseded, how far back the impact travels and which decisions may need re-interpretation.</p></section><section class="article-section reveal interactive-lab" id="lab"><div class="ey">Interactive explainer</div><h2>Explore the operating logic</h2><p>Use the scenario switcher above and the flow map below to inspect how the article logic changes when the operating model matures. No employee data is used.</p><div class="stage"></div></section><section class="article-section reveal"><h2>Decision takeaway</h2><div class="content-box"><p>Trust grows when workforce concepts, controls and action paths are explicit enough to survive scale, scrutiny and change.</p></div></section>
+    <section class="article-section reveal" id="executive-takeaway">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Executive takeaway</p>
+          <h2>What this means for workforce decision makers.</h2>
+        </div>
+      </div>
+      <div class="content-box emphasis-box">
+        <p>Without repeatable ingestion and correct time logic, HR analytics loses credibility fast. Historical truth must be engineered intentionally so decisions can be reconstructed and explained.</p>
+      </div>
+    </section>
+    <section class="article-section reveal" id="key-business-questions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Key business questions</p>
+          <h2>Questions leaders should ask next.</h2>
+        </div>
+      </div>
+      <div class="bullet-grid"><article class="bullet-card"><p>How will the platform preserve valid-from and valid-to logic across workforce entities?</p></article><article class="bullet-card"><p>Which source changes require full history capture versus current-state refreshes?</p></article><article class="bullet-card"><p>What evidence proves that a KPI reflects the correct time basis?</p></article></div>
+    </section>
+    <section class="article-section reveal" id="common-mistakes">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Failure patterns to avoid.</h2>
+        </div>
+      </div>
+      <div class="accordion-list"><details class="accordion-item"><summary>Mistake 1</summary><p>Overwriting current-state extracts and calling them history.</p></details><details class="accordion-item"><summary>Mistake 2</summary><p>Mixing event time, effective time and reporting time without clear definitions.</p></details><details class="accordion-item"><summary>Mistake 3</summary><p>Skipping reconciliation between source snapshots and modelled history.</p></details></div>
+    </section>
+    <section class="article-section reveal" id="implementation-guidance">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Practical implementation guidance</p>
+          <h2>How to operationalize the idea.</h2>
+        </div>
+      </div>
+      <ol class="implementation-list"><li>Define temporal rules for each entity before pipeline implementation.</li><li>Automate ingestion patterns that can replay, reconcile and validate history.</li><li>Expose time basis and historical caveats in metric documentation and article narratives.</li></ol>
+    </section>
+    <section class="article-section reveal" id="related-articles">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Related articles</p>
+          <h2>Continue the architecture story.</h2>
+        </div>
+      </div>
+      <div class="card-grid card-grid--library"><a class="article-card" href="/articles/hr-datamart-reference-architecture/" data-topic="hr-datamart" data-search="a reference architecture for an hr datamart an extended practical guide to a reference architecture for an hr datamart, built for people analytics leaders, practitioners and data teams. hr datamart reference architecture semantic layer data architecture where should ownership sit for ingestion, modelling, semantic definitions and access? how is historical validity preserved when source systems change? which controls stop low-quality data from reaching decision makers?"><p class="eyebrow">HR DataMart</p><h3>A Reference Architecture for an HR DataMart</h3><p>An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>15 min read</span><span>21 Sep 2026</span></div></a><a class="article-card" href="/articles/dimensional-modeling-for-hr/" data-topic="analytics-engineering" data-search="dimensional modelling for hr analytics an extended practical guide to dimensional modelling for hr analytics, built for people analytics leaders, practitioners and data teams. analytics engineering dimensional modeling facts and dimensions hr analytics model what is the correct fact grain for headcount, movement and workforce events? which shared dimensions must remain consistent across all workforce use cases? how will future subject areas extend the model without breaking kpi trust?"><p class="eyebrow">Analytics Engineering</p><h3>Dimensional Modelling for HR Analytics</h3><p>An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>15 min read</span><span>26 Oct 2026</span></div></a><a class="article-card" href="/articles/test-operate-evolve-hr-datamart/" data-topic="analytics-engineering" data-search="test, operate and evolve the hr datamart an extended practical guide to test, operate and evolve the hr datamart, built for people analytics leaders, practitioners and data teams. analytics engineering testing observability operating model which tests prove that workforce metrics remain valid after source or logic changes? how will the team detect and communicate failures before executives rely on affected numbers? what operating cadence will review model drift, metric change and new use-case demand?"><p class="eyebrow">Analytics Engineering</p><h3>Test, Operate and Evolve the HR DataMart</h3><p>An extended practical guide to test, operate and evolve the hr datamart, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>18 min read</span><span>16 Nov 2026</span></div></a></div>
+    </section>
+    <section class="article-section reveal" id="continue-reading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Continue reading</p>
+          <h2>Navigate the published sequence.</h2>
+        </div>
+      </div>
+      <div class="continuation-grid">
+        <a class="continuation-card" href="/articles/design-hr-datamart-from-decisions/"><p class="eyebrow">Previous published article</p><h3>Design the HR DataMart from Decisions, Not Tables</h3><p>An extended practical guide to design the hr datamart from decisions, not tables, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>HR DataMart</span><span>18 min read</span></div></a><a class="continuation-card" href="/articles/dimensional-modeling-for-hr/"><p class="eyebrow">Next published article</p><h3>Dimensional Modelling for HR Analytics</h3><p>An extended practical guide to dimensional modelling for hr analytics, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>Analytics Engineering</span><span>15 min read</span></div></a>
+      </div>
+    </section>
+    <section class="article-section reveal" id="share">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Share</p>
+          <h2>Send the depth layer forward.</h2>
+        </div>
+      </div>
+      <div class="share-actions">
+        <button class="button button--primary" type="button" data-share="copy">Copy article link</button>
+        <a class="button button--ghost" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fhr-data-ingestion-history-time%2F" target="_blank" rel="noreferrer">Share on LinkedIn</a>
+        <a class="button button--ghost" data-share="twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fhr-data-ingestion-history-time%2F&text=HR%20Data%20Ingestion%2C%20History%20and%20Time" target="_blank" rel="noreferrer">Share on X</a>
+      </div>
+    </section>
+  </article>
+</section>
+
+    </main>
+    <footer class="site-footer">
+  <div class="shell site-footer__grid">
+    <div>
+      <p class="eyebrow">Workforce Observatory</p>
+      <p>Premium learning and thought leadership on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI and decision science.</p>
+    </div>
+    <div>
+      <p class="site-footer__label">Navigate</p>
+      <ul class="link-list">
+        <li><a href="/library/">Library</a></li>
+        <li><a href="/topics/">Topics</a></li>
+        <li><a href="/search/">Search</a></li>
+        <li><a href="/author/">Author</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="site-footer__label">Follow</p>
+      <ul class="link-list">
+        <li><a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:hello@workforceobservatory.com">hello@workforceobservatory.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell site-footer__meta">© 2026 Workforce Observatory</div>
+</footer>
+
+    <script src="/assets/js/core.js"></script>
+<script src="/assets/js/article.js"></script>
+  </body>
+</html>

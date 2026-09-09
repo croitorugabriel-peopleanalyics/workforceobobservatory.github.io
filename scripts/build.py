@@ -223,6 +223,33 @@ def process_cards(flow: list[str]) -> str:
     )
 
 
+def visualization_buttons(scenarios: list[dict]) -> str:
+    return "".join(
+        f'<button class="viz-tab{" is-active" if index == 0 else ""}" type="button" data-viz-tab="{index}" aria-pressed="{"true" if index == 0 else "false"}">{escape(item["label"])}</button>'
+        for index, item in enumerate(scenarios)
+    )
+
+
+def visualization_panels(scenarios: list[dict]) -> str:
+    panels = []
+    for index, item in enumerate(scenarios):
+        stage_nodes = []
+        stages_list = item.get("stages", [])
+        for stage_index, stage in enumerate(stages_list):
+            stage_nodes.append(f'<span class="flow-node">{escape(stage)}</span>')
+            if stage_index < len(stages_list) - 1:
+                stage_nodes.append('<span class="flow-arrow">→</span>')
+        stages = "".join(stage_nodes)
+        panels.append(
+            f'<article class="viz-panel{" is-active" if index == 0 else ""}" data-viz-panel="{index}">'
+            f'<div class="viz-panel__lead"><p class="eyebrow">{escape(item["label"])}</p><h3>{escape(item["headline"])}</h3><p>{escape(item["description"])}</p></div>'
+            f'<div class="viz-panel__meta"><div class="metric-card"><span>{escape(item["metricLabel"])}</span><strong>{escape(item["metricValue"])}</strong></div>'
+            f'<div class="content-box"><b class="ey">Executive annotation</b><p>{escape(item["insight"])}</p></div></div>'
+            f'<div class="viz-panel__flow">{stages}</div></article>'
+        )
+    return "".join(panels)
+
+
 def continuation_card(article: dict | None, label: str) -> str:
     if article is None:
         return (
@@ -241,6 +268,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
     for index, article in enumerate(live):
         toc_items = parse_toc(article["bodyHtml"])
         extra_toc = [
+            ("interactive-visualization", "Interactive visualization"),
             ("operating-model", "Interactive operating model"),
             ("before-after", "Before / after"),
             ("executive-takeaway", "Executive takeaway"),
@@ -280,6 +308,10 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
                 "article_number": escape(article["heroNumber"]),
                 "article_flow": "|".join(article.get("flow", [])),
                 "article_toc": "".join(toc_html),
+                "article_viz_title": escape(article["interactiveVisual"]["title"]),
+                "article_viz_intro": escape(article["interactiveVisual"]["intro"]),
+                "article_viz_buttons": visualization_buttons(article["interactiveVisual"].get("scenarios", [])),
+                "article_viz_panels": visualization_panels(article["interactiveVisual"].get("scenarios", [])),
                 "article_flow_cards": process_cards(article.get("flow", [])),
                 "article_takeaway": escape(article["executiveTakeaway"]),
                 "article_carousel": escape(article["carouselSource"]),

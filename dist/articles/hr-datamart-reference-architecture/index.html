@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Reference Architecture for an HR DataMart | Workforce Observatory</title>
+<meta name="description" content="An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://workforceobservatory.com/articles/hr-datamart-reference-architecture/">
+<meta property="og:site_name" content="Workforce Observatory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Reference Architecture for an HR DataMart | Workforce Observatory">
+<meta property="og:description" content="An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.">
+<meta property="og:url" content="https://workforceobservatory.com/articles/hr-datamart-reference-architecture/">
+<meta property="og:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A Reference Architecture for an HR DataMart | Workforce Observatory">
+<meta name="twitter:description" content="An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.">
+<meta name="twitter:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta name="theme-color" content="#071a33">
+<link rel="icon" href="/assets/img/og-default.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A Reference Architecture for an HR DataMart", "description": "An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.", "datePublished": "2026-09-21T07:00:00Z", "dateModified": "2026-09-21T07:00:00Z", "author": {"@type": "Person", "name": "Gabriel Croitoru", "url": "https://workforceobservatory.com/author/"}, "publisher": {"@type": "Organization", "name": "Workforce Observatory", "url": "https://workforceobservatory.com"}, "mainEntityOfPage": "https://workforceobservatory.com/articles/hr-datamart-reference-architecture/", "image": "https://workforceobservatory.com/assets/img/og-default.svg", "articleSection": "HR DataMart", "keywords": ["reference architecture", "semantic layer", "data architecture"], "timeRequired": "PT15M"}</script>
+
+
+  </head>
+  <body class="page page--article" data-page="article" style="--article-accent:#19a6a6">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand-mark" href="/" aria-label="Workforce Observatory home">
+      <span class="brand-mark__eyebrow">Workforce Observatory</span>
+      <strong>Workforce Intelligence for modern HR leaders</strong>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/library/">Library</a>
+      <a href="/topics/">Topics</a>
+      <a href="/search/">Search</a>
+      <a href="/author/">Author</a>
+    </nav>
+  </div>
+</header>
+
+    <main id="content">
+      <div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+<section class="page-hero article-hero">
+  <div class="shell page-hero__inner article-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
+      <p class="eyebrow">HR DataMart</p>
+      <h1>A Reference Architecture for an HR DataMart</h1>
+      <p class="lede">An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.</p>
+      <div class="meta-row">
+        <span>15 min read</span>
+        <span>21 Sep 2026</span>
+        <span>Gabriel Croitoru</span>
+      </div>
+    </div>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Article sequence</p>
+        <strong class="hero-stat">02</strong>
+        <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+        <div class="flow-diagram" data-flow="Sources|Ingestion|Quality|DataMart|Semantic|Experience"></div>
+      </div>
+      <div class="hero-panel reveal">
+        <p class="eyebrow">At a glance</p>
+        <div class="mini-metrics">
+          <div class="mini-metric"><span>Topic</span><strong>HR DataMart</strong></div>
+          <div class="mini-metric"><span>Read time</span><strong>15 min read</strong></div>
+          <div class="mini-metric"><span>Published</span><strong>21 Sep 2026</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="shell article-shell">
+  <aside class="article-rail">
+    <div class="rail-panel">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#interactive-visualization">Interactive visualization</a><a href="#s1">Responsibilities before tools</a><a href="#s2">Operational source systems</a><a href="#s3">Repeatable ingestion</a><a href="#s4">Quality before metrics</a><a href="#s5">Historical HR model</a><a href="#s6">Semantic business layer</a><a href="#s7">Multiple experiences, one core</a><a href="#lab">Explore the operating logic</a><a href="#operating-model">Interactive operating model</a><a href="#before-after">Before / after</a><a href="#executive-takeaway">Executive takeaway</a><a href="#key-business-questions">Key business questions</a><a href="#common-mistakes">Common mistakes</a><a href="#implementation-guidance">Implementation guidance</a><a href="#continue-reading">Continue reading</a><a href="#related-articles">Related articles</a><a href="#share">Share</a>
+      </nav>
+    </div>
+  </aside>
+  <article class="article-main">
+    <section class="summary-band reveal">
+      <div class="summary-band__content">
+        <p class="eyebrow">Executive summary</p>
+        <h2>What leaders should keep in view.</h2>
+        <p>A strong HR DataMart architecture makes definitions, controls and delivery paths visible. Trust comes from the operating model around the pipeline, not from the diagram alone.</p>
+      </div>
+      <div class="summary-band__stats">
+        <div class="metric-card"><span>Topic</span><strong>HR DataMart</strong></div>
+        <div class="metric-card"><span>Reading time</span><strong>15 min read</strong></div>
+        <div class="metric-card"><span>Carousel source</span><strong>HR_DataMart_Architecture_Carousel.pdf</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal interactive-visualization" id="interactive-visualization" data-viz-root>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive visualization</p>
+          <h2>Interactive visualization: architecture layers in motion</h2>
+          <p>Switch between three architecture views to see how responsibility shifts from source extraction to business consumption.</p>
+        </div>
+      </div>
+      <div class="viz-tabs" role="tablist" aria-label="Interactive article scenarios">
+        <button class="viz-tab is-active" type="button" data-viz-tab="0" aria-pressed="true">Source view</button><button class="viz-tab" type="button" data-viz-tab="1" aria-pressed="false">Control view</button><button class="viz-tab" type="button" data-viz-tab="2" aria-pressed="false">Experience view</button>
+      </div>
+      <div class="viz-panels">
+        <article class="viz-panel is-active" data-viz-panel="0"><div class="viz-panel__lead"><p class="eyebrow">Source view</p><h3>Operational systems view</h3><p>The architecture begins with heterogeneous HR platforms, payroll systems and organizational sources that were never designed for common analytical interpretation.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Primary risk</span><strong>Fragmentation</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Without a harmonizing layer, metric definitions inherit source-system inconsistency.</p></div></div><div class="viz-panel__flow"><span class="flow-node">HRIS</span><span class="flow-arrow">→</span><span class="flow-node">Payroll</span><span class="flow-arrow">→</span><span class="flow-node">ATS</span><span class="flow-arrow">→</span><span class="flow-node">Org data</span></div></article><article class="viz-panel" data-viz-panel="1"><div class="viz-panel__lead"><p class="eyebrow">Control view</p><h3>Governed data platform view</h3><p>Ingestion, validation, history and semantic modelling act as explicit control layers that convert operational data into analytical evidence.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Primary benefit</span><strong>Control</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Trust grows when each architectural layer has a clear responsibility and observable outputs.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Ingest</span><span class="flow-arrow">→</span><span class="flow-node">Validate</span><span class="flow-arrow">→</span><span class="flow-node">Historize</span><span class="flow-arrow">→</span><span class="flow-node">Model</span></div></article><article class="viz-panel" data-viz-panel="2"><div class="viz-panel__lead"><p class="eyebrow">Experience view</p><h3>Consumption and decision view</h3><p>The same core serves scorecards, articles, search, topic hubs and future AI use cases. Experience diversity should not require logic duplication.</p></div><div class="viz-panel__meta"><div class="metric-card"><span>Primary outcome</span><strong>Reuse</strong></div><div class="content-box"><b class="ey">Executive annotation</b><p>Multiple business experiences can stay aligned when they consume one certified semantic core.</p></div></div><div class="viz-panel__flow"><span class="flow-node">Semantic</span><span class="flow-arrow">→</span><span class="flow-node">Scorecard</span><span class="flow-arrow">→</span><span class="flow-node">Narrative</span><span class="flow-arrow">→</span><span class="flow-node">AI</span></div></article>
+      </div>
+    </section>
+    <section class="article-section reveal process-section" id="operating-model">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive operating model</p>
+          <h2>Progressive disclosure of the article logic.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <article class="process-card"><span class="process-card__index">1</span><h3>Sources</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">2</span><h3>Ingestion</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">3</span><h3>Quality</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">4</span><h3>DataMart</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">5</span><h3>Semantic</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">6</span><h3>Experience</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article>
+      </div>
+    </section>
+    <section class="article-section reveal comparison-section" id="before-after">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Before / after</p>
+          <h2>From weak reporting patterns to trusted operating models.</h2>
+        </div>
+      </div>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--before">
+          <p class="eyebrow">Before</p>
+          <p>Disconnected pipelines and bespoke dashboards with duplicated business logic.</p>
+        </article>
+        <article class="comparison-card comparison-card--after">
+          <p class="eyebrow">After</p>
+          <p>A layered architecture where ingestion, history, quality and semantic definitions are reusable and auditable.</p>
+        </article>
+      </div>
+    </section>
+    <p class="article-intro">This article turns the architecture carousel into an operating model for workforce intelligence. The key message is that a good HR DataMart is not a static diagram: it is a set of responsibilities, controls and delivery layers that keep metric meaning stable as the organization grows.</p><section class="article-section reveal" id="s1"><div class="ey">01 · Deep dive</div><h2>Responsibilities before tools</h2><p>Architecture quality is defined first by ownership, service boundaries and control points. If nobody can explain who governs source logic, quality thresholds or semantic changes, the stack may look modern while the operating model stays fragile.</p></section><section class="article-section reveal" id="s2"><div class="ey">02 · Deep dive</div><h2>Operational source systems</h2><p>Source systems should remain systems of record for transactions, not for executive interpretation. The architecture has to absorb their differences in coding, timing and completeness before information reaches leaders.</p><div class="content-box"><b class="ey">Apply it</b><p>Map every critical source to its extraction method, latency expectation and known definition gaps before promising enterprise-level reporting coverage.</p></div></section><section class="article-section reveal" id="s3"><div class="ey">03 · Deep dive</div><h2>Repeatable ingestion</h2><p>Reliable ingestion creates a predictable handoff from source behavior to analytical behavior. That means standardized identifiers, auditable load patterns and the ability to reprocess history when a source defect or model change is discovered.</p></section><section class="article-section reveal" id="s4"><div class="ey">04 · Deep dive</div><h2>Quality before metrics</h2><p>The strongest KPI catalogue fails if low-quality records can flow through unchallenged. Quality gates should stop publication, surface impact and show downstream consumers exactly which rule failed.</p><div class="content-box"><b class="ey">Apply it</b><p>Design both technical stopping rules and business-facing fallback messages so failed checks are visible instead of silently bypassed.</p></div></section><section class="article-section reveal" id="s5"><div class="ey">05 · Deep dive</div><h2>Historical HR model</h2><p>History is the point where architectural shortcuts become expensive. Effective dating, slowly changing dimensions and snapshot strategy determine whether the platform can answer what leaders asked last quarter—not just what the system shows today.</p></section><section class="article-section reveal" id="s6"><div class="ey">06 · Deep dive</div><h2>Semantic business layer</h2><p>The semantic layer is where architecture becomes usable. It translates tables, joins and point-in-time logic into certified workforce concepts that can power dashboards, narratives and future conversational interfaces.</p></section><section class="article-section reveal" id="s7"><div class="ey">07 · Deep dive</div><h2>Multiple experiences, one core</h2><p>A premium content and insight platform should allow many surfaces to reuse the same governed core. Executive scorecards, topic articles, benchmarks and AI assistants should all inherit definitions from the same backbone rather than fork into separate logic stacks.</p></section><section class="article-section reveal interactive-lab" id="lab"><div class="ey">Interactive explainer</div><h2>Explore the operating logic</h2><p>Use the scenario switcher above and the flow map below to inspect how the article logic changes when the operating model matures. No employee data is used.</p><div class="stage"></div></section><section class="article-section reveal"><h2>Decision takeaway</h2><div class="content-box"><p>Trust grows when workforce concepts, controls and action paths are explicit enough to survive scale, scrutiny and change.</p></div></section>
+    <section class="article-section reveal" id="executive-takeaway">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Executive takeaway</p>
+          <h2>What this means for workforce decision makers.</h2>
+        </div>
+      </div>
+      <div class="content-box emphasis-box">
+        <p>A strong HR DataMart architecture makes definitions, controls and delivery paths visible. Trust comes from the operating model around the pipeline, not from the diagram alone.</p>
+      </div>
+    </section>
+    <section class="article-section reveal" id="key-business-questions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Key business questions</p>
+          <h2>Questions leaders should ask next.</h2>
+        </div>
+      </div>
+      <div class="bullet-grid"><article class="bullet-card"><p>Where should ownership sit for ingestion, modelling, semantic definitions and access?</p></article><article class="bullet-card"><p>How is historical validity preserved when source systems change?</p></article><article class="bullet-card"><p>Which controls stop low-quality data from reaching decision makers?</p></article></div>
+    </section>
+    <section class="article-section reveal" id="common-mistakes">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Failure patterns to avoid.</h2>
+        </div>
+      </div>
+      <div class="accordion-list"><details class="accordion-item"><summary>Mistake 1</summary><p>Drawing target-state boxes without defining operating responsibilities.</p></details><details class="accordion-item"><summary>Mistake 2</summary><p>Mixing transformation logic into every consuming dashboard or report.</p></details><details class="accordion-item"><summary>Mistake 3</summary><p>Ignoring failure states and user messaging when source controls fail.</p></details></div>
+    </section>
+    <section class="article-section reveal" id="implementation-guidance">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Practical implementation guidance</p>
+          <h2>How to operationalize the idea.</h2>
+        </div>
+      </div>
+      <ol class="implementation-list"><li>Separate source acquisition, quality control, historical modelling and semantic access.</li><li>Assign explicit owners and service expectations to each architectural layer.</li><li>Design business-facing experiences as consumers of a shared governed core.</li></ol>
+    </section>
+    <section class="article-section reveal" id="related-articles">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Related articles</p>
+          <h2>Continue the architecture story.</h2>
+        </div>
+      </div>
+      <div class="card-grid card-grid--library"><a class="article-card" href="/articles/why-hr-reporting-needs-a-datamart/" data-topic="hr-datamart" data-search="why hr reporting should not start with a spreadsheet an extended practical guide to why hr reporting should not start with a spreadsheet, built for people analytics leaders, practitioners and data teams. hr datamart hr reporting decision science spreadsheet risk which executive decisions are currently supported by spreadsheet-only logic? where do metric definitions break when headcount, attrition or movement needs history? what governance evidence would a chro need before trusting the number in a board deck?"><p class="eyebrow">HR DataMart</p><h3>Why HR Reporting Should Not Start with a Spreadsheet</h3><p>An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>14 min read</span><span>14 Sep 2026</span></div></a><a class="article-card" href="/articles/hr-data-ingestion-history-time/" data-topic="analytics-engineering" data-search="hr data ingestion, history and time an extended practical guide to hr data ingestion, history and time, built for people analytics leaders, practitioners and data teams. analytics engineering ingestion slowly changing dimensions historical validity how will the platform preserve valid-from and valid-to logic across workforce entities? which source changes require full history capture versus current-state refreshes? what evidence proves that a kpi reflects the correct time basis?"><p class="eyebrow">Analytics Engineering</p><h3>HR Data Ingestion, History and Time</h3><p>An extended practical guide to hr data ingestion, history and time, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>14 min read</span><span>19 Oct 2026</span></div></a><a class="article-card" href="/articles/semantic-layer-certified-hr-kpis/" data-topic="people-analytics" data-search="the semantic layer and certified hr kpis an extended practical guide to the semantic layer and certified hr kpis, built for people analytics leaders, practitioners and data teams. people analytics semantic layer certified kpis metric governance which kpi definitions should be centrally governed and certified first? how will consumers see the definition, owner and caveats behind each metric? what process governs kpi change management across dashboards, articles and ai experiences?"><p class="eyebrow">People Analytics</p><h3>The Semantic Layer and Certified HR KPIs</h3><p>An extended practical guide to the semantic layer and certified hr kpis, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>17 min read</span><span>09 Nov 2026</span></div></a></div>
+    </section>
+    <section class="article-section reveal" id="continue-reading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Continue reading</p>
+          <h2>Navigate the published sequence.</h2>
+        </div>
+      </div>
+      <div class="continuation-grid">
+        <a class="continuation-card" href="/articles/why-hr-reporting-needs-a-datamart/"><p class="eyebrow">Previous published article</p><h3>Why HR Reporting Should Not Start with a Spreadsheet</h3><p>An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>HR DataMart</span><span>14 min read</span></div></a><a class="continuation-card" href="/articles/hr-datamart-ai-foundation/"><p class="eyebrow">Next published article</p><h3>AI Does Not Only Need More HR Data. It Needs Context.</h3><p>Why semantic contracts, historical validity, data quality and guardrails are prerequisites for trustworthy conversational HR analytics.</p><div class="article-card__meta"><span>Responsible AI</span><span>16 min read</span></div></a>
+      </div>
+    </section>
+    <section class="article-section reveal" id="share">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Share</p>
+          <h2>Send the depth layer forward.</h2>
+        </div>
+      </div>
+      <div class="share-actions">
+        <button class="button button--primary" type="button" data-share="copy">Copy article link</button>
+        <a class="button button--ghost" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fhr-datamart-reference-architecture%2F" target="_blank" rel="noreferrer">Share on LinkedIn</a>
+        <a class="button button--ghost" data-share="twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fhr-datamart-reference-architecture%2F&text=A%20Reference%20Architecture%20for%20an%20HR%20DataMart" target="_blank" rel="noreferrer">Share on X</a>
+      </div>
+    </section>
+  </article>
+</section>
+
+    </main>
+    <footer class="site-footer">
+  <div class="shell site-footer__grid">
+    <div>
+      <p class="eyebrow">Workforce Observatory</p>
+      <p>Premium learning and thought leadership on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI and decision science.</p>
+    </div>
+    <div>
+      <p class="site-footer__label">Navigate</p>
+      <ul class="link-list">
+        <li><a href="/library/">Library</a></li>
+        <li><a href="/topics/">Topics</a></li>
+        <li><a href="/search/">Search</a></li>
+        <li><a href="/author/">Author</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="site-footer__label">Follow</p>
+      <ul class="link-list">
+        <li><a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:hello@workforceobservatory.com">hello@workforceobservatory.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell site-footer__meta">© 2026 Workforce Observatory</div>
+</footer>
+
+    <script src="/assets/js/core.js"></script>
+<script src="/assets/js/article.js"></script>
+  </body>
+</html>

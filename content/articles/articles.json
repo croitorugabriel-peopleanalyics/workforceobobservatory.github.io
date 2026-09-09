@@ -48,6 +48,54 @@
     "beforeAfter": {
       "before": "Spreadsheet-based reporting with local logic, fragile joins and hidden manual corrections.",
       "after": "Decision-ready reporting backed by governed ingestion, historical modelling and reusable KPI definitions."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: where spreadsheet-led reporting breaks",
+      "intro": "Compare three reporting operating models and see how governance maturity changes trust, speed and explainability.",
+      "scenarios": [
+        {
+          "label": "Local spreadsheet",
+          "headline": "Local spreadsheet logic",
+          "description": "Analysts pull extracts, repair data manually and publish numbers with limited traceability. Delivery can be fast, but trust degrades with every exception handled offline.",
+          "metricLabel": "Trust risk",
+          "metricValue": "High",
+          "insight": "Definitions drift because logic lives in workbooks rather than in a shared governed layer.",
+          "stages": [
+            "Extract",
+            "Repair",
+            "Interpret",
+            "Publish"
+          ]
+        },
+        {
+          "label": "Semi-governed mart",
+          "headline": "Partial standardization",
+          "description": "A shared dataset exists, but teams still recreate KPI filters in reports. Consistency improves, yet business users still experience different answers across tools.",
+          "metricLabel": "Explainability",
+          "metricValue": "Medium",
+          "insight": "The pipeline is stronger, but the semantic contract remains fragmented at the point of consumption.",
+          "stages": [
+            "Ingest",
+            "Model",
+            "Recalculate",
+            "Compare"
+          ]
+        },
+        {
+          "label": "Decision-ready platform",
+          "headline": "Governed HR DataMart",
+          "description": "Metric definitions, time logic and controls are embedded upstream. Consumers receive one reusable decision layer and can focus on interpretation rather than reconciliation.",
+          "metricLabel": "Decision confidence",
+          "metricValue": "High",
+          "insight": "The reporting experience becomes scalable because shared definitions are implemented once and reused everywhere.",
+          "stages": [
+            "Ingest",
+            "Validate",
+            "Model",
+            "Certify"
+          ]
+        }
+      ]
     }
   },
   {
@@ -101,6 +149,54 @@
     "beforeAfter": {
       "before": "Disconnected pipelines and bespoke dashboards with duplicated business logic.",
       "after": "A layered architecture where ingestion, history, quality and semantic definitions are reusable and auditable."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: architecture layers in motion",
+      "intro": "Switch between three architecture views to see how responsibility shifts from source extraction to business consumption.",
+      "scenarios": [
+        {
+          "label": "Source view",
+          "headline": "Operational systems view",
+          "description": "The architecture begins with heterogeneous HR platforms, payroll systems and organizational sources that were never designed for common analytical interpretation.",
+          "metricLabel": "Primary risk",
+          "metricValue": "Fragmentation",
+          "insight": "Without a harmonizing layer, metric definitions inherit source-system inconsistency.",
+          "stages": [
+            "HRIS",
+            "Payroll",
+            "ATS",
+            "Org data"
+          ]
+        },
+        {
+          "label": "Control view",
+          "headline": "Governed data platform view",
+          "description": "Ingestion, validation, history and semantic modelling act as explicit control layers that convert operational data into analytical evidence.",
+          "metricLabel": "Primary benefit",
+          "metricValue": "Control",
+          "insight": "Trust grows when each architectural layer has a clear responsibility and observable outputs.",
+          "stages": [
+            "Ingest",
+            "Validate",
+            "Historize",
+            "Model"
+          ]
+        },
+        {
+          "label": "Experience view",
+          "headline": "Consumption and decision view",
+          "description": "The same core serves scorecards, articles, search, topic hubs and future AI use cases. Experience diversity should not require logic duplication.",
+          "metricLabel": "Primary outcome",
+          "metricValue": "Reuse",
+          "insight": "Multiple business experiences can stay aligned when they consume one certified semantic core.",
+          "stages": [
+            "Semantic",
+            "Scorecard",
+            "Narrative",
+            "AI"
+          ]
+        }
+      ]
     }
   },
   {
@@ -153,6 +249,54 @@
     "beforeAfter": {
       "before": "AI layered onto fragmented HR extracts with inconsistent meaning and access risk.",
       "after": "AI experiences grounded in certified definitions, governed permissions and explicit confidence signals."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: from question to grounded answer",
+      "intro": "Explore how the same workforce question behaves with weak context, partial controls and a fully governed semantic contract.",
+      "scenarios": [
+        {
+          "label": "Ungrounded",
+          "headline": "Answer without semantic grounding",
+          "description": "The assistant can produce fluent language, but it cannot prove the metric basis, time logic or access boundary behind the response.",
+          "metricLabel": "Answer reliability",
+          "metricValue": "Low",
+          "insight": "Language quality is not evidence quality.",
+          "stages": [
+            "Question",
+            "Guess",
+            "Summarize",
+            "Risk"
+          ]
+        },
+        {
+          "label": "Partially grounded",
+          "headline": "Answer with partial controls",
+          "description": "Some definitions and permissions exist, but important context such as time basis or source freshness is missing from the answer path.",
+          "metricLabel": "Answer reliability",
+          "metricValue": "Medium",
+          "insight": "Partial grounding reduces risk, but blind spots still surface during edge cases.",
+          "stages": [
+            "Question",
+            "Lookup",
+            "Check",
+            "Respond"
+          ]
+        },
+        {
+          "label": "Governed",
+          "headline": "Answer with full semantic contract",
+          "description": "The assistant validates access, context, history and data quality before generating a response that references certified workforce concepts.",
+          "metricLabel": "Answer reliability",
+          "metricValue": "High",
+          "insight": "Trustworthy conversational analytics depends on governed context, not just more data.",
+          "stages": [
+            "Question",
+            "Authorize",
+            "Ground",
+            "Explain"
+          ]
+        }
+      ]
     }
   },
   {
@@ -205,6 +349,54 @@
     "beforeAfter": {
       "before": "A reassuring average that can mask concentration of risk in one critical workforce dimension.",
       "after": "A governed index that highlights both overall movement and the exceptions leaders must investigate."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: how one score can hide risk",
+      "intro": "Switch between balanced, masked-risk and guardrail-triggered scenarios to see why a strong average is not enough.",
+      "scenarios": [
+        {
+          "label": "Balanced",
+          "headline": "Balanced scorecard scenario",
+          "description": "All major components move within acceptable ranges, so the headline score and the underlying picture tell a consistent story.",
+          "metricLabel": "Score state",
+          "metricValue": "Stable",
+          "insight": "A composite score works best when component variation is moderate and transparent.",
+          "stages": [
+            "Normalize",
+            "Weight",
+            "Aggregate",
+            "Review"
+          ]
+        },
+        {
+          "label": "Masked risk",
+          "headline": "High average, hidden critical weakness",
+          "description": "Two strong components lift the average while one critical risk signal deteriorates sharply. The overall number still looks reassuring until leaders inspect the composition.",
+          "metricLabel": "Hidden risk",
+          "metricValue": "Critical",
+          "insight": "Averages can smooth away the signal leaders most need to act on.",
+          "stages": [
+            "Normalize",
+            "Offset",
+            "Average",
+            "Miss"
+          ]
+        },
+        {
+          "label": "Guardrail",
+          "headline": "Guardrail override scenario",
+          "description": "The same weighted score is produced, but a threshold breach triggers a visible alert and reframes the interpretation for decision makers.",
+          "metricLabel": "Decision status",
+          "metricValue": "Escalate",
+          "insight": "Guardrails preserve executive usability without hiding critical exceptions.",
+          "stages": [
+            "Normalize",
+            "Weight",
+            "Check",
+            "Escalate"
+          ]
+        }
+      ]
     }
   },
   {
@@ -256,6 +448,54 @@
     "beforeAfter": {
       "before": "DataMart design driven by source-system convenience and technical table structures.",
       "after": "DataMart design anchored in decision moments, business questions and trusted semantic outputs."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: design from decisions backward",
+      "intro": "See how model scope changes when teams start from business actions instead of source-system convenience.",
+      "scenarios": [
+        {
+          "label": "Table-first",
+          "headline": "Source-table-first design",
+          "description": "Teams ingest everything available, then search for questions the data might answer. The result is broad coverage with weak decision focus.",
+          "metricLabel": "Design efficiency",
+          "metricValue": "Low",
+          "insight": "The model becomes technically large before it becomes strategically useful.",
+          "stages": [
+            "Load",
+            "Label",
+            "Join",
+            "Hope"
+          ]
+        },
+        {
+          "label": "Decision-first",
+          "headline": "Decision-first design",
+          "description": "A business decision defines the question, KPI and required grain up front. Scope narrows, but trust and actionability improve.",
+          "metricLabel": "Design efficiency",
+          "metricValue": "High",
+          "insight": "Clear decisions create sharper grain, faster validation and better stakeholder alignment.",
+          "stages": [
+            "Decide",
+            "Question",
+            "Measure",
+            "Model"
+          ]
+        },
+        {
+          "label": "Portfolio",
+          "headline": "Decision portfolio view",
+          "description": "Once one decision slice is proven, adjacent decisions can be added systematically without rebuilding the foundation.",
+          "metricLabel": "Scalability",
+          "metricValue": "Structured",
+          "insight": "A narrow trusted slice is the right base for broader enterprise growth.",
+          "stages": [
+            "Prove",
+            "Extend",
+            "Reuse",
+            "Scale"
+          ]
+        }
+      ]
     }
   },
   {
@@ -308,6 +548,54 @@
     "beforeAfter": {
       "before": "Unstable metrics caused by overwritten extracts and inconsistent temporal logic.",
       "after": "Reliable trend analysis supported by repeatable ingestion and explicit historical validity rules."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: time logic in workforce pipelines",
+      "intro": "Compare current-state, snapshot and historized pipeline behavior across common workforce questions.",
+      "scenarios": [
+        {
+          "label": "Current state",
+          "headline": "Current-state-only pipeline",
+          "description": "The platform always reflects the latest values, but it cannot accurately answer historical questions once attributes or organizational assignments change.",
+          "metricLabel": "Historical trust",
+          "metricValue": "Low",
+          "insight": "Current-state convenience breaks retrospective decision analysis.",
+          "stages": [
+            "Extract",
+            "Overwrite",
+            "Publish",
+            "Forget"
+          ]
+        },
+        {
+          "label": "Snapshot",
+          "headline": "Periodic snapshot pipeline",
+          "description": "Regular snapshots capture population state over time, making trend analysis more reliable for stock metrics such as headcount or spans of control.",
+          "metricLabel": "Historical trust",
+          "metricValue": "Medium",
+          "insight": "Snapshots improve time-series reporting, but event interpretation still needs additional logic.",
+          "stages": [
+            "Extract",
+            "Snapshot",
+            "Compare",
+            "Trend"
+          ]
+        },
+        {
+          "label": "Historized",
+          "headline": "Historized analytical pipeline",
+          "description": "Events, dimensions and corrections are preserved with effective dating so the platform can reconstruct what was true, when, and under which organizational context.",
+          "metricLabel": "Historical trust",
+          "metricValue": "High",
+          "insight": "Historization turns temporal complexity into explainable analytical behavior.",
+          "stages": [
+            "Extract",
+            "Historize",
+            "Reconcile",
+            "Explain"
+          ]
+        }
+      ]
     }
   },
   {
@@ -359,6 +647,54 @@
     "beforeAfter": {
       "before": "Metrics stitched together from source extracts with ambiguous grain and duplicated definitions.",
       "after": "A scalable analytics model built around consistent facts, dimensions and business-ready semantic meaning."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: fact and dimension choices",
+      "intro": "Switch between ambiguous, mixed-grain and well-modeled workforce structures to see how modelling choices shape KPI trust.",
+      "scenarios": [
+        {
+          "label": "Ambiguous grain",
+          "headline": "Ambiguous grain model",
+          "description": "Rows combine current status, event timing and descriptive context in one structure, making reuse easy at first but unstable over time.",
+          "metricLabel": "KPI stability",
+          "metricValue": "Low",
+          "insight": "When grain is unclear, every measure invites reinterpretation.",
+          "stages": [
+            "Blend",
+            "Guess",
+            "Aggregate",
+            "Debate"
+          ]
+        },
+        {
+          "label": "Mixed pattern",
+          "headline": "Partially separated model",
+          "description": "Some facts and dimensions are separated, but key subject areas still reuse inconsistent organizational context or incompatible time bases.",
+          "metricLabel": "KPI stability",
+          "metricValue": "Medium",
+          "insight": "Partial modelling reduces friction, but cross-domain trust remains fragile.",
+          "stages": [
+            "Separate",
+            "Reuse",
+            "Conflict",
+            "Patch"
+          ]
+        },
+        {
+          "label": "Conformed model",
+          "headline": "Conformed dimensional model",
+          "description": "Fact grain is explicit and shared dimensions stay stable across use cases, allowing certified KPIs to scale with less rework.",
+          "metricLabel": "KPI stability",
+          "metricValue": "High",
+          "insight": "Dimensional discipline is what makes People Analytics reusable at enterprise scale.",
+          "stages": [
+            "Declare",
+            "Separate",
+            "Conform",
+            "Scale"
+          ]
+        }
+      ]
     }
   },
   {
@@ -411,6 +747,54 @@
     "beforeAfter": {
       "before": "Reactive data quality fixes and inconsistent access decisions across workforce reports.",
       "after": "A governed platform where quality, ownership and security controls are designed into the operating model."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: governance in the user experience",
+      "intro": "Compare hidden, technical-only and visible governance models to see how control design changes user trust.",
+      "scenarios": [
+        {
+          "label": "Hidden",
+          "headline": "Governance hidden behind the scenes",
+          "description": "Controls may exist, but users see only a final number and cannot tell whether it is fresh, complete or safe to share.",
+          "metricLabel": "User trust",
+          "metricValue": "Low",
+          "insight": "Invisible governance forces users to assume quality and security instead of understanding them.",
+          "stages": [
+            "Ingest",
+            "Check",
+            "Hide",
+            "Use"
+          ]
+        },
+        {
+          "label": "Technical",
+          "headline": "Governance for engineers only",
+          "description": "Dashboards and logs help delivery teams, but business users still lack clear signals about confidence, ownership and release condition.",
+          "metricLabel": "User trust",
+          "metricValue": "Medium",
+          "insight": "Operational control without user-facing communication still creates interpretation risk.",
+          "stages": [
+            "Ingest",
+            "Monitor",
+            "Escalate",
+            "Explain later"
+          ]
+        },
+        {
+          "label": "Visible",
+          "headline": "Visible governance by design",
+          "description": "The product surfaces quality state, access boundaries and lineage cues so users can judge whether the insight is decision-ready.",
+          "metricLabel": "User trust",
+          "metricValue": "High",
+          "insight": "Trust increases when governance is legible at the point of use.",
+          "stages": [
+            "Ingest",
+            "Validate",
+            "Signal",
+            "Decide"
+          ]
+        }
+      ]
     }
   },
   {
@@ -462,6 +846,54 @@
     "beforeAfter": {
       "before": "The same KPI means different things across reports, teams and executive discussions.",
       "after": "A governed semantic contract that keeps workforce KPIs consistent across every experience."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: what certification really changes",
+      "intro": "Compare raw-metric, named-metric and certified-semantic-layer scenarios to see how governance changes KPI behavior.",
+      "scenarios": [
+        {
+          "label": "Raw columns",
+          "headline": "Raw-column reporting",
+          "description": "Analysts calculate metrics directly from available fields, which enables speed but produces duplicate logic and inconsistent interpretation.",
+          "metricLabel": "Definition control",
+          "metricValue": "Low",
+          "insight": "Fast calculation without shared semantics produces slow alignment later.",
+          "stages": [
+            "Select",
+            "Calculate",
+            "Publish",
+            "Disagree"
+          ]
+        },
+        {
+          "label": "Named KPI",
+          "headline": "Named KPI without semantic governance",
+          "description": "The metric has a common label, but filters, time rules and dimensional assumptions still vary across reports.",
+          "metricLabel": "Definition control",
+          "metricValue": "Medium",
+          "insight": "Shared vocabulary alone does not create a trustworthy KPI.",
+          "stages": [
+            "Name",
+            "Reuse",
+            "Diverge",
+            "Debate"
+          ]
+        },
+        {
+          "label": "Certified KPI",
+          "headline": "Certified KPI on semantic layer",
+          "description": "The metric is governed as a reusable business object with visible ownership, logic and approved dimensional behavior.",
+          "metricLabel": "Definition control",
+          "metricValue": "High",
+          "insight": "Certification becomes operational only when the semantic layer carries the contract into every experience.",
+          "stages": [
+            "Define",
+            "Approve",
+            "Publish",
+            "Trust"
+          ]
+        }
+      ]
     }
   },
   {
@@ -514,6 +946,54 @@
     "beforeAfter": {
       "before": "A fragile analytics product that degrades quietly after launch.",
       "after": "A monitored workforce intelligence platform that improves through structured testing and operational learning."
+    },
+    "interactiveVisual": {
+      "title": "Interactive visualization: operating the platform over time",
+      "intro": "Compare reactive, monitored and product-managed operating models for the HR DataMart.",
+      "scenarios": [
+        {
+          "label": "Reactive",
+          "headline": "Reactive operating model",
+          "description": "Issues are discovered after publication and handled through urgent manual fixes, which protects deadlines at the expense of trust.",
+          "metricLabel": "Operational resilience",
+          "metricValue": "Low",
+          "insight": "A fragile operating model turns every exception into a leadership risk.",
+          "stages": [
+            "Publish",
+            "Fail",
+            "Repair",
+            "Repeat"
+          ]
+        },
+        {
+          "label": "Monitored",
+          "headline": "Monitored platform model",
+          "description": "Pipeline checks and alerts exist, but release impact and semantic change communication are still inconsistent across stakeholders.",
+          "metricLabel": "Operational resilience",
+          "metricValue": "Medium",
+          "insight": "Monitoring reduces surprise, but product stewardship is still uneven.",
+          "stages": [
+            "Test",
+            "Alert",
+            "Recover",
+            "Explain"
+          ]
+        },
+        {
+          "label": "Product-managed",
+          "headline": "Product-managed workforce platform",
+          "description": "Testing, observability, versioning and roadmap governance work together so the platform can grow while preserving decision confidence.",
+          "metricLabel": "Operational resilience",
+          "metricValue": "High",
+          "insight": "Trust survives scale when the operating model treats data as a product, not a project deliverable.",
+          "stages": [
+            "Test",
+            "Observe",
+            "Version",
+            "Evolve"
+          ]
+        }
+      ]
     }
   }
 ]

@@ -35,6 +35,23 @@
     sections.forEach(section => active.observe(section));
   }
 
+  document.querySelectorAll('[data-viz-root]').forEach(root => {
+    const tabs = [...root.querySelectorAll('[data-viz-tab]')];
+    const panels = [...root.querySelectorAll('[data-viz-panel]')];
+    const activate = index => {
+      tabs.forEach(tab => {
+        const selected = Number(tab.dataset.vizTab) === index;
+        tab.classList.toggle('is-active', selected);
+        tab.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      panels.forEach(panel => {
+        panel.classList.toggle('is-active', Number(panel.dataset.vizPanel) === index);
+      });
+    };
+    tabs.forEach(tab => tab.addEventListener('click', () => activate(Number(tab.dataset.vizTab))));
+    activate(0);
+  });
+
   document.querySelectorAll('[data-share="copy"]').forEach(button => {
     button.addEventListener('click', async () => {
       try {
