@@ -2,9 +2,9 @@
 
 Workforce Observatory is a premium learning and thought leadership platform focused on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI, Data Governance and HR Decision Science.
 
-## Phase 1 architecture
+## Platform architecture
 
-Phase 1 establishes the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place.
+Phase 1 established the platform shell and publishing system while keeping the existing scheduling and GitHub Pages primitives in place. Phase 2 layers on premium page composition, richer article storytelling modules, query-aware search, topic filtering and motion-safe front-end polish.
 
 ### Source structure
 
@@ -15,7 +15,7 @@ Phase 1 establishes the platform shell and publishing system while keeping the e
 - `/templates` — static HTML templates for home, library, article, topic, topics, search and author pages
 - `/partials` — shared head, header and footer partials
 - `/assets/css` — design tokens, layout, components, page styles and motion
-- `/assets/js` — modular enhancements for core shell, article behavior and search
+- `/assets/js` — modular enhancements for core shell, article behavior, parallax, topic filtering and search
 - `/scripts/build.py` — scheduled static site generation into `/dist`
 - `/.github/workflows` — GitHub Actions for build, refresh and deploy
 
@@ -25,6 +25,7 @@ Phase 1 establishes the platform shell and publishing system while keeping the e
 - `scripts/build.py` reads `schedule.json` in UTC.
 - Only publish-eligible articles are rendered into `/dist`.
 - Future-dated articles are excluded from article pages, library listings, search index and sitemap output.
+- Search topic filters and article continuation modules are also generated from the publish-eligible set only.
 
 ## Build and preview
 

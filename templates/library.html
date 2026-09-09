@@ -1,23 +1,37 @@
 <section class="page-hero compact-hero">
-  <div class="shell page-hero__inner compact-hero__inner">
+  <div class="shell page-hero__inner compact-hero__inner hero-split">
     <div>
       <p class="eyebrow">Library</p>
       <h1>Every published article in one decision-ready library.</h1>
       <p class="lede">Filter by topic, move from curiosity to depth, and keep the workforce architecture narrative consistent across articles.</p>
     </div>
-    <div class="hero-panel">
-      <p class="eyebrow">Search entry</p>
-      <strong>Only published content appears here.</strong>
-      <p>Future-dated articles stay out of the deployed output until their UTC publication time.</p>
+    <div class="hero-panel reveal">
+      <p class="eyebrow">Library status</p>
+      <strong class="hero-stat">{{published_count}}</strong>
+      <p>{{published_label}} across {{live_topic_count}} live topic hubs.</p>
       <a class="button button--ghost" href="/search/">Open search</a>
     </div>
   </div>
 </section>
+<section class="shell stats-strip reveal">
+  <article class="metric-card"><span>Visibility model</span><strong>Published-only output</strong></article>
+  <article class="metric-card"><span>Search scope</span><strong>Live content only</strong></article>
+  <article class="metric-card"><span>Navigation</span><strong>Topic, article, author</strong></article>
+</section>
 <section class="shell page-section" data-library>
+  <div class="section-heading section-heading--stack">
+    <div>
+      <p class="eyebrow">Topic filters</p>
+      <h2>Find the right workforce architecture thread.</h2>
+      <p>Use topic filters to stay within one capability area, or jump to search for keyword-based discovery.</p>
+    </div>
+    <a class="text-link" href="/search/">Search by keyword</a>
+  </div>
   <div class="filter-row" aria-label="Topic filters">
     {{topic_filters}}
   </div>
-  <div class="card-grid" data-filter-items>
+  <div class="filter-summary" data-filter-summary>{{published_count}} articles visible.</div>
+  <div class="card-grid card-grid--library" data-filter-items>
     {{library_cards}}
   </div>
   <div class="empty-panel{{library_empty_modifier}}" data-library-empty>

@@ -1,6 +1,6 @@
 <section class="page-hero home-hero">
-  <div class="shell page-hero__inner">
-    <div>
+  <div class="shell page-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
       <p class="eyebrow">Premium learning platform</p>
       <h1>Depth for workforce leaders after the carousel ends.</h1>
       <p class="lede">Workforce Observatory turns LinkedIn curiosity into consulting-grade articles on People Analytics, HR data architecture, workforce intelligence and responsible AI.</p>
@@ -8,21 +8,70 @@
         <a class="button button--primary" href="/library/">Browse the library</a>
         <a class="button button--ghost" href="/topics/">Explore topics</a>
       </div>
+      <div class="signal-row reveal">
+        <div class="signal-chip"><strong>{{published_count}}</strong><span>{{published_label}}</span></div>
+        <div class="signal-chip"><strong>{{live_topic_count}}</strong><span>live topic hubs</span></div>
+        <div class="signal-chip"><strong>{{home_status}}</strong><span>{{home_status_label}}</span></div>
+      </div>
     </div>
-    <div class="hero-panel glow-panel">
-      <p class="eyebrow">Published insights</p>
-      <strong class="hero-stat">{{published_count}}</strong>
-      <p>{{published_label}}</p>
-      <ul class="hero-list">
-        <li>Modern, premium and GitHub Pages-native</li>
-        <li>Structured for CHROs, HR Directors and People Analytics teams</li>
-        <li>Built for progressive disclosure and decision-ready storytelling</li>
-      </ul>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Publishing model</p>
+        <strong class="hero-stat">UTC</strong>
+        <p>Only publish-eligible content reaches the public site, search index and sitemap.</p>
+      </div>
+      <div class="insight-rail reveal">
+        <article class="insight-rail__item">
+          <span>01</span>
+          <div>
+            <h2>Curiosity first</h2>
+            <p>LinkedIn carousels create the hook.</p>
+          </div>
+        </article>
+        <article class="insight-rail__item">
+          <span>02</span>
+          <div>
+            <h2>Depth second</h2>
+            <p>Interactive articles provide the architecture, context and action path.</p>
+          </div>
+        </article>
+        <article class="insight-rail__item">
+          <span>03</span>
+          <div>
+            <h2>Trust always</h2>
+            <p>Publication, metadata and discoverability are build-time governed.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
+<section class="shell principle-band reveal">
+  <article>
+    <p class="eyebrow">Audience</p>
+    <h2>Built for CHROs, HR Directors, HRBPs, People Analytics teams and workforce intelligence leaders.</h2>
+  </article>
+  <article>
+    <p class="eyebrow">Promise</p>
+    <p>Modern, premium and consulting-grade content architecture with clear executive framing, progressive disclosure and implementation guidance.</p>
+  </article>
+</section>
 <section class="shell section-grid section-grid--feature">
   {{featured_section}}
+</section>
+<section class="shell page-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Platform pillars</p>
+      <h2>Decision-ready content architecture.</h2>
+    </div>
+  </div>
+  <div class="pillar-grid">
+    <article class="info-card reveal"><p class="eyebrow">People Analytics</p><h3>Explain the metric.</h3><p>Every insight should make business definitions, caveats and interpretation logic visible.</p></article>
+    <article class="info-card reveal"><p class="eyebrow">Data architecture</p><h3>Show the system behind the story.</h3><p>Articles should connect executive questions to model design, semantic logic and governance controls.</p></article>
+    <article class="info-card reveal"><p class="eyebrow">Responsible AI</p><h3>Preserve trust in the experience.</h3><p>Context, lineage, quality and access principles must stay explicit as the platform evolves.</p></article>
+    <article class="info-card reveal"><p class="eyebrow">Data storytelling</p><h3>Move from curiosity to action.</h3><p>Use premium visual structure to reduce walls of text and guide readers toward decisions.</p></article>
+  </div>
 </section>
 <section class="shell page-section">
   <div class="section-heading">
@@ -36,6 +85,18 @@
     {{topic_cards}}
   </div>
 </section>
+<section class="shell page-section architecture-band reveal">
+  <div>
+    <p class="eyebrow">Platform architecture</p>
+    <h2>The site shell is designed as a governed publishing system.</h2>
+  </div>
+  <div class="architecture-grid">
+    <article class="metric-card"><span>Source layer</span><strong>Structured content + metadata</strong></article>
+    <article class="metric-card"><span>Build layer</span><strong>UTC-gated static generation</strong></article>
+    <article class="metric-card"><span>Experience layer</span><strong>Premium shell + interactive articles</strong></article>
+    <article class="metric-card"><span>SEO layer</span><strong>Schema, social metadata, sitemap, robots</strong></article>
+  </div>
+</section>
 <section class="shell page-section">
   <div class="section-heading">
     <div>
@@ -44,15 +105,18 @@
     </div>
     <a class="text-link" href="/library/">Open library</a>
   </div>
-  <div class="card-grid">
+  <div class="card-grid card-grid--latest">
     {{latest_cards}}
   </div>
 </section>
-<section class="shell page-section cta-band">
+<section class="shell page-section cta-band reveal">
   <div>
     <p class="eyebrow">Follow the publishing cadence</p>
     <h2>Each article appears only after its scheduled publication date.</h2>
     <p>LinkedIn creates curiosity. Workforce Observatory delivers the depth, architecture and implementation guidance.</p>
   </div>
-  <a class="button button--primary" href="/search/">Search published content</a>
+  <div class="cta-band__actions">
+    <a class="button button--primary" href="/search/">Search published content</a>
+    <a class="button button--ghost" href="/author/">Meet the author</a>
+  </div>
 </section>

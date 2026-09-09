@@ -23,14 +23,30 @@
 .topic-card,
 .feature-card,
 .info-card,
-.search-result { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.search-result,
+.process-card,
+.continuation-card,
+.signal-chip,
+.insight-rail__item,
+.metric-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
 .article-card:hover,
 .topic-card:hover,
 .feature-card:hover,
 .info-card:hover,
-.search-result:hover {
+.search-result:hover,
+.process-card:hover,
+.continuation-card:hover,
+.signal-chip:hover,
+.insight-rail__item:hover,
+.metric-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
+}
+[data-parallax] {
+  will-change: transform;
+  transition: transform 0.18s linear;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -39,7 +55,13 @@
   .topic-card,
   .feature-card,
   .info-card,
-  .search-result {
+  .search-result,
+  .process-card,
+  .continuation-card,
+  .signal-chip,
+  .insight-rail__item,
+  .metric-card,
+  [data-parallax] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

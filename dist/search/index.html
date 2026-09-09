@@ -44,19 +44,27 @@
 
     <main id="content">
       <section class="page-hero compact-hero">
-  <div class="shell page-hero__inner compact-hero__inner">
+  <div class="shell page-hero__inner compact-hero__inner hero-split">
     <div>
       <p class="eyebrow">Search</p>
       <h1>Search only what is already published.</h1>
       <p class="lede">Client-side search runs on a generated index of live content only, so scheduled articles remain excluded from the deployment output.</p>
     </div>
+    <div class="hero-panel reveal">
+      <p class="eyebrow">Search model</p>
+      <strong>Published library</strong>
+      <p>Titles, summaries, topics, keywords and business questions are searchable after publication.</p>
+    </div>
   </div>
 </section>
 <section class="shell page-section search-page" data-search-page>
-  <label class="search-input">
+  <label class="search-input reveal">
     <span class="sr-only">Search published articles</span>
     <input id="search-input" type="search" placeholder="Search People Analytics, HR DataMart, Responsible AI…" autocomplete="off">
   </label>
+  <div class="filter-row reveal" aria-label="Search topic filters">
+    <button class="filter-pill is-active" type="button" data-search-topic="all">All topics</button><button class="filter-pill" type="button" data-search-topic="hr-datamart">HR DataMart</button><button class="filter-pill" type="button" data-search-topic="people-analytics">People Analytics</button><button class="filter-pill" type="button" data-search-topic="workforce-health-score">Workforce Health Score</button><button class="filter-pill" type="button" data-search-topic="workforce-planning">Workforce Planning</button><button class="filter-pill" type="button" data-search-topic="talent-intelligence">Talent Intelligence</button><button class="filter-pill" type="button" data-search-topic="responsible-ai">Responsible AI</button><button class="filter-pill" type="button" data-search-topic="hr-data-governance">HR Data Governance</button><button class="filter-pill" type="button" data-search-topic="organizational-health">Organizational Health</button><button class="filter-pill" type="button" data-search-topic="analytics-engineering">Analytics Engineering</button><button class="filter-pill" type="button" data-search-topic="microsoft-fabric-for-hr">Microsoft Fabric for HR</button>
+  </div>
   <div class="search-meta" id="search-meta">Start typing to search the published library.</div>
   <div class="search-results" id="search-results"></div>
   <div class="empty-panel is-visible" id="search-empty">

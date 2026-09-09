@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why HR Reporting Should Not Start with a Spreadsheet | Workforce Observatory</title>
+<meta name="description" content="An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://workforceobservatory.com/articles/why-hr-reporting-needs-a-datamart/">
+<meta property="og:site_name" content="Workforce Observatory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why HR Reporting Should Not Start with a Spreadsheet | Workforce Observatory">
+<meta property="og:description" content="An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.">
+<meta property="og:url" content="https://workforceobservatory.com/articles/why-hr-reporting-needs-a-datamart/">
+<meta property="og:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why HR Reporting Should Not Start with a Spreadsheet | Workforce Observatory">
+<meta name="twitter:description" content="An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.">
+<meta name="twitter:image" content="https://workforceobservatory.com/assets/img/og-default.svg">
+<meta name="theme-color" content="#071a33">
+<link rel="icon" href="/assets/img/og-default.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/main.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Why HR Reporting Should Not Start with a Spreadsheet", "description": "An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.", "datePublished": "2026-09-14T07:00:00Z", "dateModified": "2026-09-14T07:00:00Z", "author": {"@type": "Person", "name": "Gabriel Croitoru", "url": "https://workforceobservatory.com/author/"}, "publisher": {"@type": "Organization", "name": "Workforce Observatory", "url": "https://workforceobservatory.com"}, "mainEntityOfPage": "https://workforceobservatory.com/articles/why-hr-reporting-needs-a-datamart/", "image": "https://workforceobservatory.com/assets/img/og-default.svg", "articleSection": "HR DataMart", "keywords": ["HR reporting", "decision science", "spreadsheet risk"], "timeRequired": "PT14M"}</script>
+
+
+  </head>
+  <body class="page page--article" data-page="article" style="--article-accent:#f5b41b">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="brand-mark" href="/" aria-label="Workforce Observatory home">
+      <span class="brand-mark__eyebrow">Workforce Observatory</span>
+      <strong>Workforce Intelligence for modern HR leaders</strong>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/library/">Library</a>
+      <a href="/topics/">Topics</a>
+      <a href="/search/">Search</a>
+      <a href="/author/">Author</a>
+    </nav>
+  </div>
+</header>
+
+    <main id="content">
+      <div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
+<section class="page-hero article-hero">
+  <div class="shell page-hero__inner article-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
+      <p class="eyebrow">HR DataMart</p>
+      <h1>Why HR Reporting Should Not Start with a Spreadsheet</h1>
+      <p class="lede">An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.</p>
+      <div class="meta-row">
+        <span>14 min read</span>
+        <span>14 Sep 2026</span>
+        <span>Gabriel Croitoru</span>
+      </div>
+    </div>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Article sequence</p>
+        <strong class="hero-stat">01</strong>
+        <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+        <div class="flow-diagram" data-flow="Decision|Question|KPI|Data"></div>
+      </div>
+      <div class="hero-panel reveal">
+        <p class="eyebrow">At a glance</p>
+        <div class="mini-metrics">
+          <div class="mini-metric"><span>Topic</span><strong>HR DataMart</strong></div>
+          <div class="mini-metric"><span>Read time</span><strong>14 min read</strong></div>
+          <div class="mini-metric"><span>Published</span><strong>14 Sep 2026</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="shell article-shell">
+  <aside class="article-rail">
+    <div class="rail-panel">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc" aria-label="Table of contents">
+        <a href="#operating-model">Interactive operating model</a><a href="#s1">The reporting trust problem</a><a href="#s2">What an HR DataMart is</a><a href="#s3">Common KPI definitions</a><a href="#s4">Historical analysis</a><a href="#s5">Visible data quality</a><a href="#s6">Controlled access</a><a href="#s7">From reporting to decisions</a><a href="#lab">Explore the operating logic</a><a href="#before-after">Before / after</a><a href="#executive-takeaway">Executive takeaway</a><a href="#key-business-questions">Key business questions</a><a href="#common-mistakes">Common mistakes</a><a href="#implementation-guidance">Implementation guidance</a><a href="#continue-reading">Continue reading</a><a href="#related-articles">Related articles</a><a href="#share">Share</a>
+      </nav>
+    </div>
+  </aside>
+  <article class="article-main">
+    <section class="summary-band reveal">
+      <div class="summary-band__content">
+        <p class="eyebrow">Executive summary</p>
+        <h2>What leaders should keep in view.</h2>
+        <p>Spreadsheets are useful delivery tools, but they are unreliable as the foundation for workforce decisions. Build the governed HR DataMart first so every downstream metric has a definition, owner and history.</p>
+      </div>
+      <div class="summary-band__stats">
+        <div class="metric-card"><span>Topic</span><strong>HR DataMart</strong></div>
+        <div class="metric-card"><span>Reading time</span><strong>14 min read</strong></div>
+        <div class="metric-card"><span>Carousel source</span><strong>HR_DataMart_Carousel_Fixed.pdf</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal process-section" id="operating-model">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive operating model</p>
+          <h2>Progressive disclosure of the article logic.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <article class="process-card"><span class="process-card__index">1</span><h3>Decision</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">2</span><h3>Question</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">3</span><h3>KPI</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article><article class="process-card"><span class="process-card__index">4</span><h3>Data</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article>
+      </div>
+    </section>
+    <section class="article-section reveal comparison-section" id="before-after">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Before / after</p>
+          <h2>From weak reporting patterns to trusted operating models.</h2>
+        </div>
+      </div>
+      <div class="comparison-grid">
+        <article class="comparison-card comparison-card--before">
+          <p class="eyebrow">Before</p>
+          <p>Spreadsheet-based reporting with local logic, fragile joins and hidden manual corrections.</p>
+        </article>
+        <article class="comparison-card comparison-card--after">
+          <p class="eyebrow">After</p>
+          <p>Decision-ready reporting backed by governed ingestion, historical modelling and reusable KPI definitions.</p>
+        </article>
+      </div>
+    </section>
+    <p class="article-intro">This article expands the LinkedIn presentation into a practical framework for People Analytics leaders, practitioners and data teams. It focuses on the choices that make workforce information trusted, explainable and decision-ready.</p><section class="article-section reveal" id="s1"><div class="ey">01 · Deep dive</div><h2>The reporting trust problem</h2><p>When teams repeatedly extract, clean and interpret the same records, each report can establish its own population, reference date and KPI logic. Reconciliation becomes recurring work and management attention moves from the decision to a debate about which number is correct.</p></section><section class="article-section reveal" id="s2"><div class="ey">02 · Deep dive</div><h2>What an HR DataMart is</h2><p>An HR DataMart is a decision-oriented analytical layer. It integrates selected operational data, preserves historical context, standardises keys and classifications, applies controls and exposes reusable business definitions. It organises source systems for analysis rather than replacing them.</p><div class="content-box"><b class="ey">Apply it</b><p>Document the rule, assign an owner, define a threshold or acceptance condition, and specify what users see when the control fails.</p></div></section><section class="article-section reveal" id="s3"><div class="ey">03 · Deep dive</div><h2>Common KPI definitions</h2><p>Common KPI definitions must be treated as an explicit part of the analytical product, not as an undocumented implementation detail. Define the business purpose, population, time basis, owner, control and failure behaviour. Then connect the rule to evidence that can be reviewed when data, structures or stakeholder expectations change. In the context of why hr reporting should not start with a spreadsheet, this is what makes the outcome reusable, auditable and explainable.</p></section><section class="article-section reveal" id="s4"><div class="ey">04 · Deep dive</div><h2>Historical analysis</h2><p>Historical analysis must be treated as an explicit part of the analytical product, not as an undocumented implementation detail. Define the business purpose, population, time basis, owner, control and failure behaviour. Then connect the rule to evidence that can be reviewed when data, structures or stakeholder expectations change. In the context of why hr reporting should not start with a spreadsheet, this is what makes the outcome reusable, auditable and explainable.</p><div class="content-box"><b class="ey">Apply it</b><p>Document the rule, assign an owner, define a threshold or acceptance condition, and specify what users see when the control fails.</p></div></section><section class="article-section reveal" id="s5"><div class="ey">05 · Deep dive</div><h2>Visible data quality</h2><p>Visible data quality must be treated as an explicit part of the analytical product, not as an undocumented implementation detail. Define the business purpose, population, time basis, owner, control and failure behaviour. Then connect the rule to evidence that can be reviewed when data, structures or stakeholder expectations change. In the context of why hr reporting should not start with a spreadsheet, this is what makes the outcome reusable, auditable and explainable.</p></section><section class="article-section reveal" id="s6"><div class="ey">06 · Deep dive</div><h2>Controlled access</h2><p>Controlled access must be treated as an explicit part of the analytical product, not as an undocumented implementation detail. Define the business purpose, population, time basis, owner, control and failure behaviour. Then connect the rule to evidence that can be reviewed when data, structures or stakeholder expectations change. In the context of why hr reporting should not start with a spreadsheet, this is what makes the outcome reusable, auditable and explainable.</p></section><section class="article-section reveal" id="s7"><div class="ey">07 · Deep dive</div><h2>From reporting to decisions</h2><p>From reporting to decisions must be treated as an explicit part of the analytical product, not as an undocumented implementation detail. Define the business purpose, population, time basis, owner, control and failure behaviour. Then connect the rule to evidence that can be reviewed when data, structures or stakeholder expectations change. In the context of why hr reporting should not start with a spreadsheet, this is what makes the outcome reusable, auditable and explainable.</p></section><section class="article-section reveal interactive-lab" id="lab"><div class="ey">Interactive explainer</div><h2>Explore the operating logic</h2><p>Select concepts in sequence and use the flow as a review path for your own analytical product. No employee data is used.</p><div class="stage"></div></section><section class="article-section reveal"><h2>Decision takeaway</h2><div class="content-box"><p>Make definitions, time, quality, ownership, access and failure behaviour visible. That is how a data pipeline becomes a trusted decision product.</p></div></section>
+    <section class="article-section reveal" id="executive-takeaway">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Executive takeaway</p>
+          <h2>What this means for workforce decision makers.</h2>
+        </div>
+      </div>
+      <div class="content-box emphasis-box">
+        <p>Spreadsheets are useful delivery tools, but they are unreliable as the foundation for workforce decisions. Build the governed HR DataMart first so every downstream metric has a definition, owner and history.</p>
+      </div>
+    </section>
+    <section class="article-section reveal" id="key-business-questions">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Key business questions</p>
+          <h2>Questions leaders should ask next.</h2>
+        </div>
+      </div>
+      <div class="bullet-grid"><article class="bullet-card"><p>Which executive decisions are currently supported by spreadsheet-only logic?</p></article><article class="bullet-card"><p>Where do metric definitions break when headcount, attrition or movement needs history?</p></article><article class="bullet-card"><p>What governance evidence would a CHRO need before trusting the number in a board deck?</p></article></div>
+    </section>
+    <section class="article-section reveal" id="common-mistakes">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Common mistakes</p>
+          <h2>Failure patterns to avoid.</h2>
+        </div>
+      </div>
+      <div class="accordion-list"><details class="accordion-item"><summary>Mistake 1</summary><p>Starting with report layouts before defining business entities and time logic.</p></details><details class="accordion-item"><summary>Mistake 2</summary><p>Treating extracts as controlled history instead of rebuilding from governed source pipelines.</p></details><details class="accordion-item"><summary>Mistake 3</summary><p>Publishing KPI packs without showing data quality, ownership or refresh status.</p></details></div>
+    </section>
+    <section class="article-section reveal" id="implementation-guidance">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Practical implementation guidance</p>
+          <h2>How to operationalize the idea.</h2>
+        </div>
+      </div>
+      <ol class="implementation-list"><li>Map the recurring decisions that require workforce evidence.</li><li>Define the minimum trusted entities, dates and conformed dimensions behind those decisions.</li><li>Create a governed semantic layer so every consuming report inherits the same KPI logic.</li></ol>
+    </section>
+    <section class="article-section reveal" id="related-articles">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Related articles</p>
+          <h2>Continue the architecture story.</h2>
+        </div>
+      </div>
+      <div class="card-grid card-grid--library"><a class="article-card" href="/articles/hr-datamart-reference-architecture/" data-topic="hr-datamart" data-search="a reference architecture for an hr datamart an extended practical guide to a reference architecture for an hr datamart, built for people analytics leaders, practitioners and data teams. hr datamart reference architecture semantic layer data architecture where should ownership sit for ingestion, modelling, semantic definitions and access? how is historical validity preserved when source systems change? which controls stop low-quality data from reaching decision makers?"><p class="eyebrow">HR DataMart</p><h3>A Reference Architecture for an HR DataMart</h3><p>An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>15 min read</span><span>21 Sep 2026</span></div></a><a class="article-card" href="/articles/design-hr-datamart-from-decisions/" data-topic="hr-datamart" data-search="design the hr datamart from decisions, not tables an extended practical guide to design the hr datamart from decisions, not tables, built for people analytics leaders, practitioners and data teams. hr datamart decision-first design datamart design people analytics which recurring decisions define the scope of the first hr datamart release? what entities and grain are required to answer those decisions reliably? which decisions need explainability before automation or scale?"><p class="eyebrow">HR DataMart</p><h3>Design the HR DataMart from Decisions, Not Tables</h3><p>An extended practical guide to design the hr datamart from decisions, not tables, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>18 min read</span><span>12 Oct 2026</span></div></a><a class="article-card" href="/articles/semantic-layer-certified-hr-kpis/" data-topic="people-analytics" data-search="the semantic layer and certified hr kpis an extended practical guide to the semantic layer and certified hr kpis, built for people analytics leaders, practitioners and data teams. people analytics semantic layer certified kpis metric governance which kpi definitions should be centrally governed and certified first? how will consumers see the definition, owner and caveats behind each metric? what process governs kpi change management across dashboards, articles and ai experiences?"><p class="eyebrow">People Analytics</p><h3>The Semantic Layer and Certified HR KPIs</h3><p>An extended practical guide to the semantic layer and certified hr kpis, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>17 min read</span><span>09 Nov 2026</span></div></a></div>
+    </section>
+    <section class="article-section reveal" id="continue-reading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Continue reading</p>
+          <h2>Navigate the published sequence.</h2>
+        </div>
+      </div>
+      <div class="continuation-grid">
+        <article class="continuation-card continuation-card--empty"><p class="eyebrow">Previous published article</p><h3>No adjacent published article yet.</h3><p>The sequence expands automatically as scheduled content becomes eligible for publication.</p></article><a class="continuation-card" href="/articles/hr-datamart-reference-architecture/"><p class="eyebrow">Next published article</p><h3>A Reference Architecture for an HR DataMart</h3><p>An extended practical guide to a reference architecture for an hr datamart, built for People Analytics leaders, practitioners and data teams.</p><div class="article-card__meta"><span>HR DataMart</span><span>15 min read</span></div></a>
+      </div>
+    </section>
+    <section class="article-section reveal" id="share">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Share</p>
+          <h2>Send the depth layer forward.</h2>
+        </div>
+      </div>
+      <div class="share-actions">
+        <button class="button button--primary" type="button" data-share="copy">Copy article link</button>
+        <a class="button button--ghost" data-share="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fwhy-hr-reporting-needs-a-datamart%2F" target="_blank" rel="noreferrer">Share on LinkedIn</a>
+        <a class="button button--ghost" data-share="twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fworkforceobservatory.com%2Farticles%2Fwhy-hr-reporting-needs-a-datamart%2F&text=Why%20HR%20Reporting%20Should%20Not%20Start%20with%20a%20Spreadsheet" target="_blank" rel="noreferrer">Share on X</a>
+      </div>
+    </section>
+  </article>
+</section>
+
+    </main>
+    <footer class="site-footer">
+  <div class="shell site-footer__grid">
+    <div>
+      <p class="eyebrow">Workforce Observatory</p>
+      <p>Premium learning and thought leadership on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI and decision science.</p>
+    </div>
+    <div>
+      <p class="site-footer__label">Navigate</p>
+      <ul class="link-list">
+        <li><a href="/library/">Library</a></li>
+        <li><a href="/topics/">Topics</a></li>
+        <li><a href="/search/">Search</a></li>
+        <li><a href="/author/">Author</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="site-footer__label">Follow</p>
+      <ul class="link-list">
+        <li><a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:hello@workforceobservatory.com">hello@workforceobservatory.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell site-footer__meta">© 2026 Workforce Observatory</div>
+</footer>
+
+    <script src="/assets/js/core.js"></script>
+<script src="/assets/js/article.js"></script>
+  </body>
+</html>

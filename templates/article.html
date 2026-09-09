@@ -1,7 +1,7 @@
 <div class="reading-progress" aria-hidden="true"><span class="reading-progress__bar"></span></div>
 <section class="page-hero article-hero">
-  <div class="shell page-hero__inner article-hero__inner">
-    <div>
+  <div class="shell page-hero__inner article-hero__inner hero-split">
+    <div class="hero-copy" data-parallax="0.12">
       <p class="eyebrow">{{article_topic}}</p>
       <h1>{{article_title}}</h1>
       <p class="lede">{{article_summary}}</p>
@@ -11,11 +11,21 @@
         <span>{{article_author}}</span>
       </div>
     </div>
-    <div class="hero-panel glow-panel">
-      <p class="eyebrow">Article sequence</p>
-      <strong class="hero-stat">{{article_number}}</strong>
-      <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
-      <div class="flow-diagram" data-flow="{{article_flow}}"></div>
+    <div class="hero-stack" data-parallax="0.2">
+      <div class="hero-panel glow-panel hero-panel--emphasis reveal">
+        <p class="eyebrow">Article sequence</p>
+        <strong class="hero-stat">{{article_number}}</strong>
+        <p>LinkedIn curiosity layer → Workforce Observatory depth layer</p>
+        <div class="flow-diagram" data-flow="{{article_flow}}"></div>
+      </div>
+      <div class="hero-panel reveal">
+        <p class="eyebrow">At a glance</p>
+        <div class="mini-metrics">
+          <div class="mini-metric"><span>Topic</span><strong>{{article_topic}}</strong></div>
+          <div class="mini-metric"><span>Read time</span><strong>{{article_reading_time}}</strong></div>
+          <div class="mini-metric"><span>Published</span><strong>{{article_publish_label}}</strong></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -39,6 +49,17 @@
         <div class="metric-card"><span>Topic</span><strong>{{article_topic}}</strong></div>
         <div class="metric-card"><span>Reading time</span><strong>{{article_reading_time}}</strong></div>
         <div class="metric-card"><span>Carousel source</span><strong>{{article_carousel}}</strong></div>
+      </div>
+    </section>
+    <section class="article-section reveal process-section" id="operating-model">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Interactive operating model</p>
+          <h2>Progressive disclosure of the article logic.</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        {{article_flow_cards}}
       </div>
     </section>
     <section class="article-section reveal comparison-section" id="before-after">
@@ -105,7 +126,18 @@
           <h2>Continue the architecture story.</h2>
         </div>
       </div>
-      <div class="card-grid">{{related_cards}}</div>
+      <div class="card-grid card-grid--library">{{related_cards}}</div>
+    </section>
+    <section class="article-section reveal" id="continue-reading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Continue reading</p>
+          <h2>Navigate the published sequence.</h2>
+        </div>
+      </div>
+      <div class="continuation-grid">
+        {{article_prev_next}}
+      </div>
     </section>
     <section class="article-section reveal" id="share">
       <div class="section-heading">

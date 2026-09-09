@@ -14,18 +14,6 @@
   window.addEventListener('scroll', updateProgress, { passive: true });
   window.addEventListener('resize', updateProgress);
 
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible');
-      });
-    }, { threshold: 0.18 });
-    reveals.forEach(node => observer.observe(node));
-  } else {
-    reveals.forEach(node => node.classList.add('is-visible'));
-  }
-
   const flowTargets = document.querySelectorAll('[data-flow]');
   flowTargets.forEach(target => {
     const steps = (target.dataset.flow || '').split('|').filter(Boolean);
@@ -43,7 +31,7 @@
         if (!entry.isIntersecting) return;
         tocLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`));
       });
-    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
     sections.forEach(section => active.observe(section));
   }
 
@@ -52,6 +40,9 @@
       try {
         await navigator.clipboard.writeText(window.location.href);
         button.textContent = 'Link copied';
+        window.setTimeout(() => {
+          button.textContent = 'Copy article link';
+        }, 1800);
       } catch {
         button.textContent = 'Copy failed';
       }

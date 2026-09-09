@@ -180,6 +180,13 @@ def build_topic_filter(topics: list[dict]) -> str:
     return "".join(buttons)
 
 
+def build_search_topic_filter(topics: list[dict]) -> str:
+    buttons = ['<button class="filter-pill is-active" type="button" data-search-topic="all">All topics</button>']
+    for topic in topics:
+        buttons.append(f'<button class="filter-pill" type="button" data-search-topic="{escape(topic["slug"])}">{escape(topic["name"])}</button>')
+    return "".join(buttons)
+
+
 def article_structured_data(article: dict) -> dict:
     return {
         "@context": "https://schema.org",
@@ -209,16 +216,38 @@ def collection_structured_data(title: str, description: str, path: str) -> dict:
     }
 
 
+def process_cards(flow: list[str]) -> str:
+    return "".join(
+        f'<article class="process-card"><span class="process-card__index">{index}</span><h3>{escape(step)}</h3><p>Make this step explicit in the operating model so readers can connect concept, evidence and decision consequence.</p></article>'
+        for index, step in enumerate(flow, start=1)
+    )
+
+
+def continuation_card(article: dict | None, label: str) -> str:
+    if article is None:
+        return (
+            f'<article class="continuation-card continuation-card--empty"><p class="eyebrow">{escape(label)}</p>'
+            '<h3>No adjacent published article yet.</h3><p>The sequence expands automatically as scheduled content becomes eligible for publication.</p></article>'
+        )
+    return (
+        f'<a class="continuation-card" href="{article_url(article["slug"])}"><p class="eyebrow">{escape(label)}</p>'
+        f'<h3>{escape(article["title"])}</h3><p>{escape(article["summary"])}</p>'
+        f'<div class="article-card__meta"><span>{escape(article["topic"])}</span><span>{article["readingMinutes"]} min read</span></div></a>'
+    )
+
+
 def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
     urls = []
-    for article in live:
+    for index, article in enumerate(live):
         toc_items = parse_toc(article["bodyHtml"])
         extra_toc = [
+            ("operating-model", "Interactive operating model"),
             ("before-after", "Before / after"),
             ("executive-takeaway", "Executive takeaway"),
             ("key-business-questions", "Key business questions"),
             ("common-mistakes", "Common mistakes"),
             ("implementation-guidance", "Implementation guidance"),
+            ("continue-reading", "Continue reading"),
             ("related-articles", "Related articles"),
             ("share", "Share"),
         ]
@@ -234,6 +263,8 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
             for slug in article.get("related", [])
             if slug in articles_by_slug
         ) or '<div class="empty-panel is-visible"><p>More published related articles will appear here as the library grows.</p></div>'
+        previous_article = live[index + 1] if index + 1 < len(live) else None
+        next_article = live[index - 1] if index > 0 else None
         content = render_page(
             template_name="article.html",
             page_title=f'{article["title"]} | Workforce Observatory',
@@ -249,6 +280,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
                 "article_number": escape(article["heroNumber"]),
                 "article_flow": "|".join(article.get("flow", [])),
                 "article_toc": "".join(toc_html),
+                "article_flow_cards": process_cards(article.get("flow", [])),
                 "article_takeaway": escape(article["executiveTakeaway"]),
                 "article_carousel": escape(article["carouselSource"]),
                 "article_before": escape(article["beforeAfter"]["before"]),
@@ -258,6 +290,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
                 "article_mistakes": accordion(article.get("commonMistakes", [])),
                 "article_guidance": guidance_list(article.get("implementationGuidance", [])),
                 "related_cards": related_cards,
+                "article_prev_next": continuation_card(previous_article, "Previous published article") + continuation_card(next_article, "Next published article"),
                 "article_encoded_url": quote(f'{SITE_URL}{article_url(article["slug"])}', safe=''),
                 "article_encoded_title": quote(article["title"], safe=''),
             },
@@ -275,6 +308,7 @@ def build_articles(live: list[dict], articles_by_slug: dict[str, dict]):
 
 def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int]):
     latest_cards = "".join(article_card(article) for article in live[:6]) or '<div class="empty-panel is-visible"><h3>Library coming online</h3><p>Published articles will populate this section as soon as their scheduled dates arrive.</p></div>'
+    live_topic_count = sum(1 for count in topic_counts.values() if count)
     html = render_page(
         template_name="home.html",
         page_title="Workforce Observatory | People Analytics, Workforce Intelligence and Responsible AI",
@@ -283,6 +317,9 @@ def build_home(live: list[dict], topics: list[dict], topic_counts: dict[str, int
         content_context={
             "published_count": str(len(live)),
             "published_label": "published articles" if len(live) != 1 else "published article",
+            "live_topic_count": str(live_topic_count),
+            "home_status": live[0]["publishLabel"] if live else "Build-ready",
+            "home_status_label": "latest publication" if live else "waiting for first scheduled release",
             "featured_section": build_featured_section(live),
             "topic_cards": "".join(topic_card(topic, topic_counts.get(topic["slug"], 0)) for topic in topics),
             "latest_cards": latest_cards,
@@ -313,6 +350,9 @@ def build_library(live: list[dict], topics: list[dict]):
             "topic_filters": build_topic_filter(topics),
             "library_cards": "".join(article_card(article) for article in live),
             "library_empty_modifier": " is-visible" if not live else "",
+            "published_count": str(len(live)),
+            "published_label": "published articles" if len(live) != 1 else "published article",
+            "live_topic_count": str(sum(1 for article in topics if any(item["topicSlug"] == article["slug"] for item in live))),
         },
         body_class="page page--library",
         body_attrs=' data-page="library"',
@@ -369,13 +409,13 @@ def build_topics_pages(live: list[dict], topics: list[dict]):
     return urls, topic_counts
 
 
-def build_search(search_index: list[dict]):
+def build_search(search_index: list[dict], topics: list[dict]):
     html = render_page(
         template_name="search.html",
         page_title="Search | Workforce Observatory",
         page_description="Search the published Workforce Observatory library without exposing future-dated articles.",
         canonical_path="/search/",
-        content_context={},
+        content_context={"search_topic_filters": build_search_topic_filter(topics)},
         body_class="page page--search",
         body_attrs=' data-page="search"',
         scripts=["/assets/js/core.js", "/assets/js/search.js"],
@@ -474,7 +514,7 @@ def main():
     }, indent=2) + "\n")
     paths = [build_home(live, topics, topic_counts), build_library(live, topics), *topic_urls, build_author(live, author)]
     build_robots()
-    build_search(search_index)
+    build_search(search_index, topics)
     paths.extend(build_articles(live, articles_by_slug))
     paths.append(build_sitemap(paths))
     (DIST / ".nojekyll").write_text("")
