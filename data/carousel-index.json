@@ -1,0 +1,48 @@
+[
+  {
+    "slug": "why-hr-reporting-needs-a-datamart",
+    "title": "Why HR Reporting Should Not Start with a Spreadsheet",
+    "source": "HR_DataMart_Carousel_Fixed.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A familiar spreadsheet can hide decision risk long before anyone notices the metric drift.",
+    "previewPoints": [
+      "Why manual fixes undermine executive trust",
+      "Where time logic breaks in spreadsheet reporting",
+      "What a governed HR DataMart changes first"
+    ],
+    "cta": "Open the full article to see how the curiosity layer translates into a governed reporting model.",
+    "eyebrow": "HR DataMart Fundamentals",
+    "desc": "An extended practical guide to why hr reporting should not start with a spreadsheet, built for People Analytics leaders, practitioners and data teams.",
+    "accent": "#f5b41b",
+    "publishAt": "2026-09-09T07:00:00Z",
+    "mins": 14,
+    "topic": "HR DataMart",
+    "topicSlug": "hr-datamart",
+    "publishLabel": "09 Sep 2026",
+    "contentType": "carousel",
+    "searchText": "why hr reporting should not start with a spreadsheet a familiar spreadsheet can hide decision risk long before anyone notices the metric drift. why manual fixes undermine executive trust where time logic breaks in spreadsheet reporting what a governed hr datamart changes first hr datamart an extended practical guide to why hr reporting should not start with a spreadsheet, built for people analytics leaders, practitioners and data teams. hr reporting decision science spreadsheet risk"
+  },
+  {
+    "slug": "workforce-health-score-normalization-guardrails",
+    "title": "Can a Workforce Health Score of 86 Hide a Critical Risk?",
+    "source": "Workforce_Health_Score_Carousel_Normalization_Guardrails.pdf",
+    "relationship": "LinkedIn visual carousel curiosity layer paired with a long-form Workforce Observatory article.",
+    "hook": "A strong headline score can still hide a severe workforce weakness when leaders cannot inspect the composition.",
+    "previewPoints": [
+      "Why averages hide asymmetric workforce risk",
+      "How normalization choices change interpretation",
+      "Which guardrails keep scorecards responsible"
+    ],
+    "cta": "Open the article to inspect the score design choices behind the headline number.",
+    "eyebrow": "Workforce Health Score",
+    "desc": "An interactive guide to normalization, weighting and guardrails that prevent averages from hiding critical workforce signals.",
+    "accent": "#7357d9",
+    "publishAt": "2026-09-07T07:00:00Z",
+    "mins": 17,
+    "topic": "Workforce Health Score",
+    "topicSlug": "workforce-health-score",
+    "publishLabel": "07 Sep 2026",
+    "contentType": "carousel",
+    "searchText": "can a workforce health score of 86 hide a critical risk? a strong headline score can still hide a severe workforce weakness when leaders cannot inspect the composition. why averages hide asymmetric workforce risk how normalization choices change interpretation which guardrails keep scorecards responsible workforce health score an interactive guide to normalization, weighting and guardrails that prevent averages from hiding critical workforce signals. workforce health score normalization guardrails"
+  }
+]

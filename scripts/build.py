@@ -14,6 +14,9 @@ DIST = ROOT / "dist"
 CONTENT = ROOT / "content"
 GENERATED_CONTENT = CONTENT / "generated"
 SITE_URL = f"https://{(ROOT / 'CNAME').read_text().strip()}"
+ROOT_PAGE_FILES = ("index.html", "robots.txt", "sitemap.xml", ".nojekyll")
+ROOT_PAGE_DIRECTORIES = ("articles", "author", "library", "search", "topics")
+ROOT_DATA_FILES = ("topic-map.json", "related-content.json", "carousel-index.json", "search-index.json")
 
 
 def render_fragment(template: str, context: dict[str, str]) -> str:
@@ -43,6 +46,22 @@ def ensure_dir(path: Path) -> Path:
 def write_page(path: Path, content: str):
     ensure_dir(path.parent)
     path.write_text(content)
+
+
+def remove_path(path: Path):
+    if path.is_dir() and not path.is_symlink():
+        shutil.rmtree(path)
+    elif path.exists():
+        path.unlink()
+
+
+def copy_path(source: Path, destination: Path):
+    remove_path(destination)
+    ensure_dir(destination.parent)
+    if source.is_dir():
+        shutil.copytree(source, destination)
+    else:
+        shutil.copy2(source, destination)
 
 
 def format_publish_label(value: str) -> str:
@@ -829,6 +848,33 @@ def build_sitemap(paths: list[str]):
     return "/sitemap.xml"
 
 
+def sync_dist_to_root():
+    for name in ROOT_PAGE_FILES:
+        source = DIST / name
+        destination = ROOT / name
+        remove_path(destination)
+        if source.exists():
+            copy_path(source, destination)
+    for name in ROOT_PAGE_DIRECTORIES:
+        source = DIST / name
+        destination = ROOT / name
+        remove_path(destination)
+        if source.exists():
+            copy_path(source, destination)
+    ensure_dir(ROOT / "data")
+    for name in ROOT_DATA_FILES:
+        source = DIST / "data" / name
+        destination = ROOT / "data" / name
+        remove_path(destination)
+        if source.exists():
+            copy_path(source, destination)
+    og_source = DIST / "assets" / "og"
+    og_destination = ROOT / "assets" / "og"
+    remove_path(og_destination)
+    if og_source.exists():
+        copy_path(og_source, og_destination)
+
+
 def main():
     shutil.rmtree(DIST, ignore_errors=True)
     ensure_dir(DIST)
@@ -899,6 +945,7 @@ def main():
     paths.extend(build_articles(live, articles_by_slug, carousels_by_slug))
     paths.append(build_sitemap(paths))
     (DIST / ".nojekyll").write_text("")
+    sync_dist_to_root()
     print(f"published {len(live)} articles")
 
 

@@ -16,7 +16,7 @@ Phase 1 established the platform shell and publishing system while keeping the e
 - `/partials` — shared head, header and footer partials
 - `/assets/css` — design tokens, layout, components, page styles and motion
 - `/assets/js` — modular enhancements for core shell, article behavior, parallax, topic filtering and search
-- `/scripts/build.py` — scheduled static site generation into `/dist`
+- `/scripts/build.py` — scheduled static site generation into `/dist`, then mirrors the published site into the repository root
 - `/.github/workflows` — GitHub Actions for build, refresh and deploy
 
 ### Article model
@@ -34,7 +34,7 @@ Phase 1 established the platform shell and publishing system while keeping the e
 - Only publish-eligible articles and their paired carousel briefings are rendered into `/dist`.
 - Future-dated content is excluded from article pages, library listings, search indexes and sitemap output.
 - Search topic filters and article continuation modules are also generated from the publish-eligible set only.
-- Page-level Open Graph preview images are generated into `/dist/assets/og` during the build.
+- Page-level Open Graph preview images are generated into `/dist/assets/og` during the build and synced into `/assets/og`.
 - Structured data now includes website, collection, breadcrumb, article and item-list coverage where relevant.
 
 ## Build and preview
@@ -51,7 +51,7 @@ Preview a future publication window locally:
 BUILD_TIME_UTC=2026-11-20T00:00:00Z python scripts/build.py
 ```
 
-Then serve `/dist` from the repository root.
+The command rebuilds `/dist` and also refreshes the published pages in the repository root.
 
 ## Deployment
 

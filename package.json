@@ -2,7 +2,6 @@
   "name": "workforceobobservatory.github.io",
   "version": "1.0.0",
   "description": "Workforce Observatory is a premium learning and thought leadership platform focused on People Analytics, HR Data Architecture, Workforce Intelligence, Responsible AI, Data Governance and HR Decision Science.",
-  "main": "app.js",
   "scripts": {
     "build": "python scripts/build.py",
     "sync:backend": "python scripts/sync_backend.py",
